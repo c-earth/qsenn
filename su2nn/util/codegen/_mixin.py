@@ -1,8 +1,8 @@
 import io
-from typing import Dict
-
 import su2nn
 import torch
+
+from typing import Dict
 from opt_einsum_fx import jitable
 from torch import fx
 
