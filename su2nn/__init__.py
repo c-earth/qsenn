@@ -3,10 +3,10 @@ __version__ = '0.1.0'
 from typing import Dict
 
 _OPT_DEFAULTS: Dict[str, bool] = dict(
-    specialized_code=True,
-    optimize_einsums=True,
-    jit_script_fx=True
-)
+                                      specialized_code = True,
+                                      optimize_einsums = True,
+                                      jit_script_fx = True
+                                     )
 
 def set_optimization_defaults(**kwargs) -> None:
     r'''Globally set the default optimization settings.
