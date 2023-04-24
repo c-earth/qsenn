@@ -2,10 +2,10 @@ import torch
 
 def su2_generators(j):
     ms = torch.arange(- float(j), float(j), 1, dtype = torch.float64)
-    ladder_factors = ((j - ms) * (j + ms + 1)) ** 0.5
+    ladder_factors = ((float(j) - ms) * (float(j) + ms + 1)) ** 0.5
     Jx = (torch.diag(ladder_factors, diagonal = 1) + torch.diag(ladder_factors, diagonal = -1)) * 1j / 2
     Jy = (torch.diag(ladder_factors, diagonal = 1) - torch.diag(ladder_factors, diagonal = -1)) / 2
-    Jz = torch.diag(torch.arange(- j, j+1, 1, dtype = torch.float64)) * 1j
+    Jz = torch.diag(torch.arange(- float(j), float(j)+1, 1, dtype = torch.float64)) * 1j
     return Jx, Jy, Jz
 
 def wigner_D(j, alpha, beta, gamma):
