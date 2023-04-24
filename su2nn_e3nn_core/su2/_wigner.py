@@ -1,7 +1,7 @@
 import torch
 
 def su2_generators(j):
-    ms = torch.arange(- j, j, 1, dtype = torch.float64)
+    ms = torch.arange(- float(j), float(j), 1, dtype = torch.float64)
     ladder_factors = ((j - ms) * (j + ms + 1)) ** 0.5
     Jx = (torch.diag(ladder_factors, diagonal = 1) + torch.diag(ladder_factors, diagonal = -1)) * 1j / 2
     Jy = (torch.diag(ladder_factors, diagonal = 1) - torch.diag(ladder_factors, diagonal = -1)) / 2
