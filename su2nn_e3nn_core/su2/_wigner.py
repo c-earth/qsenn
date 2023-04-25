@@ -1,5 +1,7 @@
 import torch
 
+from su2nn_e3nn_core.util import explicit_default_types
+
 def su2_generators(j):
     ms = torch.arange(- float(j), float(j), 1, dtype = torch.float64)
     ladder_factors = ((j - ms) * (j + ms + 1)) ** 0.5
@@ -11,6 +13,52 @@ def su2_generators(j):
 def wigner_D(j, alpha, beta, gamma):
     Jx, Jy, Jz = su2_generators(j)
     return torch.matrix_exp(-alpha * Jz) @ torch.matrix_exp(-beta * Jy) @ torch.matrix_exp(-gamma * Jz)
+
+def wigner_3j(j1, j2, j3, dtype=None, device=None):
+    r"""Wigner 3j symbols :math:`C_{lmn}`.
+
+    It satisfies the following two properties:
+
+        .. math::
+
+            C_{lmn} = C_{ijk} D_{il}(g) D_{jm}(g) D_{kn}(g) \qquad \forall g \in SU(2)
+
+        where :math:`D` are given by `wigner_D`.
+
+        .. math::
+
+            C_{ijk} C_{ijk} = 1
+
+    Parameters
+    ----------
+    j1 : int, float
+        :math:`j_1`
+
+    j2 : int, float
+        :math:`j_2`
+
+    j3 : int, float
+        :math:`j_3`
+
+    dtype : torch.dtype or None
+        ``dtype`` of the returned tensor. If ``None`` then set to ``torch.get_default_dtype()``.
+
+    device : torch.device or None
+        ``device`` of the returned tensor. If ``None`` then set to the default device of the current context.
+
+    Returns
+    -------
+    `torch.Tensor`
+        tensor :math:`C` of shape :math:`(2j_1+1, 2j_2+1, 2j_3+1)`
+    """
+    assert abs(j2 - j3) <= j1 <= j2 + j3
+    C = clebsch_gordan(j1, j2, j3)
+
+    dtype, device = explicit_default_types(dtype, device)
+    # make sure we always get:
+    # 1. a copy so mutation doesn't ruin the stored tensors
+    # 2. a contiguous tensor, regardless of what transpositions happened above
+    return C.to(dtype=dtype, device=device, copy=True, memory_format=torch.contiguous_format)
 
 def clebsch_gordan(j1, j2, j3):
     assert isinstance(j1, (int, float))
