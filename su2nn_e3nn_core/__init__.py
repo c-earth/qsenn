@@ -31,4 +31,4 @@ def get_optimization_defaults() -> Dict[str, bool]:
 
 from su2nn_e3nn_core import su2 as su2  # noqa: F401, E402
 from su2nn_e3nn_core import nn as nn  # noqa: F401, E402
-from su2nn_e3nn_core import io as io  # noqa: F401, E402
+# from su2nn_e3nn_core import io as io  # noqa: F401, E402
