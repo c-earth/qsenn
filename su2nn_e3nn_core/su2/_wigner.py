@@ -1,6 +1,7 @@
 import torch
 
 from su2nn_e3nn_core.util import explicit_default_types
+from fractions import Fraction
 
 def su2_generators(j):
     ms = torch.arange(- float(j), float(j), 1, dtype = torch.float64)
@@ -61,9 +62,9 @@ def wigner_3j(j1, j2, j3, dtype=None, device=None):
     return C.to(dtype=dtype, device=device, copy=True, memory_format=torch.contiguous_format)
 
 def clebsch_gordan(j1, j2, j3):
-    assert isinstance(j1, (int, float))
-    assert isinstance(j2, (int, float))
-    assert isinstance(j3, (int, float))
+    assert isinstance(j1, (int, float, Fraction))
+    assert isinstance(j2, (int, float, Fraction))
+    assert isinstance(j3, (int, float, Fraction))
     mat = torch.zeros((int(2 * j1 + 1), int(2 * j2 + 1), int(2 * j3 + 1)), dtype=torch.float64)
     if int(2 * j3) in range(int(2 * abs(j1 - j2)), int(2 * (j1 + j2)) + 1, 2):
         for m1 in (x / 2 for x in range(-int(2 * j1), int(2 * j1) + 1, 2)):
