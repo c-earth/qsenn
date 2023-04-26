@@ -1,6 +1,7 @@
 import torch
 
 from su2nn_e3nn_core.util import explicit_default_types
+from fractions import Fraction
 
 def su2_generators(j):
     ms = torch.arange(- float(j), float(j), 1, dtype = torch.float64)
