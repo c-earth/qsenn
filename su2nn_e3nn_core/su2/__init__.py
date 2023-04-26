@@ -28,7 +28,7 @@ from ._rotation import (
     angles_to_xyz,
     xyz_to_angles,
 )
-from ._wigner import wigner_D, su2_generators
+from ._wigner import wigner_D, wigner_3j, su2_generators
 from ._irreps import Irrep, Irreps
 from ._tensor_product import (
     Instruction,
