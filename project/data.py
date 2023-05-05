@@ -48,7 +48,8 @@ def build_data(id, system, spins, r_max):
     x =  get_node_feature(system.arrays['numbers'])
     node_deg = get_node_deg(edge_dst, len(x))
     # print(spins)
-    y = torch.tensor(spins)
+    # print('positions', positions)
+    y = spins
     data = Data(id = id,
                 pos = positions,
                 symbol = symbols,
@@ -74,7 +75,7 @@ def generate_data_dict(data, r_max):
     spins = data['spins']
     print(spins)
     print('spins----')
-    for id, system, in zip(ids, systems):
-        data_dict[id] = build_data(id, system, spins, r_max)
+    for id, system, spin, in zip(ids, systems, spins):
+        data_dict[id] = build_data(id, system, spin, r_max)
     # pkl.dump(data_dict, open(data_dict_path, 'wb'))
     return data_dict

@@ -131,7 +131,8 @@ class GraphConvolution(torch.nn.Module):
         mask = self.linear_mask.output_mask
         c_x = (1 - mask) + c_x * mask
         return c_s * node_mask + c_x * node_output
-    
+
+
 
 
 class GraphNetwork(torch.nn.Module):
@@ -154,7 +155,7 @@ class GraphNetwork(torch.nn.Module):
         self.irreps_node_attr = Irreps(str(node_embed_dim)+'x0ee')
         self.irreps_edge_attr_o3 = o3.Irreps.spherical_harmonics(lmax)
         self.irreps_edge_attr = irreps_o3_to_su2(self.irreps_edge_attr_o3)
-        self.irreps_hidden = Irreps([(self.mul, (l, p)) for l in range(lmax + 1) for p in [-1, 1]])
+        self.irreps_hidden = Irreps([(self.mul, (l, p, t)) for l in range(lmax + 1) for p in [-1, 1] for t in [-1, 1]])
         self.irreps_out = Irreps(irreps_out)
         self.number_of_basis = number_of_basis
 
@@ -168,7 +169,7 @@ class GraphNetwork(torch.nn.Module):
 
         for _ in range(nlayers):
             irreps_scalars = Irreps([(mul, ir) for mul, ir in self.irreps_hidden if ir.l == 0 and tp_path_exists(irreps_in, self.irreps_edge_attr, ir)])
-            irreps_gated = o3.Irreps([(mul, ir) for mul, ir in self.irreps_hidden if ir.l > 0 and tp_path_exists(irreps_in, self.irreps_edge_attr, ir)])
+            irreps_gated = Irreps([(mul, ir) for mul, ir in self.irreps_hidden if ir.l > 0 and tp_path_exists(irreps_in, self.irreps_edge_attr, ir)])
             for z_ir in ['0oo','0oe', '0eo', '0ee']:
                 if tp_path_exists(irreps_in, self.irreps_edge_attr, z_ir):
                     ir = z_ir
@@ -184,9 +185,7 @@ class GraphNetwork(torch.nn.Module):
                                     number_of_basis,
                                     radial_layers,
                                     radial_neurons)
-
             irreps_in = gate.irreps_out
-
             self.layers.append(CustomCompose(conv, gate))
 
         self.layers.append(
@@ -215,13 +214,84 @@ class GraphNetwork(torch.nn.Module):
         x = torch.relu(self.emx(torch.relu(data['x'])))
         z = torch.relu(self.emz(torch.relu(data['z'])))
         node_deg = data['node_deg']
-        ucs = data['ucs'][0]
-        n = len(ucs.shift_reverse)
+        # count = 0
         for layer in self.layers:
-            x = layer(x, z, node_deg, edge_src, edge_dst, edge_attr, edge_length_embedded, numb, n)
-        return x, torch.tensor(ucs.shift_reverse, dtype = torch.complex128).to(device = x.device)
+            x = layer(x, z, node_deg, edge_src, edge_dst, edge_attr, edge_length_embedded)
+            # print(f'x [{count}]: ', x.norm())
+            # x /= x.norm()+1e-7
+            # count += 1
+        return x
 
 
+
+
+class Convolution(torch.nn.Module):
+    def __init__(self, irreps_in, irreps_sh, irreps_out, num_neighbors) -> None:
+        super().__init__()
+
+        self.num_neighbors = num_neighbors
+
+        tp = FullyConnectedTensorProduct(
+            irreps_in1=irreps_in,
+            irreps_in2=irreps_sh,
+            irreps_out=irreps_out,
+            internal_weights=False,
+            shared_weights=False,
+        )
+        self.fc = FullyConnectedNet([3, 256, tp.weight_numel], torch.relu)
+        self.tp = tp
+        self.irreps_out = self.tp.irreps_out
+
+    def forward(self, node_features, edge_src, edge_dst, edge_attr, edge_scalars) -> torch.Tensor:
+        weight = self.fc(edge_scalars)
+        edge_features = self.tp(node_features[edge_src], edge_attr, weight)
+        node_features = scatter(edge_features, edge_dst, dim=0).div(self.num_neighbors**0.5)
+        return node_features
+
+class Network(torch.nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        self.num_neighbors = 3.8  # typical number of neighbors
+        self.irreps_sh_o3 = o3.Irreps.spherical_harmonics(3)
+        self.irreps_sh = irreps_o3_to_su2(self.irreps_sh_o3)
+
+        irreps = self.irreps_sh
+
+        # First layer with gate
+        gate = Gate(
+            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",
+            [torch.relu, torch.abs],  # scalar
+            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",
+            [torch.relu, torch.tanh, torch.relu, torch.tanh],  # gates (scalars)
+            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",  # gated tensors, num_irreps has to match with gates
+        )
+        self.conv = Convolution(irreps, self.irreps_sh, gate.irreps_in, self.num_neighbors)
+        self.gate = gate
+        irreps = self.gate.irreps_out
+
+        # Final layer
+        self.final = Convolution(irreps, self.irreps_sh, "1x0eo", self.num_neighbors)
+        self.irreps_out = self.final.irreps_out
+
+    def forward(self, data) -> torch.Tensor:
+        num_nodes = 4  # typical number of nodes
+
+        edge_src = data['edge_index'][0]
+        edge_dst = data['edge_index'][1]
+        edge_vec = data['edge_vec']
+        edge_len = data['edge_len']
+        edge_length_embedded = soft_one_hot_linspace(edge_len, 0.0, data['r_max'].item(), self.number_of_basis, basis = 'gaussian', cutoff = False)
+        edge_sh = o3.spherical_harmonics(self.irreps_edge_attr, edge_vec, True, normalization = 'component')
+        edge_attr = edge_sh
+        numb = data['numb']
+
+        x = scatter(edge_attr, edge_dst, dim=0).div(self.num_neighbors**0.5)
+
+        x = self.conv(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
+        x = self.gate(x)
+        x = self.final(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
+
+        return x    #scatter(x, data.batch, dim=0).div(num_nodes**0.5)
         
 
 
