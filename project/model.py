@@ -20,11 +20,11 @@ from su2nn_e3nn_core.util.test import assert_equivariant
 from e3nn import o3
 
 
-def irreps_o3_to_su2(irreps):
+def irreps_o3_to_su2(irreps, t='e'):
     list_irrep = str(irreps).split('+')
     irreps_su2 = ''
     for ir in list_irrep:
-        irreps_su2 += ir + 'e+'
+        irreps_su2 += ir + t +'+'
     return Irreps(irreps_su2[:-1])
 
 def irreps_su2_to_o3(irreps):
@@ -147,14 +147,15 @@ class GraphNetwork(torch.nn.Module):
                  node_dim,
                  node_embed_dim,
                  input_dim,
-                 input_embed_dim):
+                 input_embed_dim,
+                 t='e'):
         super().__init__()
         
         self.mul = mul
         self.irreps_in = Irreps(str(input_embed_dim)+'x0ee')
         self.irreps_node_attr = Irreps(str(node_embed_dim)+'x0ee')
         self.irreps_edge_attr_o3 = o3.Irreps.spherical_harmonics(lmax)
-        self.irreps_edge_attr = irreps_o3_to_su2(self.irreps_edge_attr_o3)
+        self.irreps_edge_attr = irreps_o3_to_su2(self.irreps_edge_attr_o3, t)
         self.irreps_hidden = Irreps([(self.mul, (l, p, t)) for l in range(lmax + 1) for p in [-1, 1] for t in [-1, 1]])
         self.irreps_out = Irreps(irreps_out)
         self.number_of_basis = number_of_basis
