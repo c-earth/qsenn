@@ -38,31 +38,61 @@ def get_node_deg(edge_dst, n):
     return torch.from_numpy(node_deg)
 
 
-def build_data(id, system, spins, r_max):
+# def build_data(id, system, spins, rot, r_max):
+#     symbols = list(system.symbols).copy()
+#     positions = torch.from_numpy(system.get_positions().copy())
+#     numb = len(positions)
+#     # lattice = torch.from_numpy(structure.cell.array.copy()).unsqueeze(0)
+#     edge_src, edge_dst, edge_shift, edge_vec, edge_len = neighbor_list("ijSDd", a = system, cutoff = r_max, self_interaction = True)
+#     z = get_node_attr(system.arrays['numbers'])
+#     x =  get_node_feature(system.arrays['numbers'])
+#     node_deg = get_node_deg(edge_dst, len(x))
+#     # print(spins)
+#     # print('positions', positions)
+#     y = spins
+#     data = Data(id = id,
+#                 pos = positions,
+#                 symbol = symbols,
+#                 x = x,
+#                 z = z,
+#                 y = y,
+#                 rot = rot,
+#                 node_deg = node_deg,
+#                 edge_index = torch.stack([torch.LongTensor(edge_src), torch.LongTensor(edge_dst)], dim = 0),
+#                 edge_shift = torch.tensor(edge_shift, dtype = torch.float64),
+#                 edge_vec = torch.tensor(edge_vec, dtype = torch.float64),
+#                 edge_len = torch.tensor(edge_len, dtype = torch.float64),
+#                 r_max = r_max,
+#                 # ucs = None,
+#                 numb = numb) 
+#     return data
+
+def build_data(id, system, spins, rot, r_max):
     symbols = list(system.symbols).copy()
     positions = torch.from_numpy(system.get_positions().copy())
     numb = len(positions)
     # lattice = torch.from_numpy(structure.cell.array.copy()).unsqueeze(0)
     edge_src, edge_dst, edge_shift, edge_vec, edge_len = neighbor_list("ijSDd", a = system, cutoff = r_max, self_interaction = True)
-    z = get_node_attr(system.arrays['numbers'])
-    x =  get_node_feature(system.arrays['numbers'])
+    z = torch.ones(spins.shape)    #get_node_attr(system.arrays['numbers'])
+    x =  torch.tensor(spins)  #get_node_feature(system.arrays['numbers'])
+    rot = torch.tensor(rot)
     node_deg = get_node_deg(edge_dst, len(x))
     # print(spins)
     # print('positions', positions)
-    y = spins
+    # y = spins
+    # print('check!!!!')
     data = Data(id = id,
                 pos = positions,
                 symbol = symbols,
                 x = x,
                 z = z,
-                y = y,
+                rot = rot,
                 node_deg = node_deg,
                 edge_index = torch.stack([torch.LongTensor(edge_src), torch.LongTensor(edge_dst)], dim = 0),
                 edge_shift = torch.tensor(edge_shift, dtype = torch.float64),
                 edge_vec = torch.tensor(edge_vec, dtype = torch.float64),
                 edge_len = torch.tensor(edge_len, dtype = torch.float64),
                 r_max = r_max,
-                # ucs = None,
                 numb = numb) 
     return data
 
@@ -71,11 +101,12 @@ def generate_data_dict(data, r_max):
     data_dict = dict()
     ids = data['id']
     systems = data['system']
-    print(systems)
+    # print(systems)
     spins = data['spins']
-    print(spins)
-    print('spins----')
-    for id, system, spin, in zip(ids, systems, spins):
-        data_dict[id] = build_data(id, system, spin, r_max)
+    rots = data['rot']
+    # print(spins)
+    # print('spins----')
+    for id, system, spin, rot in zip(ids, systems, spins, rots):
+        data_dict[id] = build_data(id, system, spin, rot, r_max)
     # pkl.dump(data_dict, open(data_dict_path, 'wb'))
     return data_dict
