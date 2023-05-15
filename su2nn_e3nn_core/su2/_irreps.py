@@ -94,7 +94,7 @@ class Irrep(tuple):
             yield Irrep(l,-1, 1)
             yield Irrep(l,-1,-1)
 
-    def D_from_angles(self, alpha, beta, gamma, k=None):
+    def D_from_angles(self, alpha, beta, gamma, ps = None, ts = None):
         r"""Matrix :math:`p^k D^l(\alpha, \beta, \gamma)`
 
         (matrix) Representation of :math:`O(3)`. :math:`D` is the representation of :math:`SO(3)`, see `wigner_D`.
@@ -127,11 +127,14 @@ class Irrep(tuple):
         o3.wigner_D
         Irreps.D_from_angles
         """
-        if k is None:
-            k = torch.zeros_like(alpha)
+        if ps is None:
+            ps = torch.zeros_like(alpha)
 
-        alpha, beta, gamma, k = torch.broadcast_tensors(alpha, beta, gamma, k)
-        return _wigner.wigner_D(self.l, alpha, beta, gamma) * self.p ** k[..., None, None]
+        if ts is None:
+            ts = torch.zeros_like(alpha)
+
+        alpha, beta, gamma, ps, ts = torch.broadcast_tensors(alpha, beta, gamma, ps, ts)
+        return _wigner.wigner_D(self.l, alpha, beta, gamma) * self.p ** ps[..., None, None]
 
     def D_from_quaternion(self, q, k=None):
         r"""Matrix of the representation, see `Irrep.D_from_angles`
@@ -565,7 +568,7 @@ class Irreps(tuple):
     def __repr__(self):
         return "+".join(f"{mul_ir}" for mul_ir in self)
 
-    def D_from_angles(self, alpha, beta, gamma, k=None):
+    def D_from_angles(self, alpha, beta, gamma, ps=None, ts=None):
         r"""Matrix of the representation
 
         Parameters
@@ -587,7 +590,7 @@ class Irreps(tuple):
         `torch.Tensor`
             tensor of shape :math:`(..., \mathrm{dim}, \mathrm{dim})`
         """
-        return direct_sum(*[ir.D_from_angles(alpha, beta, gamma, k) for mul, ir in self for _ in range(mul)])
+        return direct_sum(*[ir.D_from_angles(alpha, beta, gamma, ps=ps, ts=ts) for mul, ir in self for _ in range(mul)])
 
     def D_from_quaternion(self, q, k=None):
         r"""Matrix of the representation

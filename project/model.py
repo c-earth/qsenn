@@ -1,23 +1,17 @@
-import logging
 import math
 
 import torch
-import numpy as np
-from torch_cluster import radius_graph
-from torch_geometric.data import Data, DataLoader
 from torch_scatter import scatter
-from typing import Union,TypeVar
-from typing import Dict, Union
 
-from su2nn_e3nn_core import su2
 from su2nn_e3nn_core.su2 import Irrep, Irreps
 from su2nn_e3nn_core.math import soft_one_hot_linspace
 from su2nn_e3nn_core.nn import Gate, FullyConnectedNet
 
 from su2nn_e3nn_core.su2 import FullyConnectedTensorProduct, TensorProduct
-from su2nn_e3nn_core.util.test import assert_equivariant
 
 from e3nn import o3
+
+torch.set_default_dtype(torch.float64)
 
 
 def irreps_o3_to_su2(irreps, t='e'):
@@ -26,14 +20,6 @@ def irreps_o3_to_su2(irreps, t='e'):
     for ir in list_irrep:
         irreps_su2 += ir + t +'+'
     return Irreps(irreps_su2[:-1])
-
-def irreps_su2_to_o3(irreps):
-    list_irrep = str(irreps).split('+')
-    irreps_o3 = ''
-    for ir in list_irrep:
-        irreps_o3 += ir[:-1] + '+'
-    return o3.Irreps(irreps_o3[:-1])
-
 
 def tp_path_exists(irreps_in1, irreps_in2, ir_out):
     irreps_in1 = Irreps(irreps_in1).simplify()
@@ -100,7 +86,7 @@ class GraphConvolution(torch.nn.Module):
                                          internal_weights=False,
                                          shared_weights=False)
         
-        self.edge2weight = FullyConnectedNet([number_of_basis] + radial_layers * [radial_neurons] + [self.tensor_edge.weight_numel], torch.nn.functional.silu)
+        self.edge2weight = FullyConnectedNet([number_of_basis] + radial_layers * [radial_neurons] + [self.tensor_edge.weight_numel], torch.tanh)
         self.linear_output = FullyConnectedTensorProduct(irreps_mid, self.irreps_node_attr, self.irreps_out)
 
     def forward(self,
@@ -138,29 +124,25 @@ class GraphConvolution(torch.nn.Module):
 class GraphNetwork(torch.nn.Module):
     def __init__(self,
                  mul,
+                 irreps_in,
                  irreps_out,
-                 lmax,
+                 jmax,
                  nlayers,
                  number_of_basis,
                  radial_layers,
-                 radial_neurons,
-                 node_dim,
-                 node_embed_dim,
-                 input_dim,
-                 input_embed_dim,
-                 t='e'):
+                 radial_neurons):
         super().__init__()
         
         self.mul = mul
-        self.irreps_in = Irreps(str(input_embed_dim)+'x0ee')
-        self.irreps_node_attr = Irreps(str(node_embed_dim)+'x0ee')
-        self.irreps_edge_attr_o3 = o3.Irreps.spherical_harmonics(lmax)
-        self.irreps_edge_attr = irreps_o3_to_su2(self.irreps_edge_attr_o3, t)
-        self.irreps_hidden = Irreps([(self.mul, (l, p, t)) for l in range(lmax + 1) for p in [-1, 1] for t in [-1, 1]])
+        self.irreps_in = Irreps(irreps_in)
+        self.irreps_node_attr = Irreps('1x0ee')
+        self.irreps_edge_attr_o3 = o3.Irreps.spherical_harmonics(jmax)
+        self.irreps_edge_attr = irreps_o3_to_su2(o3.Irreps.spherical_harmonics(jmax))
+        self.irreps_hidden = Irreps([(self.mul, x) for x in Irrep.iterator(jmax)])
         self.irreps_out = Irreps(irreps_out)
         self.number_of_basis = number_of_basis
 
-        act = {1: torch.nn.functional.silu,
+        act = {1: torch.tanh,
                -1: torch.tanh}
         act_gates = {1: torch.sigmoid,
                      -1: torch.tanh}
@@ -200,100 +182,10 @@ class GraphNetwork(torch.nn.Module):
                 radial_neurons
             )
         )
-        self.emx = torch.nn.Linear(input_dim, input_embed_dim, dtype = torch.float64)
-        self.emz = torch.nn.Linear(node_dim, node_embed_dim, dtype = torch.float64)
 
-    def forward(self, data):
-        edge_src = data['edge_index'][0]
-        edge_dst = data['edge_index'][1]
-        edge_vec = data['edge_vec']
-        edge_len = data['edge_len']
-        edge_length_embedded = soft_one_hot_linspace(edge_len, 0.0, data['r_max'].item(), self.number_of_basis, basis = 'gaussian', cutoff = False)
-        edge_sh = o3.spherical_harmonics(self.irreps_edge_attr_o3, edge_vec, True, normalization = 'component')
-        edge_attr = edge_sh
-        numb = data['numb']
-        x = torch.relu(self.emx(torch.relu(data['x'])))
-        z = torch.relu(self.emz(torch.relu(data['z'])))
-        node_deg = data['node_deg']
-        # count = 0
+    def forward(self, x, z, edge_src, edge_dst, edge_vec, edge_len, r_max, deg):
+        edge_length_embedded = soft_one_hot_linspace(edge_len, 0.0, r_max, self.number_of_basis, basis = 'gaussian', cutoff = False)
+        edge_attr = o3.spherical_harmonics(self.irreps_edge_attr_o3, edge_vec, True, normalization = 'component')
         for layer in self.layers:
-            x = layer(x, z, node_deg, edge_src, edge_dst, edge_attr, edge_length_embedded)
-            # print(f'x [{count}]: ', x.norm())
-            # x /= x.norm()+1e-7
-            # count += 1
-        return x
-
-
-
-
-class Convolution(torch.nn.Module):
-    def __init__(self, irreps_in, irreps_sh, irreps_out, num_neighbors) -> None:
-        super().__init__()
-
-        self.num_neighbors = num_neighbors
-
-        tp = FullyConnectedTensorProduct(
-            irreps_in1=irreps_in,
-            irreps_in2=irreps_sh,
-            irreps_out=irreps_out,
-            internal_weights=False,
-            shared_weights=False,
-        )
-        self.fc = FullyConnectedNet([3, 256, tp.weight_numel], torch.relu)
-        self.tp = tp
-        self.irreps_out = self.tp.irreps_out
-
-    def forward(self, node_features, edge_src, edge_dst, edge_attr, edge_scalars) -> torch.Tensor:
-        weight = self.fc(edge_scalars)
-        edge_features = self.tp(node_features[edge_src], edge_attr, weight)
-        node_features = scatter(edge_features, edge_dst, dim=0).div(self.num_neighbors**0.5)
-        return node_features
-
-class Network(torch.nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.num_neighbors = 3.8  # typical number of neighbors
-        self.irreps_sh_o3 = o3.Irreps.spherical_harmonics(3)
-        self.irreps_sh = irreps_o3_to_su2(self.irreps_sh_o3)
-
-        irreps = self.irreps_sh
-
-        # First layer with gate
-        gate = Gate(
-            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",
-            [torch.relu, torch.abs],  # scalar
-            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",
-            [torch.relu, torch.tanh, torch.relu, torch.tanh],  # gates (scalars)
-            "4x0ee + 4x0eo + 4x0oe + 4x0oo + 4x0ee + 4x0eo + 4x0oe + 4x0oo",  # gated tensors, num_irreps has to match with gates
-        )
-        self.conv = Convolution(irreps, self.irreps_sh, gate.irreps_in, self.num_neighbors)
-        self.gate = gate
-        irreps = self.gate.irreps_out
-
-        # Final layer
-        self.final = Convolution(irreps, self.irreps_sh, "1x0eo", self.num_neighbors)
-        self.irreps_out = self.final.irreps_out
-
-    def forward(self, data) -> torch.Tensor:
-        num_nodes = 4  # typical number of nodes
-
-        edge_src = data['edge_index'][0]
-        edge_dst = data['edge_index'][1]
-        edge_vec = data['edge_vec']
-        edge_len = data['edge_len']
-        edge_length_embedded = soft_one_hot_linspace(edge_len, 0.0, data['r_max'].item(), self.number_of_basis, basis = 'gaussian', cutoff = False)
-        edge_sh = o3.spherical_harmonics(self.irreps_edge_attr, edge_vec, True, normalization = 'component')
-        edge_attr = edge_sh
-        numb = data['numb']
-
-        x = scatter(edge_attr, edge_dst, dim=0).div(self.num_neighbors**0.5)
-
-        x = self.conv(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
-        x = self.gate(x)
-        x = self.final(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
-
-        return x    #scatter(x, data.batch, dim=0).div(num_nodes**0.5)
-        
-
-
-
+            x = layer(x, z, deg, edge_src, edge_dst, edge_attr, edge_length_embedded)
+        return scatter(x, torch.zeros(len(x), dtype=torch.int64), dim = 0, out = torch.zeros(1, x.shape[1], dtype=x.dtype))

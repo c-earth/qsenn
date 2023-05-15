@@ -445,7 +445,7 @@ class TensorProduct(CodeGenMixin, torch.nn.Module):
 
         # - PROFILER - with torch.autograd.profiler.record_function(self._profiling_str):
         real_weight = self._get_weights(weight)
-        return self._compiled_main_left_right(x, y, real_weight)
+        return self._compiled_main_left_right(x, y.to(dtype = x.dtype), real_weight)
 
     def weight_view_for_instruction(self, instruction: int, weight: Optional[torch.Tensor] = None) -> torch.Tensor:
         r'''View of weights corresponding to ``instruction``.
