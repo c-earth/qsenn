@@ -1,6 +1,5 @@
 from fractions import Fraction
 
-
 class Irrep():
 
     def __init__(self, j, p, t):
