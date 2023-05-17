@@ -85,12 +85,16 @@ class Irrep():
             j_str = f'{self.numer}/{self.denum}'
         return f'{j_str}{self._num2parity[self.p]}{self._num2parity[self.t]}'
     
-class _MultiIrrep():
-    def __init__(self, mul, irrep = None, mul_tol = 1E-5):
-        if isinstance(mul, _MultiIrrep):
+class _MulIrrep():
+    def __init__(self, mul, irrep = None):
+        if isinstance(mul, _MulIrrep):
             return mul
+        
+        if isinstance(mul, Irrep):
+            irrep = mul
+            mul = 1
 
-        if irrep == None:
+        elif irrep == None:
             if isinstance(mul, str) and 'x' in mul:
                 mul = mul.strip()
                 mul, irrep = mul.split('x')
@@ -104,16 +108,16 @@ class _MultiIrrep():
             else:
                 raise ValueError(f'If irrep is not given, they must be included in mul, but mul = {mul} is given.')
 
-        try:
-            mul = eval(mul)
-        except:
-            raise ValueError(f'Cannot Evaluate mul = {mul} to numerical value.')
-        
-        if mul < 0:
-            raise ValueError(f'mul must be non-negative, but mul = {mul} is given.')
-        
-        if not isinstance(mul, int):
-            raise ValueError(f'Variable j must be integer, but mul = {mul} is given.')
+            try:
+                mul = eval(mul)
+            except:
+                raise ValueError(f'Cannot Evaluate mul = {mul} to numerical value.')
+            
+            if mul < 0:
+                raise ValueError(f'mul must be non-negative, but mul = {mul} is given.')
+            
+            if not isinstance(mul, int):
+                raise ValueError(f'Variable j must be integer, but mul = {mul} is given.')
 
         irrep = Irrep(irrep)
 
@@ -132,5 +136,21 @@ class _MultiIrrep():
         return f'{self.mul}x{self.irrep}'
     
 class Irreps():
-    def __init__(self):
-        pass
+    def __init__(self, irreps):
+        if isinstance(irreps, Irreps):
+            return irreps
+        
+        if isinstance(irreps, _MulIrrep):
+            irreps = [irreps]
+
+        elif isinstance(irreps, Irrep):
+            irreps = [_MulIrrep(1, irreps)]
+
+        elif isinstance(irreps, str):
+            irreps = irreps.split('+')
+            irreps = [_MulIrrep(mulirrep) for mulirrep in irreps]
+        
+        elif isinstance(irreps, tuple) or isinstance(irreps, list):
+            irreps = [_MulIrrep(mulirrep) for mulirrep in irreps]
+
+        self._irreps = irreps
