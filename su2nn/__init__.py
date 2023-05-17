@@ -1,1 +1,1 @@
-from .irrep import _irreps as irreps
+from su2nn import irrep as irrep
