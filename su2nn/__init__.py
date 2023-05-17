@@ -1,0 +1,1 @@
+from .irrep import _irreps as irreps
