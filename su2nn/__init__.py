@@ -1,1 +1,0 @@
-from su2nn import irrep as irrep
