@@ -1,6 +1,5 @@
 class Irrep():
     def __init__(self, j, p = None, t = None, j_tol = 1E-5):
-        
         self._par2num = {'e':1, 'o':-1}
         self._num2par = {1:'e', -1:'o'}
 
@@ -29,26 +28,26 @@ class Irrep():
                 raise ValueError(f'If p or t is not given, they must be included in j, but j = {j} is given.')
 
         if j < 0:
-            raise ValueError(f'Variable j must be non-negative, but j = {j} is given.')
+            raise ValueError(f'j must be non-negative, but j = {j} is given.')
         
-        if j % 1 <= j_tol:
+        if min((1 - (j % 1)), (j % 1)) <= j_tol:
             numer = int(j)
             denum = 1
-        elif (2 * j) % 1 <= j_tol:
+        elif min((1 - ((2 * j) % 1)), ((2 * j) % 1)) <= j_tol:
             numer = int(2 * j)
             denum = 2
         else:
-            raise ValueError(f'Variable j must be (half-)integer with tolerance = {j_tol}, but j = {j} is given.')
+            raise ValueError(f'j must be (half-)integer with tolerance = {j_tol}, but j = {j} is given.')
 
         if p in self._par2num:
             p = self._par2num[p]
         elif p not in self._num2par:
-            raise ValueError(f'Variable p must be parity \'e\' or \'o\' or their respective value 1 or -1, but given p = {p}.')
+            raise ValueError(f'p must be parity \'e\' or \'o\' or their respective value 1 or -1, but given p = {p}.')
         
         if t in self._par2num:
             t = self._par2num[t]
         elif t not in self._num2par:
-            raise ValueError(f'Variable t must be parity \'e\' or \'o\' or their respective value 1 or -1, but given t = {t}.')
+            raise ValueError(f't must be parity \'e\' or \'o\' or their respective value 1 or -1, but given t = {t}.')
 
         self._numer = numer
         self._denum = denum
@@ -80,9 +79,58 @@ class Irrep():
         return int(2 * self.f + 1)
     
     def __repr__(self):
-        string = ''
         if self.denum == 1:
-            string += f'{self.numer}'
+            j_str = f'{self.numer}'
         else:
-            string += f'{self.numer}/{self.denum}'
-        return string + f'{self._num2parity[self.p]}{self._num2parity[self.t]}'
+            j_str = f'{self.numer}/{self.denum}'
+        return f'{j_str}{self._num2parity[self.p]}{self._num2parity[self.t]}'
+    
+class _MultiIrrep():
+    def __init__(self, mul, irrep = None, mul_tol = 1E-5):
+        if isinstance(mul, _MultiIrrep):
+            return mul
+
+        if irrep == None:
+            if isinstance(mul, str) and 'x' in mul:
+                mul = mul.strip()
+                mul, irrep = mul.split('x')
+                
+            elif isinstance(mul, tuple) or isinstance(mul, list):
+                if len(mul) == 2:
+                    mul, irrep = mul
+                else:
+                    raise ValueError(f'_MulIrrep take only 2 arguments, but {len(mul)} are given.')
+                
+            else:
+                raise ValueError(f'If irrep is not given, they must be included in mul, but mul = {mul} is given.')
+
+        try:
+            mul = eval(mul)
+        except:
+            raise ValueError(f'Cannot Evaluate mul = {mul} to numerical value.')
+        
+        if mul < 0:
+            raise ValueError(f'mul must be non-negative, but mul = {mul} is given.')
+        
+        if not isinstance(mul, int):
+            raise ValueError(f'Variable j must be integer, but mul = {mul} is given.')
+
+        irrep = Irrep(irrep)
+
+        self._mul = mul
+        self._irrep = irrep
+
+    @property
+    def mul(self):
+        return self._mul
+
+    @property
+    def irrep(self):
+        return self._irrep
+    
+    def __repr__(self):
+        return f'{self.mul}x{self.irrep}'
+    
+class Irreps():
+    def __init__(self):
+        pass
