@@ -8,9 +8,8 @@ class TRS():
     def t(self):
         return self._t
     
-    def operate(self, tensor):
-        return torch.mul(self.t, torch.conj(torch.flip(tensor)))
-    
-    @classmethod
-    def from_irrep(cls, irrep):
-        return cls(irrep.t)
+    def operate(self, tensor, n):
+        out = tensor
+        for _ in range(n):
+            out = torch.mul(self.t, torch.conj(torch.flip(tensor)))
+        return out

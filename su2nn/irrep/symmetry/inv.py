@@ -8,9 +8,8 @@ class INV():
     def p(self):
         return self._p
     
-    def operate(self, tensor):
-        return torch.mul(self.p, tensor)
-    
-    @classmethod
-    def from_irrep(cls, irrep):
-        return cls(irrep.p)
+    def operate(self, tensor, n):
+        out = tensor
+        for _ in range(n):
+            out = torch.mul(self.p, tensor)
+        return out

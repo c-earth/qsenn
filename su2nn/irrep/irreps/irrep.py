@@ -1,3 +1,7 @@
+import torch
+
+from symmetry import INV, SU2, TRS
+
 class Irrep():
     def __init__(self, j, p = None, t = None, j_tol = 1E-5):
         self._par2num = {'e':1, 'o':-1}

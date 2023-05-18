@@ -11,9 +11,5 @@ class SU2():
     def operate(self, tensor, alpha, beta, gamma):
         return torch.matmul(self.wigner_D(alpha, beta, gamma), tensor)
     
-    @classmethod
-    def from_irrep(cls, irrep):
-        return cls(irrep.j)
-    
     def wigner_D(alpha, beta, gamma):
         return
