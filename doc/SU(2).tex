@@ -1,0 +1,80 @@
+\documentclass[preprint, 12pt]{revtex4-2}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\DeclareMathOperator{\Tr}{Tr}
+
+\begin{document}
+\title{su2nn Irreducible Representation}
+\author{Abhijatmedhi Chotrattanapituk}
+\affiliation{Quantum Measurement Group, MIT, Cambridge, MA, USA \\
+            Department of Electrical Engineering and Computer Science, MIT, Cambridge, MA, USA}
+
+\date{\today}
+
+\maketitle
+\section{Introduction}
+
+\section{SU(2)'s Definition}
+$SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices 
+with unit determinant. In other words,
+\begin{equation}
+    SU(2) = \{u \in GL(2, \mathbb{C})|u^\dagger=u^{-1}, \det(u) = 1\},
+\end{equation}    
+where $GL(2,\mathbb{C})$ is the group of 2 by 2 invertible matrices with complex field, and $u^\dagger$
+is the complex conjugate transposition of $u$. Since for any $u, v \in SU(2)$
+\begin{equation}
+    \det(uv) = \det(u)\det(v) = 1,
+\end{equation}
+and
+\begin{equation}
+    (uv)^\dagger = (uv)^{\top\ast} = (v^\top u^\top)^\ast = v^\dagger u^\dagger = v^{-1}u^{-1} = (uv)^{-1},
+\end{equation}
+$SU(2)$ is closed subgroup of $GL(2, \mathbb{C})$ which makes it a Lie group. This means that
+there is a corresponding Lie algebra, $\mathfrak{su(2)}$, such that 
+\begin{equation}
+    SU(2) = \{e^g|g \in \mathfrak{su(2)}\}.
+\end{equation}
+
+From definition of matrix exponential,
+\begin{equation}
+    \begin{aligned}
+        (e^g)^\dagger &= e^{g^\dagger}, \\
+        (e^g)^{-1} &= e^{-g}, \\
+        \det(e^g) &= e^{\Tr g},
+    \end{aligned}
+\end{equation}
+
+one can define the Lie algebra of $SU(2)$ as
+\begin{equation}
+    \mathfrak{su(2)} = \{g \in M(2, \mathbb{C})|g^\dagger=-g, \Tr(g) = 0\},
+\end{equation}
+where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field, and $\Tr(g)$ is the
+trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written in the From
+\begin{equation}
+    g = \begin{bmatrix}
+            iv_z & v_y+iv_x \\
+            -v_y+iv_x & -iv_z
+        \end{bmatrix}
+      = iv_x\sigma_x + iv_y\sigma_y + iv_z\sigma_z = i\vec{v}\cdot\vec{\sigma}
+\end{equation}
+where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices.
+
+\section{SU(2)'s Irreducible Representation}
+From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more
+common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
+\begin{equation} \label{eq:su2_bracket}
+    \left[J^{(1/2)}_i, J^{(1/2)}_j\right] = i\epsilon_{ijk}J^{(1/2)}_k.
+\end{equation}
+The next step is to consider an arbritary representation of $SU(2)$ such that its generators, $J_i$'s,
+obey (\ref{eq:su2_bracket}). With the standard method, first define two additional
+operators
+\begin{equation}
+    \begin{aligned}
+        J_+ &= J_x + iJ_y, \\
+        j_- &= J_x - iJ_y.
+    \end{aligned}
+\end{equation}
+Then, consider 
+
+
+\end{document}
