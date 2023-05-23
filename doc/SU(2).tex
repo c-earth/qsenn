@@ -1,7 +1,9 @@
-\documentclass[preprint, 12pt]{revtex4-2}
+\documentclass[preprint]{revtex4-2}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \DeclareMathOperator{\Tr}{Tr}
+\usepackage{physics}
+
 
 \begin{document}
 \title{su2nn Irreducible Representation}
@@ -10,11 +12,12 @@
             Department of Electrical Engineering and Computer Science, MIT, Cambridge, MA, USA}
 
 \date{\today}
-
 \maketitle
-\section{Introduction}
 
-\section{SU(2)'s Definition}
+\section{Introduction}
+TBA
+
+\section{$SU(2)$'s Definition}
 $SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices 
 with unit determinant. In other words,
 \begin{equation}
@@ -43,7 +46,6 @@ From definition of matrix exponential,
         \det(e^g) &= e^{\Tr g},
     \end{aligned}
 \end{equation}
-
 one can define the Lie algebra of $SU(2)$ as
 \begin{equation}
     \mathfrak{su(2)} = \{g \in M(2, \mathbb{C})|g^\dagger=-g, \Tr(g) = 0\},
@@ -59,22 +61,113 @@ trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written
 \end{equation}
 where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices.
 
-\section{SU(2)'s Irreducible Representation}
+\section{$\mathfrak{su(2)}$'s Irreducible Representation}
 From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more
 common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
 \begin{equation} \label{eq:su2_bracket}
     \left[J^{(1/2)}_i, J^{(1/2)}_j\right] = i\epsilon_{ijk}J^{(1/2)}_k.
 \end{equation}
 The next step is to consider an arbritary representation of $SU(2)$ such that its generators, $J_i$'s,
-obey (\ref{eq:su2_bracket}). With the standard method, first define two additional
-operators
+obey (\ref{eq:su2_bracket}). With out loss of generality, consider the representation vector space with eigenvectors of
+$J_z$, $\{\ket{\lambda_{J_z}}\}$, as the basis,
+\begin{equation}
+    J_z\ket{\lambda_{J_z}}=\lambda_{J_z}\ket{\lambda_{J_z}}.
+\end{equation}
+Furthermore, we will also consider only the representation that is irreducible. With the standard method, first define 
+two additional operators
 \begin{equation}
     \begin{aligned}
         J_+ &= J_x + iJ_y, \\
         j_- &= J_x - iJ_y.
     \end{aligned}
 \end{equation}
-Then, consider 
+From Lie bracket, and the choice of basis used,
+\begin{equation}
+    \begin{aligned}
+        J_zJ_+\ket{\lambda_{J_z}} &= J_+(J_Z+1)\ket{\lambda_{J_z}} = (\lambda_{J_z}+1)J_+\ket{\lambda_{J_z}}, \\
+        J_zJ_-\ket{\lambda_{J_z}} &= J_-(J_Z-1)\ket{\lambda_{J_z}} = (\lambda_{J_z}-1)J_-\ket{\lambda_{J_z}}.
+    \end{aligned}
+\end{equation}
+This directly implies
+\begin{equation} \label{eq:ladder_propto}
+    \begin{aligned}
+        J_+\ket{\lambda_{J_z}} &\propto \ket{\lambda_{J_z}+1}, \\
+        J_-\ket{\lambda_{J_z}} &\propto \ket{\lambda_{J_z}-1}.
+    \end{aligned}
+\end{equation}
+Before proceeding, we need to clarify an assumption we made to get (\ref{eq:ladder_propto}) that there is no degeneracy
+of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducuble.
+To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$.
+From the properties of $J_i$'s, we can choose the representation such that (\ref{eq:ladder_propto}) is true.
+This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation.
+Hence, the representation is reducible which contradict the assumption.
 
+To get the proportionality, consider another operators
+\begin{equation}
+    J^2 = J_x^2 + J_y^2+J_z^2.
+\end{equation}
+One can directly chack that the new operator commutes with all $J_i$'s mentioned so far. Furthermore, it is straight
+forward that
+\begin{equation}
+    \begin{aligned}
+        J^2 &= J_+J_- + J_z^2 - J_z \\
+        &= J_-J_+ + J_z^2 + J_z
+    \end{aligned}
+\end{equation}
+Since $J^2$ commutes with $J_z$, the basis used are also eigenbasis of $J^2$ with eigenvalue $\lambda_{J^2}$. Hence, we
+can directly relabel the eigenbasis from $\ket{\lambda_{J_z}}$ to $\ket{\lambda_{J^2}, \lambda_{J_z}}$, and get
+\begin{equation}
+    \begin{aligned}
+        \mel{\lambda_{J^2}, \lambda_{J_z}}{J_+J_-}{\lambda_{J^2}, \lambda_{J_z}} &= \lambda_{J^2} - \lambda_{J_z}(\lambda_{J_z} - 1), \\
+        \mel{\lambda_{J^2}, \lambda_{J_z}}{J_-J_+}{\lambda_{J^2}, \lambda_{J_z}} &= \lambda_{J^2} - \lambda_{J_z}(\lambda_{J_z} + 1).
+    \end{aligned}
+\end{equation}
+Since the norm square of any vector in vector space must be non-negative, this requires
+\begin{equation}
+    \lambda_{J^2} \geq \abs{\lambda_{J_z}}(\abs{\lambda_{J_z}}+1) \geq 0.
+\end{equation}
+However, the $J_\pm$ makes $\lambda_{J_z}$ unbounded unless the vector vanished at some points, i.e. the equality must 
+hold for the upper, and lower bounds of the possible $\lambda_z$'s. If we replace $\lambda_{J^2}$ with $j(j+1)$ where $j$
+non-negative. The requirement makes $\lambda_{J_z, \max} = j$, and $\lambda_{J_z, \min} = -j$. Since any pair of $\lambda_{J_z}$'s
+are different by an integer, 
+\begin{equation}
+    \lambda_{J_z, \max} - \lambda_{J_z, \min} = 2j \in \mathbb{Z}_0^+.
+\end{equation}
+Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ to $\ket{j, m}$ and choose the proportionality
+such that
+\begin{equation} \label{eq:ladder}
+    \begin{aligned}
+        J_+\ket{j, m} &= \sqrt{j(j+1) - m(m + 1)}\ket{j, m+1}, \\
+        J_-\ket{j, m} &= \sqrt{j(j+1) - m(m - 1)}\ket{j, m-1},
+    \end{aligned}
+\end{equation}
+where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. With similar method to the proof for $J_z$,
+one can directly prove by contradiction that each irreducible representation must have its unique $j$, i.e., the irreducible
+representation can be indexed by $j$. Furthermore, since we have not make any other assumption, $j$ completely identify
+every irreducible representation of $\mathfrak{su(2)}$, and all irreducible representation with the same $j$ are isomorphic.
 
+\section{$SU(2)$'s Irreducible Representation}
+Consider a representation of $SU(2)$ that is an exponential of $\mathfrak{su(2)}$'s irreducible representations. Let assume
+that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements.
+This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. Since corresponding representation of $SU(2)$,
+and $\mathfrak{su(2)}$ are homomorphic, it entails that there is a subspace of $\mathfrak{su(2)}$'s representation that is
+invariant to $\mathfrak{su(2)}$, i.e. this specific representation of $\mathfrak{su(2)}$ is reducible, which contradicts
+the assumption. Therefore, we can directly promote the irreducible representations of $\mathfrak{su(2)}$ to the one for 
+$SU(2)$ by means of matrix exponential along with the same vector space.
+
+\section{$SU(2)$'s Implementation}
+In order to implement the representation the basis of the space in which all group operations would act on need to be carefully
+selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry
+group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible
+representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in 
+the ascending order of the basis from $m = -j$ to $m = j$. Hence,
+\begin{equation}
+    \begin{aligned}
+        \left[J_z^{(j)}\right]_{pq} &= (p-j)\delta_{p,q}, \\
+        \left[J_+^{(j)}\right]_{pq} &= \sqrt{j(j+1)-(p-j)(q-j)}\delta_{p,q+1}, \\
+        J_-^{(j)} &= J_+^{(j)\top}, \\
+        J_x^{(j)} &= \left(J_+^{(j)}+J_-^{(j)}\right)/2, \\
+        J_y^{(j)} &= -i\left(J_+^{(j)}-J_-^{(j)}\right)/2.
+    \end{aligned}
+\end{equation}
 \end{document}
