@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex su2nn"] 0 "su2nn.aux" "su2nn.bbl" "su2nn" 1684978788 -1
-  "./su2nnNotes.bib" 1684978787 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
+["bibtex su2nn"] 1685057804 "su2nn.aux" "su2nn.bbl" "su2nn" 1685057806 0
+  "./su2nnNotes.bib" 1685057805 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/bibtex/bst/revtex/apsrev4-2.bst" 1601735216 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "su2nn.aux" 1684978787 1314 7517c1e04b08eb566efa1739f957eae9 "pdflatex"
+  "su2nn.aux" 1685057805 1454 8c5f877046f0e97f10008c3e25e4ff2c "pdflatex"
   (generated)
   "su2nn.bbl"
   "su2nn.blg"
   (rewritten before read)
-["pdflatex"] 1684978786 "d:/python_project/su2nn/doc/su2nn.tex" "su2nn.pdf" "su2nn" 1684978788 0
-  "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1684887328 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
-  "C:/Users/earthz/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1668380161 10788483 8fb70ca59706b7c03e683577e7f4870f ""
+["pdflatex"] 1685057804 "d:/python_project/su2nn/doc/su2nn.tex" "su2nn.pdf" "su2nn" 1685057806 0
+  "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1685057598 82507 a9eef8696c92627b87e9975edea03b2a ""
+  "C:/Users/earthz/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1678828308 23176270 69a26e7bcd117cc6cfee07209a0c37ab ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233955448 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/euler/eufm10.tfm" 1233955452 1040 b84415f97d114011685943ade933dc71 ""
@@ -60,9 +60,9 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsmath.sty" 1655058191 88393 1adf6fa3f245270d06e3d4f8910f7fc5 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.sty" 1655058192 4474 f04cd1cc7bd76eb033e6fb12eb6a0d77 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty" 1655058193 2444 70065bddd85997dc1fd0bb7ae634e5fa ""
-  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1664388628 30426 b4bd1ea7df6c51902df8edf551809fb7 ""
-  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty" 1664389290 6107 fa5d25e84c05db068aed042b51a24d3b ""
-  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xparse.sty" 1655913260 6812 d2f733947d73940b228845829d585700 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1673904422 30429 213676d4c7327a21d91ddaed900e7b81 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty" 1675777280 6107 1d6e5fdc08231f1514f708e58b81748a ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xparse.sty" 1673905590 6812 15bc6b0b734bc50fd1694a0947c28886 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/natbib/natbib.sty" 1292252681 46712 1c8843383c0bd05870c45fa0ebea6cc2 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/physics/physics.sty" 1356005662 29610 a9597219b282d9c78b02393dcd7d4322 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/aps12pt4-2.rtx" 1601735216 4804 2744af0f203134af90d666c0e5372e88 ""
@@ -71,10 +71,10 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/revtex4-2.cls" 1601735216 202588 252d8ad05b878c573f3e2adfc38ce076 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/textcase/textcase.sty" 1657800947 2405 93dca770d0598d835703b5d004a641b7 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "d:/python_project/su2nn/doc/su2nn.tex" 1684978786 19464 06ed3f7002cbb44a13131fcdb8e2cf14 ""
-  "su2nn.aux" 1684978787 1314 7517c1e04b08eb566efa1739f957eae9 "pdflatex"
-  "su2nn.bbl" 1684975424 2035 35453d3875d823f0ec9445e740a573d9 "bibtex su2nn"
-  "su2nn.tex" 1684978786 19464 06ed3f7002cbb44a13131fcdb8e2cf14 ""
+  "d:/python_project/su2nn/doc/su2nn.tex" 1685057802 19827 20718242b0071284d99c864ed6557f5a ""
+  "su2nn.aux" 1685057805 1454 8c5f877046f0e97f10008c3e25e4ff2c "pdflatex"
+  "su2nn.bbl" 1685057804 2035 35453d3875d823f0ec9445e740a573d9 "bibtex su2nn"
+  "su2nn.tex" 1685057802 19827 20718242b0071284d99c864ed6557f5a ""
   (generated)
   "su2nn.aux"
   "su2nn.log"
