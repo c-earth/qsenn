@@ -9,7 +9,7 @@
 \def\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 
 \begin{document}
-\title{QSNN's Irreducible Representation}
+\title{QSENN: Quantum Spin Equivariant Neural Network}
 \author{Abhijatmedhi Chotrattanapituk}
 \affiliation{Quantum Measurement Group, MIT, Cambridge, MA, USA \\
             Department of Electrical Engineering and Computer Science, MIT, Cambridge, MA, USA}
@@ -24,13 +24,11 @@
 Due to the number of groups, and representations discussed in this work, it is important to define some notations that would be used. 
 
 \section{$SU(2)$'s Definition}
-$SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices 
-with unit determinant. In other words,
+$SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices with unit determinant. In other words,
 \begin{equation}
     SU(2) = \{u \in GL(2, \mathbb{C})|u^\dagger=u^{-1}, \det(u) = 1\},
 \end{equation}    
-where $GL(2,\mathbb{C})$ is the group of 2 by 2 invertible matrices with complex field, and $u^\dagger$
-is the complex conjugate transposition of $u$. Since for any $u, v \in SU(2)$
+where $GL(2,\mathbb{C})$ is the group of 2 by 2 invertible matrices with complex field, and $u^\dagger$ is the complex conjugate transposition of $u$. Since for any $u, v \in SU(2)$
 \begin{equation}
     \det(uv) = \det(u)\det(v) = 1,
 \end{equation}
@@ -38,8 +36,7 @@ and
 \begin{equation}
     (uv)^\dagger = (uv)^{\top\ast} = (v^\top u^\top)^\ast = v^\dagger u^\dagger = v^{-1}u^{-1} = (uv)^{-1},
 \end{equation}
-$SU(2)$ is closed subgroup of $GL(2, \mathbb{C})$ which makes it a Lie group. This means that
-there is a corresponding Lie algebra, $\mathfrak{su(2)}$, such that 
+$SU(2)$ is closed subgroup of $GL(2, \mathbb{C})$ which makes it a Lie group. This means that there is a corresponding Lie algebra, $\mathfrak{su(2)}$, such that 
 \begin{equation}
     SU(2) = \{e^g|g \in \mathfrak{su(2)}\}.
 \end{equation}
@@ -56,8 +53,7 @@ one can define the Lie algebra of $SU(2)$ as
 \begin{equation}
     \mathfrak{su(2)} = \{g \in M(2, \mathbb{C})|g^\dagger=-g, \Tr(g) = 0\},
 \end{equation}
-where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field, and $\Tr(g)$ is the
-trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written in the From
+where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field, and $\Tr(g)$ is the trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written in the From
 \begin{equation}
     g = \begin{bmatrix}
             iv_z & v_y+iv_x \\
@@ -68,19 +64,15 @@ trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written
 where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices.
 
 \section{$\mathfrak{su(2)}$'s Irreducible Representation}
-From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more
-common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
+From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
 \begin{equation} \label{eq:su2_bracket}
     \left[J^{(1/2)}_i, J^{(1/2)}_j\right] = i\epsilon_{ijk}J^{(1/2)}_k.
 \end{equation}
-The next step is to consider an arbritary representation of $SU(2)$ such that its generators, $J_i$'s,
-obey (\ref{eq:su2_bracket}). With out loss of generality, consider the representation vector space with eigenvectors of
-$J_z$, $\{\ket{\lambda_{J_z}}\}$, as the basis,
+The next step is to consider an arbritary representation of $SU(2)$ such that its generators, $J_i$'s, obey (\ref{eq:su2_bracket}). With out loss of generality, consider the representation vector space with eigenvectors of $J_z$, $\{\ket{\lambda_{J_z}}\}$, as the basis,
 \begin{equation}
     J_z\ket{\lambda_{J_z}}=\lambda_{J_z}\ket{\lambda_{J_z}}.
 \end{equation}
-Furthermore, we will also consider only the representation that is irreducible. With the standard method, first define 
-two additional operators
+Furthermore, we will also consider only the representation that is irreducible. With the standard method, first define two additional operators
 \begin{equation}
     \begin{aligned}
         J_+ &= J_x + iJ_y, \\
@@ -101,27 +93,20 @@ This directly implies
         J_-\ket{\lambda_{J_z}} &\propto \ket{\lambda_{J_z}-1}.
     \end{aligned}
 \end{equation}
-Before proceeding, we need to clarify an assumption we made to get (\ref{eq:ladder_propto}) that there is no degeneracy
-of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducuble.
-To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$.
-From the properties of $J_i$'s, we can choose the representation such that (\ref{eq:ladder_propto}) is true.
-This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation.
-Hence, the representation is reducible which contradict the assumption.
+Before proceeding, we need to clarify an assumption we made to get (\ref{eq:ladder_propto}) that there is no degeneracy of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducuble. To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$. From the properties of $J_i$'s, we can choose the representation such that (\ref{eq:ladder_propto}) is true. This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation. Hence, the representation is reducible which contradict the assumption.
 
 To get the proportionality, consider another operators
 \begin{equation}
     J^2 = J_x^2 + J_y^2+J_z^2.
 \end{equation}
-One can directly chack that the new operator commutes with all $J_i$'s mentioned so far. Furthermore, it is straight
-forward that
+One can directly chack that the new operator commutes with all $J_i$'s mentioned so far. Furthermore, it is straight forward that
 \begin{equation}
     \begin{aligned}
         J^2 &= J_+J_- + J_z^2 - J_z \\
         &= J_-J_+ + J_z^2 + J_z
     \end{aligned}
 \end{equation}
-Since $J^2$ commutes with $J_z$, the basis used are also eigenbasis of $J^2$ with eigenvalue $\lambda_{J^2}$. Hence, we
-can directly relabel the eigenbasis from $\ket{\lambda_{J_z}}$ to $\ket{\lambda_{J^2}, \lambda_{J_z}}$, and get
+Since $J^2$ commutes with $J_z$, the basis used are also eigenbasis of $J^2$ with eigenvalue $\lambda_{J^2}$. Hence, we can directly relabel the eigenbasis from $\ket{\lambda_{J_z}}$ to $\ket{\lambda_{J^2}, \lambda_{J_z}}$, and get
 \begin{equation}
     \begin{aligned}
         \mel{\lambda_{J^2}, \lambda_{J_z}}{J_+J_-}{\lambda_{J^2}, \lambda_{J_z}} &= \lambda_{J^2} - \lambda_{J_z}(\lambda_{J_z} - 1), \\
@@ -132,41 +117,24 @@ Since the norm square of any vector in vector space must be non-negative, this r
 \begin{equation}
     \lambda_{J^2} \geq \abs{\lambda_{J_z}}(\abs{\lambda_{J_z}}+1) \geq 0.
 \end{equation}
-However, the $J_\pm$ makes $\lambda_{J_z}$ unbounded unless the vector vanished at some points, i.e. the equality must 
-hold for the upper, and lower bounds of the possible $\lambda_z$'s. If we replace $\lambda_{J^2}$ with $j(j+1)$ where $j$
-non-negative. The requirement makes $\lambda_{J_z, \max} = j$, and $\lambda_{J_z, \min} = -j$. Since any pair of $\lambda_{J_z}$'s
-are different by an integer, 
+However, the $J_\pm$ makes $\lambda_{J_z}$ unbounded unless the vector vanished at some points, i.e. the equality must hold for the upper, and lower bounds of the possible $\lambda_z$'s. If we replace $\lambda_{J^2}$ with $j(j+1)$ where $j$ non-negative. The requirement makes $\lambda_{J_z, \max} = j$, and $\lambda_{J_z, \min} = -j$. Since any pair of $\lambda_{J_z}$'s are different by an integer, 
 \begin{equation}
     \lambda_{J_z, \max} - \lambda_{J_z, \min} = 2j \in \mathbb{Z}_0^+.
 \end{equation}
-Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ to $\ket{j, m}$ and choose the proportionality
-such that
+Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ to $\ket{j, m}$ and choose the proportionality such that
 \begin{equation} \label{eq:ladder}
     \begin{aligned}
         J_+\ket{j, m} &= \sqrt{j(j+1) - m(m + 1)}\ket{j, m+1}, \\
         J_-\ket{j, m} &= \sqrt{j(j+1) - m(m - 1)}\ket{j, m-1},
     \end{aligned}
 \end{equation}
-where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. With similar method to the proof for $J_z$,
-one can directly prove by contradiction that each irreducible representation must have its unique $j$, i.e., the irreducible
-representation can be indexed by $j$. Furthermore, since we have not make any other assumption, $j$ completely identify
-every irreducible representation of $\mathfrak{su(2)}$, and all irreducible representation with the same $j$ are isomorphic.
+where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. With similar method to the proof for $J_z$, one can directly prove by contradiction that each irreducible representation must have its unique $j$, i.e., the irreducible representation can be indexed by $j$. Furthermore, since we have not make any other assumption, $j$ completely identify every irreducible representation of $\mathfrak{su(2)}$, and all irreducible representation with the same $j$ are isomorphic.
 
 \section{$SU(2)$'s Irreducible Representation}
-Consider a representation of $SU(2)$ that is an exponential of $\mathfrak{su(2)}$'s irreducible representations. Let assume
-that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements.
-This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. Since corresponding representation of $SU(2)$,
-and $\mathfrak{su(2)}$ are homomorphic, it entails that there is a subspace of $\mathfrak{su(2)}$'s representation that is
-invariant to $\mathfrak{su(2)}$, i.e. this specific representation of $\mathfrak{su(2)}$ is reducible, which contradicts
-the assumption. Therefore, we can directly promote the irreducible representations of $\mathfrak{su(2)}$ to the one for 
-$SU(2)$ by means of matrix exponential along with the same vector space.
+Consider a representation of $SU(2)$ that is an exponential of $\mathfrak{su(2)}$'s irreducible representations. Let assume that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements. This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. Since corresponding representation of $SU(2)$, and $\mathfrak{su(2)}$ are homomorphic, it entails that there is a subspace of $\mathfrak{su(2)}$'s representation that is invariant to $\mathfrak{su(2)}$, i.e. this specific representation of $\mathfrak{su(2)}$ is reducible, which contradicts the assumption. Therefore, we can directly promote the irreducible representations of $\mathfrak{su(2)}$ to the one for $SU(2)$ by means of matrix exponential along with the same vector space.
 
 \section{$SU(2)$'s Implementation}
-In order to implement the representation the basis of the space in which all group operations would act on need to be carefully
-selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry
-group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible
-representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in 
-the ascending order of the basis from $m = -j$ to $m = j$. Hence,
+In order to implement the representation the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. Hence,
 \begin{equation}
     \begin{aligned}
         \left[J_z^{(j)}\right]_{qr} &= (q-j)\delta_{q,r}, \\
@@ -183,14 +151,10 @@ with the $u\in SU(2)$ represented as
 for some $\vec{\phi}\in\mathbb{R}^3$.
 
 \section{$P$'s Definition}
-$P$ is the group of spatial inversion, i.e. the group consisting of 2 elements: $E$ (identity),
-and $I$ (inversion) with the only non-trivial multiplication be $II=E$.
+$P$ is the group of spatial inversion, i.e. the group consisting of 2 elements: $E$ (identity), and $I$ (inversion) with the only non-trivial multiplication be $II=E$.
 
 \section{$P$'s Irreducible Representation}
-From the definition, it is clear that $P \cong C_2$. Hence, there are only two irriducible
-representations commonly denoted as even, and odd. With similar construction to the $SU(2)$
-case, let define the basis (1 dimension) of the two irreducible representations with
-$\ket{1}$, and $\ket{-1}$, respectively. Therefore, 
+From the definition, it is clear that $P \cong C_2$. Hence, there are only two irriducible representations commonly denoted as even, and odd. With similar construction to the $SU(2)$ case, let define the basis (1 dimension) of the two irreducible representations with $\ket{1}$, and $\ket{-1}$, respectively. Therefore, 
 \begin{equation}
     \begin{aligned}
         D_P^{(1)}(E)\ket{1} &= \ket{1}, \\
@@ -200,25 +164,14 @@ $\ket{1}$, and $\ket{-1}$, respectively. Therefore,
     \end{aligned}
 \end{equation}
 
-In order to incoperate $P$ to $SU(2)$, the multiplication between these groups need to
-be considered. At this point, the purely mathematical treatment is not sufficient to
-know the multiplication behavior, and require physical properties of the systems that
-the groups are used for. In this case, we are interested in quantum spin systems in
-which the $SU(2)$ group is responsible for rotations, and commutes with spatial inversion.
-This implies that the combined group, i.e. direct product group, $SU(2)\times P$, can be
-irreducible represented with
+In order to incoperate $P$ to $SU(2)$, the multiplication between these groups need to be considered. At this point, the purely mathematical treatment is not sufficient to know the multiplication behavior, and require physical properties of the systems that the groups are used for. In this case, we are interested in quantum spin systems in which the $SU(2)$ group is responsible for rotations, and commutes with spatial inversion. This implies that the combined group, i.e. direct product group, $SU(2)\times P$, can be irreducible represented with
 \begin{equation}
     \left[D_{SU(2)\times P}^{(jp)}(uv)\right]_{qr} = \left[D_{SU(2)}^{(j)}(u)\right]_{qr}D_P^{(p)}(v)
 \end{equation}
-for $u\in SU(2)$, $v\in P$, and $p\in \{-1, 1\}$. Furthermore, the vector space basis of this irreducible
-representation is simply $\ket{j, m, p}=\ket{j, m}\ket{p}$.
+for $u\in SU(2)$, $v\in P$, and $p\in \{-1, 1\}$. Furthermore, the vector space basis of this irreducible representation is simply $\ket{j, m, p}=\ket{j, m}\ket{p}$.
 
 \section{$P$'s Implementation}
-From previous section, with the basis used in $SU(2)$ implementation, one can
-directly extend it to irreducible representation of $SU(2)\times P$ by adding
-index $p$. In this basis, the irreducible representation with index $(j, p)$ is
-a $2j+1$ dimensional space representation with even inversion if $p=1$, or odd 
-if $p=-1$. With this representation, for $w=uv\in SU(2)\times P$, $u \in SU(2)$, $v\in P$,
+From previous section, with the basis used in $SU(2)$ implementation, one can directly extend it to irreducible representation of $SU(2)\times P$ by adding index $p$. In this basis, the irreducible representation with index $(j, p)$ is a $2j+1$ dimensional space representation with even inversion if $p=1$, or odd if $p=-1$. With this representation, for $w=uv\in SU(2)\times P$, $u \in SU(2)$, $v\in P$,
 \begin{equation}
     D_{SU(2)\times P}^{(jp)}(uv) = D_{SU(2)}^{(j)}(u)D_P^{(p)}(v)
 \end{equation}
@@ -231,26 +184,16 @@ with
 \end{equation}
 
 \section{$TR$'s Definition}
-$TR$ is the group of time reversal consisting of $E$ (identity), and $\theta$ (time reverse) as generators. 
-However, this group is not isomorphic with $P$ since the physical properties require 
-time-reversal symmetric system to obey Schr\"odinger's equation. This makes the effect 
-of $\theta$ on wavefunction of spinless system be a complex conjugation which means that
-the group is anti-unitary.
+$TR$ is the group of time reversal consisting of $E$ (identity), and $\theta$ (time reverse) as generators. However, this group is not isomorphic with $P$ since the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. This makes the effect of $\theta$ on wavefunction of spinless system be a complex conjugation which means that the group is anti-unitary.
 
 \section{$TR$'s Irreducible Representation}
-In corporateing anti-unitary group $TR$ with $SU(2)\times P$ cannot be done in the same
-fashion as combinding $P$ with $SU(2)$ since the anti-unitary nature makes it impossible
-to write down common eigenbasis even if $\theta$ commutes with every element in $SU(2)\times P$.
+In corporateing anti-unitary group $TR$ with $SU(2)\times P$ cannot be done in the same fashion as combinding $P$ with $SU(2)$ since the anti-unitary nature makes it impossible to write down common eigenbasis even if $\theta$ commutes with every element in $SU(2)\times P$.
 
-To proceed from this point, we need to consider the effects of $\theta$ on the basis chosen for
-$SU(2)\times P$'s implementation. Since the multiplication of two anti-unitary operators
-is a unitary operator the irreducible representation of $w\in SU(2)\times P$ in $\{\theta\ket{j, m, p}\}$
-basis is
+To proceed from this point, we need to consider the effects of $\theta$ on the basis chosen for $SU(2)\times P$'s implementation. Since the multiplication of two anti-unitary operators is a unitary operator the irreducible representation of $w\in SU(2)\times P$ in $\{\theta\ket{j, m, p}\}$ basis is
 \begin{equation}
     \tilde{D}_{SU(2)\times P}(w) = D_{SU(2)\times P}(\theta^{-1}w\theta)^\ast.
 \end{equation}
-However, similar to $P$'s case, the system in which the $SU(2)\times P$ describes actually
-makes $\theta$ commutes with every element in $SU(2)\times P$. This means that 
+However, similar to $P$'s case, the system in which the $SU(2)\times P$ describes actually makes $\theta$ commutes with every element in $SU(2)\times P$. This means that 
 \begin{equation}
     D_{SU(2)\times P}(\theta^{-1}w\theta)^\ast = D_{SU(2)\times P}(w)^\ast,
 \end{equation}
@@ -321,9 +264,7 @@ Therefore,
         &= \tilde{D}^{(j)}_{SU(2)\times P}(w).
     \end{aligned}
 \end{equation}
-This directly means that the $SU(2)\times P$'s irreducible representation in $\{\ket{j, m, p}\}$, 
-and $\{\theta\ket{j, m, p}\}$ basis are equivalent. This implies that the corepresentation
-of $SU(2)\times P\times TR$ for $w\in SU(2)\times P$ is
+This directly means that the $SU(2)\times P$'s irreducible representation in $\{\ket{j, m, p}\}$, and $\{\theta\ket{j, m, p}\}$ basis are equivalent. This implies that the corepresentation of $SU(2)\times P\times TR$ for $w\in SU(2)\times P$ is
 \begin{equation}
     D_{SU(2)\times P\times TR}^{(j)}(w) = 
     \begin{bmatrix}
@@ -361,9 +302,7 @@ This, together with the previous one, gives
 \begin{equation}
     t^\ast U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
 \end{equation}
-Hence, $t\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times P$'s 
-irreducible representation, restricts $t = \pm 1$. With all these results, one now
-can write the corepresentation of $SU(2)\times P\times TR$ for $\theta\in T$ as
+Hence, $t\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times P$'s irreducible representation, restricts $t = \pm 1$. With all these results, one now can write the corepresentation of $SU(2)\times P\times TR$ for $\theta\in T$ as
 \begin{equation}
     \begin{aligned}
         D_{SU(2)\times P\times TR}^{(j)}(\theta) &= 
