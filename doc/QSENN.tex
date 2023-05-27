@@ -1,4 +1,4 @@
-\documentclass[12pt]{revtex4-2}
+\documentclass[preprint, 12pt]{revtex4-2}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \DeclareMathOperator{\Tr}{Tr}
@@ -9,21 +9,67 @@
 \def\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 
 \begin{document}
-\title{QSENN: Quantum Spin Equivariant Neural Network}
+
+\title{Unified Representation for Quantum Spin Equivariant Learning}
+
 \author{Abhijatmedhi Chotrattanapituk}
 \affiliation{Quantum Measurement Group, MIT, Cambridge, MA, USA \\
             Department of Electrical Engineering and Computer Science, MIT, Cambridge, MA, USA}
 
 \date{\today}
+
+\begin{abstract}
+    TBA
+\end{abstract}
+
 \maketitle
+\newpage
 
 \section{Introduction}
 
+\section{Symmetries in Quantum Spin Systems}
 
 \section{Notations}
-Due to the number of groups, and representations discussed in this work, it is important to define some notations that would be used. 
+Due to the number of groups, and representations discussed in this work, it is important to define some common definitions and notations that would be used. 
 
-\section{$SU(2)$'s Definition}
+\subsection{Group}
+A group is a set of items together with a binary operator defined on each pair of elements in the group such that, for an arbritary group $G$ and its binary operator $\circ$, the following properites must be true.
+\begin{enumerate}
+    \item For any $a, b\in G$, $a\circ b\in G$.
+    \item For any $a, b, c\in G$, $(a\circ b)\circ c = a\circ(b\circ c)$.
+    \item There is a unique element $e\in G$ such that, for all $g\in G,\, g\circ e=e\circ g=g$.
+    \item For all $g\in G$, there is a unique element $g^{-1}\in G$, such that $g\circ g^{-1}=g^{-1}\circ g=e$.
+\end{enumerate}
+For compactness in the remaining sections, we would drop the explicit placement of the binary operator and assume the proper operation whenever there are two group elements placeing beside each other, e.g.., if $a, b\in G$, $ab\triangleq a\circ b.$
+
+\subsection{Homomorphism}
+A homomorphism of group $G$ with binary operator $\circ_G$ is a map from $G$ to another group $H$ with binary operator $\circ_H$ such that the image of $G$ preserves the same structure as $G$. In otherwords, for a homomorphism $h:G\rightarrow H$,
+\begin{equation}\label{eq:homomorphism}
+    \forall a, b\in G,\, h(a)h(b) = h(ab),
+\end{equation}
+where the implicit binary operation $ab$ is from $G$, i.e. $a\circ_G b$ while implicit binary operation $h(a)h(b)$ is from $H$, i.e. $h(a)\circ_H h(b)$.
+
+\subsection{Representation}
+A group representation (Rep) of $G$ on vector space $V$ is a group homomorphism from $G$ to general linear group $GL(V)$ which is the group of bijective linear transformation from $V$ to itself. To be more specific, for the vector field $V$ over $\mathbb{F}_V$ with $n_F$ dimensions, $GL(n_V, \mathbb{F}_V)\triangleq GL(V)$ is the set of $n_V\times n_V$ invertible matrices over $\mathbb{F}_V$ with matrix multiplication as the group binary operator. This obviously means that there are multiple Reps depending on the choice of $V$, and each $V$ might has multiple Reps as well. Assuming that we are able to uniquely name each representation, we would use the notation $D_{G}^{(\Gamma)}:G\rightarrow GL$ where $\Gamma$ is the label that fully specify the Rep. 
+
+Since two representations can be equivalence if every corresponding pair of matrix Reps are equivalence through the same basis transformation, we would decorate $D_{G}^{(\Gamma)}$ to specify the basis of the matrix Rep. Specifically, we reserve ``hat'' decoration, $\hat{D}_{G}^{(\Gamma)}$, for the standard basis choice that would be used in our code implementation.
+
+\subsection{Irreducible Representation}
+A group irreducible representation (Irrep) of $G$ on vector space $V$ is a Rep such that there is no proper subspace $W\subsetneq V$ such that $W$ is closed under group represented action , i.e.
+\begin{equation}\label{eq:invariant subspace}
+    \forall g\in G,\,\forall w\in W,\, D_{G}^{(\Gamma)}(g)w\in W.
+\end{equation}
+This condition is equivalently satisfy with Schur's second lemma that, if $\Gamma$ labels an Irrep, then every matrix $M$ that
+\begin{equation}\label{eq:Schur's 2nd lemma}
+    \forall g\in G,\,D_{G}^{(\Gamma)}(g)M=MD_{G}^{(\Gamma)}(g)
+\end{equation}
+must be a multiple of identity matrix with the multiple is in the field of the vector space.
+
+\subsection{Groups' Direct Product}
+
+\section{$SU(2)$}
+
+\subsection{Definition}
 $SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices with unit determinant. In other words,
 \begin{equation}
     SU(2) = \{u \in GL(2, \mathbb{C})|u^\dagger=u^{-1}, \det(u) = 1\},
@@ -63,7 +109,7 @@ where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field, and 
 \end{equation}
 where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices.
 
-\section{$\mathfrak{su(2)}$'s Irreducible Representation}
+\subsection{$\mathfrak{su(2)}$'s Irreducible Representation}
 From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
 \begin{equation} \label{eq:su2_bracket}
     \left[J^{(1/2)}_i, J^{(1/2)}_j\right] = i\epsilon_{ijk}J^{(1/2)}_k.
@@ -130,10 +176,10 @@ Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ t
 \end{equation}
 where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. With similar method to the proof for $J_z$, one can directly prove by contradiction that each irreducible representation must have its unique $j$, i.e., the irreducible representation can be indexed by $j$. Furthermore, since we have not make any other assumption, $j$ completely identify every irreducible representation of $\mathfrak{su(2)}$, and all irreducible representation with the same $j$ are isomorphic.
 
-\section{$SU(2)$'s Irreducible Representation}
+\subsection{$SU(2)$'s Irreducible Representation}
 Consider a representation of $SU(2)$ that is an exponential of $\mathfrak{su(2)}$'s irreducible representations. Let assume that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements. This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. Since corresponding representation of $SU(2)$, and $\mathfrak{su(2)}$ are homomorphic, it entails that there is a subspace of $\mathfrak{su(2)}$'s representation that is invariant to $\mathfrak{su(2)}$, i.e. this specific representation of $\mathfrak{su(2)}$ is reducible, which contradicts the assumption. Therefore, we can directly promote the irreducible representations of $\mathfrak{su(2)}$ to the one for $SU(2)$ by means of matrix exponential along with the same vector space.
 
-\section{$SU(2)$'s Implementation}
+\subsection{Implementation}
 In order to implement the representation the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. Hence,
 \begin{equation}
     \begin{aligned}
@@ -150,10 +196,12 @@ with the $u\in SU(2)$ represented as
 \end{equation}
 for some $\vec{\phi}\in\mathbb{R}^3$.
 
-\section{$P$'s Definition}
+\section{$P$}
+
+\subsection{Definition}
 $P$ is the group of spatial inversion, i.e. the group consisting of 2 elements: $E$ (identity), and $I$ (inversion) with the only non-trivial multiplication be $II=E$.
 
-\section{$P$'s Irreducible Representation}
+\subsection{Irreducible Representation}
 From the definition, it is clear that $P \cong C_2$. Hence, there are only two irriducible representations commonly denoted as even, and odd. With similar construction to the $SU(2)$ case, let define the basis (1 dimension) of the two irreducible representations with $\ket{1}$, and $\ket{-1}$, respectively. Therefore, 
 \begin{equation}
     \begin{aligned}
@@ -170,7 +218,7 @@ In order to incoperate $P$ to $SU(2)$, the multiplication between these groups n
 \end{equation}
 for $u\in SU(2)$, $v\in P$, and $p\in \{-1, 1\}$. Furthermore, the vector space basis of this irreducible representation is simply $\ket{j, m, p}=\ket{j, m}\ket{p}$.
 
-\section{$P$'s Implementation}
+\subsection{Implementation}
 From previous section, with the basis used in $SU(2)$ implementation, one can directly extend it to irreducible representation of $SU(2)\times P$ by adding index $p$. In this basis, the irreducible representation with index $(j, p)$ is a $2j+1$ dimensional space representation with even inversion if $p=1$, or odd if $p=-1$. With this representation, for $w=uv\in SU(2)\times P$, $u \in SU(2)$, $v\in P$,
 \begin{equation}
     D_{SU(2)\times P}^{(jp)}(uv) = D_{SU(2)}^{(j)}(u)D_P^{(p)}(v)
@@ -183,10 +231,12 @@ with
     \end{aligned}
 \end{equation}
 
-\section{$TR$'s Definition}
+\section{$T$}
+
+\subsection{Definition}
 $TR$ is the group of time reversal consisting of $E$ (identity), and $\theta$ (time reverse) as generators. However, this group is not isomorphic with $P$ since the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. This makes the effect of $\theta$ on wavefunction of spinless system be a complex conjugation which means that the group is anti-unitary.
 
-\section{$TR$'s Irreducible Representation}
+\subsection{$TR$'s Irreducible Representation}
 In corporateing anti-unitary group $TR$ with $SU(2)\times P$ cannot be done in the same fashion as combinding $P$ with $SU(2)$ since the anti-unitary nature makes it impossible to write down common eigenbasis even if $\theta$ commutes with every element in $SU(2)\times P$.
 
 To proceed from this point, we need to consider the effects of $\theta$ on the basis chosen for $SU(2)\times P$'s implementation. Since the multiplication of two anti-unitary operators is a unitary operator the irreducible representation of $w\in SU(2)\times P$ in $\{\theta\ket{j, m, p}\}$ basis is
@@ -333,6 +383,6 @@ One can further simplify the representation by changing the basis $\{\theta\ket{
     \end{aligned}
 \end{equation}
 
-\section{$TR$'s Implementation}
+\subsection{Implementation}
 
 \end{document}
