@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex QSENN"] 1685157722 "QSENN.aux" "QSENN.bbl" "QSENN" 1685157724 0
-  "./QSENNNotes.bib" 1685157723 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
+["bibtex QSENN"] 1685157722 "QSENN.aux" "QSENN.bbl" "QSENN" 1685633582 0
+  "./QSENNNotes.bib" 1685633581 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/bibtex/bst/revtex/apsrev4-2.bst" 1601735216 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "QSENN.aux" 1685157723 2410 2c46ae13984ee83436aa25a56d5eb759 "pdflatex"
+  "QSENN.aux" 1685633581 2410 2c46ae13984ee83436aa25a56d5eb759 "pdflatex"
   (generated)
   "QSENN.bbl"
   "QSENN.blg"
   (rewritten before read)
-["pdflatex"] 1685157722 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1685157724 0
+["pdflatex"] 1685633580 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1685633582 0
   "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1684887328 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/earthz/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1668380161 10788483 8fb70ca59706b7c03e683577e7f4870f ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
@@ -72,10 +72,10 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/revtex4-2.cls" 1601735216 202588 252d8ad05b878c573f3e2adfc38ce076 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/textcase/textcase.sty" 1657800947 2405 93dca770d0598d835703b5d004a641b7 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "QSENN.aux" 1685157723 2410 2c46ae13984ee83436aa25a56d5eb759 "pdflatex"
+  "QSENN.aux" 1685633581 2410 2c46ae13984ee83436aa25a56d5eb759 "pdflatex"
   "QSENN.bbl" 1685157722 2035 35453d3875d823f0ec9445e740a573d9 "bibtex QSENN"
-  "QSENN.tex" 1685157719 23299 3cea6048beb52afd8f9dd53f9457cb49 ""
-  "d:/python_project/su2nn/doc/QSENN.tex" 1685157719 23299 3cea6048beb52afd8f9dd53f9457cb49 ""
+  "QSENN.tex" 1685633579 23292 0ae6e84096ec03c8ac48d57454e709b6 ""
+  "d:/python_project/su2nn/doc/QSENN.tex" 1685633579 23292 0ae6e84096ec03c8ac48d57454e709b6 ""
   (generated)
   "QSENN.aux"
   "QSENN.log"
