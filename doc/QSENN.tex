@@ -344,7 +344,7 @@ Hence,
 \end{equation}
 From Schur's lemma, since $D^{(j)}_{SU(2)\times P}$ is an irreducible representation, there is a constant $\lambda\in\mathbb{C}$ such that
 \begin{equation}
-    t U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
+    \lambda U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
 \end{equation}
 With similar process but substitute $w=\theta^2$,
 \begin{equation}
@@ -352,9 +352,9 @@ With similar process but substitute $w=\theta^2$,
 \end{equation}
 This, together with the previous one, gives
 \begin{equation}
-    t^\ast U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
+    \lambda^\ast U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
 \end{equation}
-Hence, $t\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times P$'s irreducible representation, restricts $t = \pm 1$. With all these results, one now can write the corepresentation of $SU(2)\times P\times TR$ for $\theta\in T$ as
+Hence, $\lambda\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times P$'s irreducible representation, restricts $\lambda = \pm 1$. With all these results, one now can write the corepresentation of $SU(2)\times P\times TR$ for $\theta\in T$ as
 \begin{equation}
     \begin{aligned}
         D_{SU(2)\times P\times TR}^{(j)}(\theta) &= 
@@ -363,12 +363,11 @@ Hence, $t\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times 
             1 & 0
         \end{bmatrix} \\
         &= \begin{bmatrix}
-            0 & t U^{(j)}U^{(j)\ast} \\
+            0 & \lambda U^{(j)}U^{(j)\ast} \\
             1 & 0
         \end{bmatrix}.
     \end{aligned}
 \end{equation}
-
 One can further simplify the representation by changing the basis $\{\theta\ket{j, m, p}\}$ with $U^{(j)}$,
 \begin{equation}
     \begin{aligned}
@@ -379,12 +378,24 @@ One can further simplify the representation by changing the basis $\{\theta\ket{
         \end{bmatrix} \\
         D_{SU(2)\times P\times TR}^{(j)}(\theta) &= 
         \begin{bmatrix}
-            0 & t U^{(j)} \\
+            0 & \lambda U^{(j)} \\
             U^{(j)} & 0
         \end{bmatrix}.
     \end{aligned}
 \end{equation}
 
+From definition of $U^{(j)}$, the representation $D_{SU(2)\times P\times TR}^{(j)}(\theta)$ can either be symmetric or antisymmetric antidiagonal matrix. We can see that
+\begin{equation}
+    \begin{aligned}
+        \left[U^{(j)}\right]_{rq} &= i^{2(r-j)}\delta_{r,2j-q} \\
+        &= i^{2(j-q)}\delta_{q,2j-r} \\
+        &= i^{4(j-q)}\left[U^{(j)}\right]_{qr} \\
+        &= (-1)^{2j}\left[U^{(j)}\right]_{qr}.
+    \end{aligned}
+\end{equation}
+In other words, $D_{SU(2)\times P\times TR}^{(j)}(\theta)$ is symmetric when $(-1)^{2j}\lambda = 1$, and antisymmetric when $(-1)^{2j}\lambda = -1$. 
+
 \subsection{Implementation}
+
 
 \end{document}
