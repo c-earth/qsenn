@@ -34,63 +34,90 @@
 Due to the number of groups, and representations discussed in this work, it is important to define some common definitions and notations that would be used. 
 
 \subsection{Group}
-A group is a set of items together with a binary operator defined on each pair of elements in the group such that, for an arbritary group $G$ and its binary operator $\circ$, the following properites must be true.
+A group is a set of items together with a binary operator defined on each pair of elements in the group such that, for an arbritary group of set $G$ and its binary operator $\circ_G$, the following properites must be true.
 \begin{enumerate}
-    \item For any $a, b\in G$, $a\circ b\in G$.
-    \item For any $a, b, c\in G$, $(a\circ b)\circ c = a\circ(b\circ c)$.
-    \item There is a unique element $e\in G$ such that, for all $g\in G,\, g\circ e=e\circ g=g$.
-    \item For all $g\in G$, there is a unique element $g^{-1}\in G$, such that $g\circ g^{-1}=g^{-1}\circ g=e$.
+    \item For any $a, b\in G$,
+        \begin{equation}\label{eq:group_closed}
+            a\circ_G b\in G.
+        \end{equation}
+    \item For any $a, b, c\in G$, 
+        \begin{equation}\label{eq:group_associative}
+            (a\circ_G b)\circ_G c = a\circ_G(b\circ_G c).
+        \end{equation}
+    \item There is a unique element $e_G\in G$ such that, for any $g\in G$,
+        \begin{equation}\label{eq:group_identity}
+            g\circ_G e_G=e_G\circ_G g=g.
+        \end{equation}
+    \item For any $g\in G$, there is a unique element $g^{-1}\in G$ such that 
+        \begin{equation}\label{eq:group_inverse}
+            g\circ_G g^{-1}=g^{-1}\circ_G g=e.
+        \end{equation}
 \end{enumerate}
-For compactness in the remaining sections, we would drop the explicit placement of the binary operator and assume the proper operation whenever there are two group elements placeing beside each other, e.g.., if $a, b\in G$, $ab\triangleq a\circ b.$
+
+For compactness in the remaining sections, we would drop the explicit placement of the binary operator and assume the group binary operation whenever there are two elements of the same group placeing beside each other, e.g., if $a, b\in G$, $ab\triangleq a\circ_G b$. Furthermore, we would refer to the group by its set when ever the group's binary operator is unambiguous, e.g., a group of set $G$ and its binary operator $\circ_G$ is group $G$.
 
 \subsection{Homomorphism}
-A homomorphism of group $G$ with binary operator $\circ_G$ is a map from $G$ to another group $H$ with binary operator $\circ_H$ such that the image of $G$ preserves the same structure as $G$. In otherwords, for a homomorphism $h:G\rightarrow H$,
+A homomorphism of group $G$ is a map from $G$ to another group $H$ such that the image of $G$ preserves the same structure as $G$. In otherwords, for a homomorphism $h:G\rightarrow H$,
 \begin{equation}\label{eq:homomorphism}
     \forall a, b\in G,\, h(a)h(b) = h(ab),
 \end{equation}
 where the implicit binary operation $ab$ is from $G$, i.e. $a\circ_G b$ while implicit binary operation $h(a)h(b)$ is from $H$, i.e. $h(a)\circ_H h(b)$.
 
 \subsection{Representation}
-A group representation (Rep) of $G$ on vector space $V$ is a group homomorphism from $G$ to general linear group $GL(V)$ which is the group of bijective linear transformation from $V$ to itself. To be more specific, for the vector field $V$ over $\mathbb{F}_V$ with $n_F$ dimensions, $GL(n_V, \mathbb{F}_V)\triangleq GL(V)$ is the set of $n_V\times n_V$ invertible matrices over $\mathbb{F}_V$ with matrix multiplication as the group binary operator. This obviously means that there are multiple Reps depending on the choice of $V$, and each $V$ might has multiple Reps as well. Assuming that we are able to uniquely name each representation, we would use the notation $D_{G}^{(\Gamma)}:G\rightarrow GL$ where $\Gamma$ is the label that fully specify the Rep. 
+A group representation of $G$ on vector space $V$ is a group homomorphism from $G$ to general linear group $GL(V)$ which is the group of bijective linear transformation from $V$ to itself. To be more specific, for the vector space $V$ over field $\mathbb{F}_V$ with $n_V$ dimensions, $GL(n_V, \mathbb{F}_V)\triangleq GL(V)$ is the set of $n_V$ by $n_V$ invertible matrices over $\mathbb{F}_V$ with matrix multiplication as the group binary operator. This obviously means that there can be multiple representations depending on the choice of $V$, and each $V$ might has multiple representations as well. 
 
-Since two representations can be equivalence if every corresponding pair of matrix Reps are equivalence through the same basis transformation, we would decorate $D_{G}^{(\Gamma)}$ to specify the basis of the matrix Rep. Specifically, we reserve ``hat'' decoration, $\hat{D}_{G}^{(\Gamma)}$, for the standard basis choice that would be used in our code implementation.
+Assuming that we are able to uniquely name each representation, we would use the notation $D_{G}^{(\Gamma)}:G\rightarrow GL$ for a representation of group $G$ where $\Gamma$ is the label that fully specify the Rep. Since two representations can be equivalence if every corresponding pair of matrix representing group elements are equivalence through the same basis transformation, we would decorate $D_{G}^{(\Gamma)}$ to specify the basis of the matrix representation used.
 
-\subsection{Irreducible Representation}
-A group irreducible representation (Irrep) of $G$ on vector space $V$ is a Rep such that there is no proper subspace $W\subsetneq V$ such that $W$ is closed under group represented action , i.e.
+\subsection{Reducibility of Representation}
+A group representation of $G$ on vector space $V$ is reducible if their exist an invariant proper subspace $W\subsetneq V$ such that $W$ is closed under group represented action, i.e.
 \begin{equation}\label{eq:invariant subspace}
     \forall g\in G,\,\forall w\in W,\, D_{G}^{(\Gamma)}(g)w\in W.
 \end{equation}
-This condition is equivalently satisfy with Schur's second lemma that, if $\Gamma$ labels an Irrep, then every matrix $M$ that
+This reducibility implies that there exists a choice of basis that block diagonalizes group representation such that one of the blocks is a (reduced) group representation of $G$ on vector space $W$.
+
+\subsection{Irreducible Representation}
+A group irreducible representation of $G$ on vector space $V$ is a group representation that is not reducible, i.e. cannot be block diagonalized. This condition is equivalent with Schur's second lemma that, if $\Gamma$ labels an irreducible representation, then every matrix $M$ that satisfies,
 \begin{equation}\label{eq:Schur's 2nd lemma}
     \forall g\in G,\,D_{G}^{(\Gamma)}(g)M=MD_{G}^{(\Gamma)}(g)
 \end{equation}
 must be a multiple of identity matrix ($\lambda I$) with $\lambda\in \mathbb{F}_V$.
 
 \subsection{Groups' Direct Product}
+A group direct product is a composition of two groups to form a new larger group. Consider groups $G$ and $H$, their direct product is defined as a group of Cartesian product set
+\begin{equation}\label{eq:Cartesian product}
+    G\times H = \{(g, h)|\forall g\in G,\, \forall h\in H\},
+\end{equation}
+and its binary operator defined as, $\forall (g_1, h_1), (g_2, h_2)\in G\times H$,
+\begin{equation}\label{eq:direct product binary operator}
+    (g_1, h_1)(g_2, h_2) = (g_1g_2, h_1h_2).
+\end{equation}
+Here, we also utilize the implicit binary operation notations.
 
-
-\section{$SU(2)$}
+\section{$SU(2)$ group}
 
 \subsection{Definition}
-$SU(2)$ is the special unitary group of dimension 2, i.e. the group of 2 by 2 unitary matrices with unit determinant. In other words,
-\begin{equation}
+$SU(2)$, i.e. special unitary group of dimension 2, is the group of 2 by 2 unitary matrices with unit determinant with matrix multiplication as its binary operator. In other words,
+\begin{equation}\label{eq:SU2}
     SU(2) = \{u \in GL(2, \mathbb{C})|u^\dagger=u^{-1}, \det(u) = 1\},
 \end{equation}    
-where $GL(2,\mathbb{C})$ is the group of 2 by 2 invertible matrices with complex field, and $u^\dagger$ is the complex conjugate transposition of $u$. Since for any $u, v \in SU(2)$
-\begin{equation}
+where $u^\dagger$ is the complex conjugate transposition of $u$, and $\det(\cdot)$ is matrix determinant operation. Since, for any $u, v \in SU(2)$,
+\begin{equation}\label{eq:determinant identity}
     \det(uv) = \det(u)\det(v) = 1,
 \end{equation}
 and
-\begin{equation}
+\begin{equation}\label{eq:unitary closed}
     (uv)^\dagger = (uv)^{\top\ast} = (v^\top u^\top)^\ast = v^\dagger u^\dagger = v^{-1}u^{-1} = (uv)^{-1},
 \end{equation}
-$SU(2)$ is closed subgroup of $GL(2, \mathbb{C})$ which makes it a Lie group. This means that there is a corresponding Lie algebra, $\mathfrak{su(2)}$, such that 
-\begin{equation}
-    SU(2) = \{e^g|g \in \mathfrak{su(2)}\}.
+$SU(2)$ is a closed subgroup of $GL(2, \mathbb{C})$ which makes it a Lie group. This means that there is a corresponding Lie algebra, $\mathfrak{su(2)}$, such that 
+\begin{equation}\label{eq:SU2 Lie group}
+    SU(2) = \{e^g|g \in \mathfrak{su(2)}\}
 \end{equation}
-
-From definition of matrix exponential,
-\begin{equation}
+where the exponential of a square matrix $g$ is defined as
+\begin{equation}\label{eq:matrix exponential}
+    e^g = I + \sum_{k=1}^{\infty}\dfrac{g^k}{k!}.
+\end{equation}
+Here, $I$ representes identity matrix with the same shape as $g$. From definition of matrix exponential,
+\begin{equation}\label{eq:matrix exponential properties}
     \begin{aligned}
         (e^g)^\dagger &= e^{g^\dagger}, \\
         (e^g)^{-1} &= e^{-g}, \\
@@ -98,90 +125,108 @@ From definition of matrix exponential,
     \end{aligned}
 \end{equation}
 one can define the Lie algebra of $SU(2)$ as
-\begin{equation}
+\begin{equation}\label{eq:su2}
     \mathfrak{su(2)} = \{g \in M(2, \mathbb{C})|g^\dagger=-g, \Tr(g) = 0\},
 \end{equation}
-where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field, and $\Tr(g)$ is the trace of matrix $g$. Hence, each member $g$ of $\mathfrak{su(2)}$ can be written in the From
-\begin{equation}
-    g = \begin{bmatrix}
-            iv_z & v_y+iv_x \\
-            -v_y+iv_x & -iv_z
-        \end{bmatrix}
+where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field with matrix multiplication as its binary operator, and $\Tr(\cdot)$ is matrix trace operation. Hence, each member of $\mathfrak{su(2)}$ can be written in the form
+\begin{equation}\label{eq:su2 polar angle form}
+    \begin{bmatrix}
+        iv_z & v_y+iv_x \\
+        -v_y+iv_x & -iv_z
+    \end{bmatrix}
       = iv_x\sigma_x + iv_y\sigma_y + iv_z\sigma_z = i\vec{v}\cdot\vec{\sigma}
 \end{equation}
-where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices.
-
-\subsection{$\mathfrak{su(2)}$'s Irreducible Representation}
-From $\mathfrak{su(2)}$, one can consider Pauli matrices as the group generators, but it is more common to use $J^{(1/2)}_i = \sigma_i/2$ as the generators. This gives the Lie bracket relation as
-\begin{equation} \label{eq:su2_bracket}
-    \left[J^{(1/2)}_i, J^{(1/2)}_j\right] = i\epsilon_{ijk}J^{(1/2)}_k.
+where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices defined as
+\begin{equation}\label{eq:Pauli's matrices}
+    \sigma_x = \begin{bmatrix}
+                    0 & 1 \\
+                    1 & 0
+                \end{bmatrix},
+    \sigma_y = \begin{bmatrix}
+                    0 & -i \\
+                    i & 0
+                \end{bmatrix},
+    \sigma_z = \begin{bmatrix}
+                    1 & 0 \\
+                    0 & -1
+                \end{bmatrix}.
 \end{equation}
-The next step is to consider an arbritary representation of $SU(2)$ such that its generators, $J_i$'s, obey (\ref{eq:su2_bracket}). With out loss of generality, consider the representation vector space with eigenvectors of $J_z$, $\{\ket{\lambda_{J_z}}\}$, as the basis,
-\begin{equation}
+
+\subsection{Generators}
+From $\mathfrak{su(2)}$'s definition in the previous section, one can consider using Pauli matrices as the group generators for $SU(2)$ according to equation \ref{eq:su2 polar angle form}, but it is more common to use $J^{(1/2)}_i \triangleq \sigma_i/2$ as the generators where $i\in \{x, y, z\}$. This gives the Lie bracket relation as
+\begin{equation} \label{eq:su2 bracket}
+    \left[J^{(1/2)}_i, J^{(1/2)}_j\right] \triangleq J^{(1/2)}_iJ^{(1/2)}_j-J^{(1/2)}_jJ^{(1/2)}_i = i\epsilon_{ijk}J^{(1/2)}_k
+\end{equation}
+where $\epsilon_{ijk}$ is equal to 1 if $(i, j, k)$ is an even permutation of $(x, y, z)$, $-1$ if odd permutation, and 0 otherwise.
+
+The next step is to consider an arbritary representation of $SU(2)$ such that its generators, represented by $J_i$'s, obey equation \ref{eq:su2 bracket}. With out loss of generality, consider the representation vector space with eigenvectors of $J_z$, $\{\ket{\lambda_{J_z}}\}$, as the basis,
+\begin{equation}\label{eq:Jz eigenvalue equation}
     J_z\ket{\lambda_{J_z}}=\lambda_{J_z}\ket{\lambda_{J_z}}.
 \end{equation}
 Furthermore, we will also consider only the representation that is irreducible. With the standard method, first define two additional operators
-\begin{equation}
+\begin{equation}\label{eq:ladder operators}
     \begin{aligned}
         J_+ &= J_x + iJ_y, \\
-        j_- &= J_x - iJ_y.
+        J_- &= J_x - iJ_y.
     \end{aligned}
 \end{equation}
 From Lie bracket, and the choice of basis used,
-\begin{equation}
+\begin{equation}\label{eq:ladder equation}
     \begin{aligned}
-        J_zJ_+\ket{\lambda_{J_z}} &= J_+(J_Z+1)\ket{\lambda_{J_z}} = (\lambda_{J_z}+1)J_+\ket{\lambda_{J_z}}, \\
-        J_zJ_-\ket{\lambda_{J_z}} &= J_-(J_Z-1)\ket{\lambda_{J_z}} = (\lambda_{J_z}-1)J_-\ket{\lambda_{J_z}}.
+        J_zJ_+\ket{\lambda_{J_z}} &= J_+(J_z+1)\ket{\lambda_{J_z}} = (\lambda_{J_z}+1)J_+\ket{\lambda_{J_z}}, \\
+        J_zJ_-\ket{\lambda_{J_z}} &= J_-(J_z-1)\ket{\lambda_{J_z}} = (\lambda_{J_z}-1)J_-\ket{\lambda_{J_z}}.
     \end{aligned}
 \end{equation}
 This directly implies
-\begin{equation} \label{eq:ladder_propto}
+\begin{equation}\label{eq:ladder_propto}
     \begin{aligned}
         J_+\ket{\lambda_{J_z}} &\propto \ket{\lambda_{J_z}+1}, \\
         J_-\ket{\lambda_{J_z}} &\propto \ket{\lambda_{J_z}-1}.
     \end{aligned}
 \end{equation}
-Before proceeding, we need to clarify an assumption we made to get (\ref{eq:ladder_propto}) that there is no degeneracy of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducuble. To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$. From the properties of $J_i$'s, we can choose the representation such that (\ref{eq:ladder_propto}) is true. This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation. Hence, the representation is reducible which contradict the assumption.
+
+Before proceeding, we need to clarify an assumption we made to get equation \ref{eq:ladder_propto} that there is no degeneracy of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducible. To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$. From the properties of $J_i$'s, we can choose the representation such that equation \ref{eq:ladder_propto} is true. Since the representation of each $SU(2)$ member can be expressed in terms of the generators (equation \ref{eq:SU2 Lie group} and \ref{eq:matrix exponential}), if a subspace is invariant under the generators, it is also invariant under the $SU(2)$ representation. This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation. Hence, the representation is reducible which contradict the assumption.
 
 To get the proportionality, consider another operators
-\begin{equation}
-    J^2 = J_x^2 + J_y^2+J_z^2.
+\begin{equation}\label{eq:J^2}
+    J^2 \triangleq J_x^2 + J_y^2+J_z^2.
 \end{equation}
-One can directly chack that the new operator commutes with all $J_i$'s mentioned so far. Furthermore, it is straight forward that
-\begin{equation}
+One can directly chack that the new operator commutes with all $J$'s mentioned so far. Furthermore, it is straight forward that
+\begin{equation}\label{eq:J^2 identity}
     \begin{aligned}
         J^2 &= J_+J_- + J_z^2 - J_z \\
-        &= J_-J_+ + J_z^2 + J_z
+        &= J_-J_+ + J_z^2 + J_z.
     \end{aligned}
 \end{equation}
-Since $J^2$ commutes with $J_z$, the basis used are also eigenbasis of $J^2$ with eigenvalue $\lambda_{J^2}$. Hence, we can directly relabel the eigenbasis from $\ket{\lambda_{J_z}}$ to $\ket{\lambda_{J^2}, \lambda_{J_z}}$, and get
-\begin{equation}
+Since $J^2$ commutes with $J_z$, the basis used are also eigenbasis of $J^2$ with some eigenvalue $\lambda_{J^2}$. Hence, we can directly relabel the eigenbasis from $\ket{\lambda_{J_z}}$ to $\ket{\lambda_{J^2}, \lambda_{J_z}}$, and get
+\begin{equation}\label{eq:ladder norm square}
     \begin{aligned}
         \mel{\lambda_{J^2}, \lambda_{J_z}}{J_+J_-}{\lambda_{J^2}, \lambda_{J_z}} &= \lambda_{J^2} - \lambda_{J_z}(\lambda_{J_z} - 1), \\
         \mel{\lambda_{J^2}, \lambda_{J_z}}{J_-J_+}{\lambda_{J^2}, \lambda_{J_z}} &= \lambda_{J^2} - \lambda_{J_z}(\lambda_{J_z} + 1).
     \end{aligned}
 \end{equation}
 Since the norm square of any vector in vector space must be non-negative, this requires
-\begin{equation}
+\begin{equation}\label{eq:eigenvalues' condition}
     \lambda_{J^2} \geq \abs{\lambda_{J_z}}(\abs{\lambda_{J_z}}+1) \geq 0.
 \end{equation}
 However, the $J_\pm$ makes $\lambda_{J_z}$ unbounded unless the vector vanished at some points, i.e. the equality must hold for the upper, and lower bounds of the possible $\lambda_z$'s. If we replace $\lambda_{J^2}$ with $j(j+1)$ where $j$ non-negative. The requirement makes $\lambda_{J_z, \max} = j$, and $\lambda_{J_z, \min} = -j$. Since any pair of $\lambda_{J_z}$'s are different by an integer, 
-\begin{equation}
+\begin{equation}\label{eq:eigenvalues' requirement}
     \lambda_{J_z, \max} - \lambda_{J_z, \min} = 2j \in \mathbb{Z}_0^+.
 \end{equation}
 Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ to $\ket{j, m}$ and choose the proportionality such that
-\begin{equation} \label{eq:ladder}
+\begin{equation} \label{eq:J ladder}
     \begin{aligned}
         J_+\ket{j, m} &= \sqrt{j(j+1) - m(m + 1)}\ket{j, m+1}, \\
         J_-\ket{j, m} &= \sqrt{j(j+1) - m(m - 1)}\ket{j, m-1},
     \end{aligned}
 \end{equation}
-where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. With similar method to the proof for $J_z$, one can directly prove by contradiction that each irreducible representation must have its unique $j$, i.e., the irreducible representation can be indexed by $j$. Furthermore, since we have not make any other assumption, $j$ completely identify every irreducible representation of $\mathfrak{su(2)}$, and all irreducible representation with the same $j$ are isomorphic.
+where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. Next, we must prove that each $j$ fully identifies an irreducible representation. Assuming that this is not the case by letting there be basis vector $\ket{j', m'}$ in the vector space of this irreducible representation that is not linearly dependent on the eigenbasis $\{\ket{j,m}\}$, equation \ref{eq:J ladder} makes the vector space that exclude $\ket{j', m'}$ invariant proper subspace (with reasoning similar to when we prove non-degeneracy of $\lambda_{J_z}$). Hence, this implies the reducibility of the representation which contradicts the assumption. 
 
-\subsection{$SU(2)$'s Irreducible Representation}
-Consider a representation of $SU(2)$ that is an exponential of $\mathfrak{su(2)}$'s irreducible representations. Let assume that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements. This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. Since corresponding representation of $SU(2)$, and $\mathfrak{su(2)}$ are homomorphic, it entails that there is a subspace of $\mathfrak{su(2)}$'s representation that is invariant to $\mathfrak{su(2)}$, i.e. this specific representation of $\mathfrak{su(2)}$ is reducible, which contradicts the assumption. Therefore, we can directly promote the irreducible representations of $\mathfrak{su(2)}$ to the one for $SU(2)$ by means of matrix exponential along with the same vector space.
+\subsection{Irreducible Representation}
+In previous section, we have proved that every irreducible representation has its unique $j$ (no irreducible representation requires basis with more than one $j$.)Furthermore, since we have not made any other assumption, $j$ also completely identify every irreducible representation of $SU(2)$ (every irreducible representation must be a reduced representation of a representation generated by generators with basis identify by a $j \in \{0, 1/2, 1, 3/2, ...\}$.) In other words, each and every irreducible representation is identify by a $j$, but it does not rule out the possibility that the representation constructed in the previous section is irreducible.
 
-\subsection{Implementation}
+Consider a representation of $SU(2)$ that is generated from  $J^{(j)}_i$ where the superscript indicate that the representation is identified by $j$. Let assume that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements. This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. 
+
 In order to implement the representation the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. Hence,
 \begin{equation}
     \begin{aligned}
