@@ -132,13 +132,19 @@ because the structure of groups' direct product (equation \ref{eq:direct product
 
 Note that the representation of direct product defined in equation \ref{eq:direct product representation} guarantees irreducible representation from product of two irreducible representation, and complete identification of all irreducible representations of the groups' direct product as long as the groups are either finite, or compact.  
 
-\subsection{}
+\subsection{Free Product}
+A group direct product is another composition of two groups to form a new larger group. Consider groups $G$ and $H$, their free product is defined as a group generated from $G\cup H$
+\begin{equation}\label{eq:Free product}
+    G\ast H = \{gh|\forall g\in G,\, \forall h\in H\},
+\end{equation}
 
 \subsection{Direct Product of two Commuting Groups}
-
+Consider a construction of a group that incoperate elements from two different groups $G$, and $H$. 
 
 \newpage
 \section{$SU(2)$ Group}
+
+\subsection{$SU(2)$'s Physical Properites}
 
 \subsection{$SU(2)$'s Definition}
 $SU(2)$, i.e. special unitary group of dimension 2, is the group of 2 by 2 unitary matrices with unit determinant with matrix multiplication as its binary operator. In other words,
@@ -352,10 +358,13 @@ where the superscripts indicate that the representation is labeled by $p\in \{-1
 \subsection{$SU(2)\times P$'s Irreducible Representations}
 
 \newpage
-\section{$T$}
+\section{$T$ (Time-Reversal) Group}
 
-\subsection{Definition}
-$TR$ is the group of time reversal consisting of $E$ (identity), and $\theta$ (time reverse) as generators. However, this group is not isomorphic with $P$ since the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. This makes the effect of $\theta$ on wavefunction of spinless system be a complex conjugation which means that the group is anti-unitary.
+\subsection{$T$'s Definition}
+$T$ is the group of temporal inversion, i.e. the group consisting of its unique identity $e_T$, and the time-reverse operator $\theta$ (which may or may not be its own inverse) that inverts direction of time. However, even with some similarities, this group is not isomorphic with $P$, and the reason is that the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. To see this, first consider the Schr\"odinger's equation describing an arbritary system,
+\begin{equation}\label{eq:Schrodinger}
+    i\hbar\dfrac{\partial}{\partial t}\ket{\psi(t)} = \hat{H}\ket{\psi(t)}
+\end{equation}
 
 \subsection{$TR$'s Irreducible Representation}
 In corporateing anti-unitary group $TR$ with $SU(2)\times P$ cannot be done in the same fashion as combinding $P$ with $SU(2)$ since the anti-unitary nature makes it impossible to write down common eigenbasis even if $\theta$ commutes with every element in $SU(2)\times P$.
