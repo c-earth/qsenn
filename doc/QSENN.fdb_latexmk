@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex QSENN"] 1686580474 "QSENN.aux" "QSENN.bbl" "QSENN" 1686580475 0
-  "./QSENNNotes.bib" 1686580475 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
+["bibtex QSENN"] 1686714601 "QSENN.aux" "QSENN.bbl" "QSENN" 1686714646 0
+  "./QSENNNotes.bib" 1686714645 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/bibtex/bst/revtex/apsrev4-2.bst" 1601735216 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "QSENN.aux" 1686580475 3481 fdea8e779e5f757551bd1499eaaa122a "pdflatex"
+  "QSENN.aux" 1686714645 4802 56c26306ce29ec0b25efc6a939bf8058 "pdflatex"
   (generated)
   "QSENN.bbl"
   "QSENN.blg"
   (rewritten before read)
-["pdflatex"] 1686580474 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1686580475 0
+["pdflatex"] 1686714644 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1686714646 0
   "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1684887328 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/earthz/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1668380161 10788483 8fb70ca59706b7c03e683577e7f4870f ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
@@ -72,10 +72,10 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/revtex4-2.cls" 1601735216 202588 252d8ad05b878c573f3e2adfc38ce076 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/textcase/textcase.sty" 1657800947 2405 93dca770d0598d835703b5d004a641b7 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "QSENN.aux" 1686580475 3481 fdea8e779e5f757551bd1499eaaa122a "pdflatex"
-  "QSENN.bbl" 1686580474 2035 35453d3875d823f0ec9445e740a573d9 "bibtex QSENN"
-  "QSENN.tex" 1686580471 27437 4df44ee25acd2d794715dcaf49a4a366 ""
-  "d:/python_project/su2nn/doc/QSENN.tex" 1686580471 27437 4df44ee25acd2d794715dcaf49a4a366 ""
+  "QSENN.aux" 1686714645 4802 56c26306ce29ec0b25efc6a939bf8058 "pdflatex"
+  "QSENN.bbl" 1686714601 2035 35453d3875d823f0ec9445e740a573d9 "bibtex QSENN"
+  "QSENN.tex" 1686714644 35334 91a94a83fc8ed333915f2fcc91347925 ""
+  "d:/python_project/su2nn/doc/QSENN.tex" 1686714644 35334 91a94a83fc8ed333915f2fcc91347925 ""
   (generated)
   "QSENN.aux"
   "QSENN.log"

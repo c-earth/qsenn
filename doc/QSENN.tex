@@ -30,6 +30,7 @@
 
 \section{Symmetries in Quantum Spin Systems}
 
+\newpage
 \section{Notations}
 Due to the number of groups, and representations discussed in this work, it is important to define some common definitions and notations that would be used. 
 
@@ -68,19 +69,49 @@ A group representation of $G$ on vector space $V$ is a group homomorphism from $
 
 Assuming that we are able to uniquely name each representation, we would use the notation $D_{G}^{(\Gamma)}:G\rightarrow GL$ for a representation of group $G$ where $\Gamma$ is the label that fully specify the Rep. Since two representations can be equivalence if every corresponding pair of matrix representing group elements are equivalence through the same basis transformation, we would decorate $D_{G}^{(\Gamma)}$ to specify the basis of the matrix representation used.
 
-\subsection{Reducibility of Representation}
+\subsection{Reducibility of Representation and Irreducible Representation}
 A group representation of $G$ on vector space $V$ is reducible if their exist an invariant proper subspace $W\subsetneq V$ such that $W$ is closed under group represented action, i.e.
 \begin{equation}\label{eq:invariant subspace}
     \forall g\in G,\,\forall w\in W,\, D_{G}^{(\Gamma)}(g)w\in W.
 \end{equation}
 This reducibility implies that there exists a choice of basis that block diagonalizes group representation such that one of the blocks is a (reduced) group representation of $G$ on vector space $W$.
 
-\subsection{Irreducible Representation}
-A group irreducible representation of $G$ on vector space $V$ is a group representation that is not reducible, i.e. cannot be block diagonalized. This condition is equivalent with Schur's second lemma that, if $\Gamma$ labels an irreducible representation, then every matrix $M$ that satisfies,
-\begin{equation}\label{eq:Schur's 2nd lemma}
-    \forall g\in G,\,D_{G}^{(\Gamma)}(g)M=MD_{G}^{(\Gamma)}(g)
+A group irreducible representation of $G$ on vector space $V$ is a group representation that is not reducible, i.e. cannot be block diagonalized.
+
+\subsection{Tensor Product}
+Tensor product is an operation to combine vector spaces. It is generally denoted by a bilinear map $U\times V\rightarrow U\otimes V$ such that for any basis vector $\hat{e}_U\in U$, and basis vector $\hat{e}_V\in V$ their tensor product gives a basis vector $\hat{e}_U\otimes \hat{e}_V$. This means that, for any vector $u\in U$, and $v\in V$,
+\begin{equation}\label{eq:vector tensor product}
+    u\otimes v = \left(\sum_{a}u_a\hat{e}_U^a\right)\otimes\left(\sum_{b}v_b\hat{e}_V^b\right) = \sum_{a,b}u_av_b\hat{e}_U^a\otimes\hat{e}_V^b.
 \end{equation}
-must be a multiple of identity matrix ($\lambda I$) with $\lambda\in \mathbb{F}_V$.
+From this, one can extend the concept to linear maps of tensor product space. Consider two linear maps $S:U\rightarrow U$, and $T:V\rightarrow V$, the tensor product of these two maps is defined as $S\otimes T:U\otimes V\rightarrow U\otimes V$ such that, for any $u\otimes v\in U\otimes V$,
+\begin{equation}\label{eq:linear map tensor product}
+    (S\otimes T)(u\otimes v) = S(u)\otimes T(v).
+\end{equation}
+From equation \ref{eq:linear map tensor product}, we can also directly impliy that, if there are $Q:U\rightarrow U$, and $R:V\rightarrow V$,
+\begin{equation}\label{eq:compose linear map tensor product}
+    (Q\otimes R)(S\otimes T) = QS\otimes RT
+\end{equation}
+
+\subsection{Kronecker Product}
+Kronecker product is a specialization of tensor product for matrices. Given matrices $M$, and $N$, their Kronecker product is defined as
+\begin{equation}\label{eq:Kronecker product}
+    \left[M\otimes_KN\right]_{ac,bd} \triangleq \left[M\right]_{a,b}\cdot\left[N\right]_{c,d}.
+\end{equation}
+Here, the subscripts of the $M\otimes_KN$, i.e. $ac$, and $bd$, are two-digit indices not multiplication. In other words, the resulting product has dimensions of the product of the corresponding dimensions of the compounding matrices, i.e. if $M$ is a $h_M$ by $w_M$ matrix, and $N$ is a $h_N$ by $w_N$ matrix, then $M\otimes_KN$ is a $h_M\cdot h_N$ by $w_M\cdot w_N$ matrix.
+
+Since we would mostly utilize matrix in the form of general linear representation, consider $M\in GL(U)$, and $N\in GL(V)$ with dimensions $n_U$, and $n_V$ respoectively. Because both of them have inverses, we can define
+\begin{equation}\label{eq:inverse Kronecker product}
+    \left[(M\otimes_KN)^{-1}\right]_{ac,bd} \triangleq \left[M^{-1}\otimes_KN^{-1}\right]_{ac,bd} = \left[M^{-1}\right]_{a,b}\cdot\left[N^{-1}\right]_{c,d}.
+\end{equation}
+Then,
+\begin{equation}\label{eq:Kronecker product GL identity}
+    \begin{aligned}
+        \left[(M\otimes_KN)(M^{-1}\otimes_KN^{-1})\right]_{ac,ef} &= \sum_{b,d}\left[M\right]_{a,b}\cdot\left[N\right]_{c,d}\cdot\left[M^{-1}\right]_{b,e}\cdot\left[N^{-1}\right]_{d,f} \\
+        \left[MM^{-1}\otimes_KNN^{-1}\right]_{ac,ef} &= \left(\sum_{b}\left[M\right]_{a,b}\cdot\left[M^{-1}\right]_{b,e}\right)\left(\sum_{d}\left[N\right]_{c,d}\cdot\left[N^{-1}\right]_{d,f}\right) \\
+        \left[I_U\otimes_KI_V\right]_{ac,ef} &= \left[MM^{-1}\right]_{a,e}\cdot\left[NN^{-1}\right]_{c,f} = \left[I_U\right]_{a,e}\cdot\left[I_V\right]_{c,f}
+    \end{aligned}
+\end{equation}
+where $I_U$, and $I_V$ are identity matrices of $U$, and $V$ respectively. This results imply that Kronecker product between invertible matrices of $n_U$, and $n_V$ dimensions is an invertible matrix of $n_U\cdot n_V$ dimensions with matrices and its inverses definded by equation \ref{eq:Kronecker product}, and \ref{eq:inverse Kronecker product}, identity defined by the end of equation \ref{eq:Kronecker product GL identity}, and binary operator defined by equation \ref{eq:compose linear map tensor product}. In other words, Kronecker product between general linear groups of two vector spaces $U$, and $V$ is homomorphic to general linear group of $U\otimes V$.
 
 \subsection{Groups' Direct Product}
 A group direct product is a composition of two groups to form a new larger group. Consider groups $G$ and $H$, their direct product is defined as a group of Cartesian product set
@@ -93,9 +124,20 @@ and its binary operator defined as, $\forall (g_1, h_1), (g_2, h_2)\in G\times H
 \end{equation}
 Here, we also utilize the implicit binary operation notations.
 
-\section{$SU(2)$ group}
+Consider a pair of representations $D^{(\Gamma_G)}_G$, and $D^{(\Gamma_H)}_H$ of $G$, and $H$ respectively. One can define a representation of $G\times H$ with
+\begin{equation}\label{eq:direct product representation}
+    D^{(\Gamma_G,\Gamma_H)}_{G\times H} = D^{(\Gamma_G)}_G\otimes_K D^{(\Gamma_H)}_H
+\end{equation}
+because the structure of groups' direct product (equation \ref{eq:direct product binary operator}) is the same as general linear groups' tensor product (equation \ref{eq:compose linear map tensor product}).
 
-\subsection{Definition}
+Note that the representation of direct product defined in equation \ref{eq:direct product representation} does not guarantee irreducible representation from product of two irreducible representation, nor complete identification of all irreducible representations of the groups' direct product.
+
+\subsection{Direct Product of Commuting Groups}
+
+\newpage
+\section{$SU(2)$ Group}
+
+\subsection{$SU(2)$'s Definition}
 $SU(2)$, i.e. special unitary group of dimension 2, is the group of 2 by 2 unitary matrices with unit determinant with matrix multiplication as its binary operator. In other words,
 \begin{equation}\label{eq:SU2}
     SU(2) = \{u \in GL(2, \mathbb{C})|u^\dagger=u^{-1}, \det(u) = 1\},
@@ -136,7 +178,7 @@ where $M(2,\mathbb{C})$ is the group of 2 by 2 matrices with complex field with 
     \end{bmatrix}
       = iv_x\sigma_x + iv_y\sigma_y + iv_z\sigma_z = i\vec{v}\cdot\vec{\sigma}
 \end{equation}
-where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices defined as
+where $\vec{v} \in \mathbb{R}^3$, $\vec{\sigma}=\sigma_x\hat{x}+\sigma_y\hat{y}+\sigma_z\hat{z}$, and $\sigma_i$'s are Pauli matrices defined as
 \begin{equation}\label{eq:Pauli's matrices}
     \sigma_x = \begin{bmatrix}
                     0 & 1 \\
@@ -152,8 +194,20 @@ where $\vec{v} \in \mathbb{R}^3$, and $\sigma_i$'s are Pauli matrices defined as
                 \end{bmatrix}.
 \end{equation}
 
-\subsection{Generators}
-From $\mathfrak{su(2)}$'s definition in the previous section, one can consider using Pauli matrices as the group generators for $SU(2)$ according to equation \ref{eq:su2 polar angle form}, but it is more common to use $J^{(1/2)}_i \triangleq \sigma_i/2$ as the generators where $i\in \{x, y, z\}$. This gives the Lie bracket relation as
+\subsection{$SU(2)$'s Generators}
+From $\mathfrak{su(2)}$'s definition in the previous section, one can consider using Pauli matrices as the group generators for $SU(2)$ according to equation \ref{eq:su2 polar angle form}, but it is more common to use $J^{(1/2)}_i \triangleq \sigma_i/2$ as the generators where $i\in \{x, y, z\}$, and $\vec{\phi}\triangleq-2\vec{v}\in\mathbb{R}^3$ as group parameterization. In other words, we can redefine $SU(2)$ as
+\begin{equation}\label{eq:SU2 parameterization}
+    SU(2) = \{u_{\vec{\phi}}|u_{\vec{\phi}}=e^{-i\vec{J}^{(1/2)}\cdot\vec{\phi}},\, \vec{\phi}\in\mathbb{R}^3\},
+\end{equation}
+with $\vec{J}^{(1/2)}=J_x^{(1/2)}\hat{x}+J_y^{(1/2)}\hat{y}+J_z^{(1/2)}\hat{z}$. This parameterization of $SU(2)$ group directly implies that
+\begin{equation}\label{eq:SU2 parameterization elements}
+    \begin{aligned}
+        e_{SU(2)} &= u_{\vec{0}}, \\
+        u_{\vec{\phi}}^{-1} &= u_{-\vec{\phi}}.
+    \end{aligned}
+\end{equation}
+
+With this choice of generators, it gives the Lie bracket (commutation) relation
 \begin{equation} \label{eq:su2 bracket}
     \left[J^{(1/2)}_i, J^{(1/2)}_j\right] \triangleq J^{(1/2)}_iJ^{(1/2)}_j-J^{(1/2)}_jJ^{(1/2)}_i = i\epsilon_{ijk}J^{(1/2)}_k
 \end{equation}
@@ -163,7 +217,7 @@ The next step is to consider an arbritary representation of $SU(2)$ such that it
 \begin{equation}\label{eq:Jz eigenvalue equation}
     J_z\ket{\lambda_{J_z}}=\lambda_{J_z}\ket{\lambda_{J_z}}.
 \end{equation}
-Furthermore, we will also consider only the representation that is irreducible. With the standard method, first define two additional operators
+Furthermore, we will also assume that this representation is irreducible (proof of this assumption will be in the following section.) With the standard method, first define two additional operators
 \begin{equation}\label{eq:ladder operators}
     \begin{aligned}
         J_+ &= J_x + iJ_y, \\
@@ -185,7 +239,7 @@ This directly implies
     \end{aligned}
 \end{equation}
 
-Before proceeding, we need to clarify an assumption we made to get equation \ref{eq:ladder_propto} that there is no degeneracy of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducible. To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$. From the properties of $J_i$'s, we can choose the representation such that equation \ref{eq:ladder_propto} is true. Since the representation of each $SU(2)$ member can be expressed in terms of the generators (equation \ref{eq:SU2 Lie group} and \ref{eq:matrix exponential}), if a subspace is invariant under the generators, it is also invariant under the $SU(2)$ representation. This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation. Hence, the representation is reducible which contradict the assumption.
+Before proceeding, we need to clarify an assumption we made to get equation \ref{eq:ladder_propto} that there is no degeneracy of $\lambda_{J_z}$ in the basis. This result is directly entailed from the assumption that the representation is irreducible. To prove this, first assume that there exist $\ket{\lambda_{J_z}}'$ that has the same eigenvalue as $\ket{\lambda_{J_z}}$. From the properties of $J_i$'s, we can choose the representation such that equation \ref{eq:ladder_propto} is true, i.e. the operators never create primed vector from unprimed vector. Since the representation of each $SU(2)$ member can be expressed in terms of the generators (equation \ref{eq:SU2 Lie group} and \ref{eq:matrix exponential}), if a subspace is invariant under the generators, it is also invariant under the $SU(2)$ representation. This means that the proper subspace that exclude $\ket{\lambda_{J_z}}'$ is invariant for this choice of representation. Hence, the representation is reducible which contradict the assumption.
 
 To get the proportionality, consider another operators
 \begin{equation}\label{eq:J^2}
@@ -222,62 +276,79 @@ Hence, we can relabel the eigenbasis from $\ket{\lambda_{J^2}, \lambda_{J_z}}$ t
 \end{equation}
 where $j \in \{0, 1/2, 1, 3/2, ...\}$, and $m \in \{-j, -j+1, ..., j-1, j\}$. Next, we must prove that each $j$ fully identifies an irreducible representation. Assuming that this is not the case by letting there be basis vector $\ket{j', m'}$ in the vector space of this irreducible representation that is not linearly dependent on the eigenbasis $\{\ket{j,m}\}$, equation \ref{eq:J ladder} makes the vector space that exclude $\ket{j', m'}$ invariant proper subspace (with reasoning similar to when we prove non-degeneracy of $\lambda_{J_z}$). Hence, this implies the reducibility of the representation which contradicts the assumption. 
 
-\subsection{Irreducible Representation}
-In previous section, we have proved that every irreducible representation has its unique $j$ (no irreducible representation requires basis with more than one $j$.)Furthermore, since we have not made any other assumption, $j$ also completely identify every irreducible representation of $SU(2)$ (every irreducible representation must be a reduced representation of a representation generated by generators with basis identify by a $j \in \{0, 1/2, 1, 3/2, ...\}$.) In other words, each and every irreducible representation is identify by a $j$, but it does not rule out the possibility that the representation constructed in the previous section is irreducible.
+\subsection{$SU(2)$'s Irreducible Representations}
+In previous section, we have proved that every irreducible representation of $SU(2)$ has its unique $j$ (no irreducible representation requires basis of more than one $j$.) Furthermore, since we have not made any other assumption, $j$ also completely identify every irreducible representation of $SU(2)$ (representations identified by $j$'s exhaust all possible irreducible representations.) In other words, each and every irreducible representation can be uniquely labeled by $j \in \{0, 1/2, 1, 3/2, ...\}$.
 
-Consider a representation of $SU(2)$ that is generated from  $J^{(j)}_i$ where the superscript indicate that the representation is identified by $j$. Let assume that such representation is reducible. By definition, this means that there is a subspace invariant by any $SU(2)$'s elements. This further implies that it is also invariant by any $\mathfrak{su(2)}$'s. 
+Last thing we need to do for that completion of $SU(2)$'s irreducible representation is that the representations labeled by $j$'s (previously assumed to be irreducible) is actually irreducible. Consider a representation of $SU(2)$ that is generated by generators  $J^{(j)}_x$, $J^{(j)}_y$, and $J^{(j)}_z$ where the superscripts indicate that the representation is labeled by $j$. Assuming that this representation is reducible, there must be a unitary basis transformation that nontrivial block diagonalize all elements of $SU(2)$ in this representation. From equation \ref{eq:matrix exponential} and \ref{eq:SU2 parameterization}, the representation labeled by $j$ has, for $\vec{\phi}\in\mathbb{R}^3$,
+\begin{equation}\label{eq:SU2 element parameterization}
+    u_{\vec{\phi}} = e^{-i\vec{J}^{(j)}\cdot\vec{\phi}} = I+\sum_{k=1}^{\infty}(-i\vec{J}^{(j)}\cdot\vec{\phi})^k,
+\end{equation}
+as its parameterized matrix representation. Since $\vec{\phi}$ is arbritary, the block diagonalization must holds for every term on the right hand side of equation \ref{eq:SU2 element parameterization}. This implies simultaneous block diagonalization of $J^{(j)}_x$, $J^{(j)}_y$, and $J^{(j)}_z$. In other words, there is an invariant proper subspace, say $W$, that closed under $J^{(j)}_+$, and $J^{(j)}_-$. Since such vector space is a proper subspace, there must exist $-j\leq m'\leq j$ such that the projection of $\ket{j, m'}$ on this space is not $\ket{j, m'}$, i.e. there is nontrivial orthogonal residual. Also, there must exist $-j\leq m''\leq j$ such that the projection of $\ket{j, m''}$ on this space is not zero, i.e. there is nontrivial projection. Let the projection of $\ket{j, m''}$ on to $W$ be
+\begin{equation}\label{eq:SU2 projection}
+    \text{Proj}_W(\ket{j, m''}) = \sum_{m = -j}^{j}C''_m\ket{j,m}.
+\end{equation}
+Let the smallest $m$ that $C''_m\neq 0$ be $m^*$. This means that applying $J^{(j)}_+$ for $j-m^*$ times gives nonzero proportional to $\ket{j,j}$, i.e.
+\begin{equation}\label{eq:projection extremum}
+    \left[J^{(j)}_+\right]^{j-m^*}\text{Proj}_W(\ket{j, m''}) \propto \ket{j, j}.
+\end{equation}
+After that, apply $J^{(j)}_-$ for $j-m'$ times would also give nonzero proportional to $\ket{j,m'}$, i.e.
+\begin{equation}\label{eq:projection to orthogonal}
+    \left[J^{(j)}_-\right]^{j-m'}\left[J^{(j)}_+\right]^{j-m^*}\text{Proj}_W(\ket{j, m''}) \propto \ket{j, m'}.
+\end{equation}
+However, since $\text{Proj}_W(\ket{j, m''})\in W$ and $\ket{j, m'}-\text{Proj}_W(\ket{j, m'})\neq 0$, $W$ is not closed under $J^{(j)}_+$, and $J^{(j)}_-$ which gives contradict. Therefore, the representations we have constructed previously are actually irreducible.
 
-In order to implement the representation the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it is require the consideration on every symmetry group to decide. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation with index $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. Hence,
-\begin{equation}
+From computational perspective, in order to implement the representation, the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it requires the consideration of every symmetry group we want to included. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation labeled with $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. We will also, through the rest of this work, index matrices with python-like notation, i.e. indices count from zero. Hence, we can write down
+\begin{equation}\label{eq:J's standard basis}
     \begin{aligned}
-        \left[J_z^{(j)}\right]_{qr} &= (q-j)\delta_{q,r}, \\
-        \left[J_+^{(j)}\right]_{qr} &= \sqrt{j(j+1)-(q-j)(r-j)}\delta_{q,r+1}, \\
+        \left[J_z^{(j)}\right]_{a,b} &= (a-j)\cdot\delta_{a, b}, \\
+        \left[J_+^{(j)}\right]_{a,b} &= \sqrt{j(j+1)-(a-j)(b-j)}\cdot\delta_{a,b+1}, \\
         J_-^{(j)} &= J_+^{(j)\top}, \\
         J_x^{(j)} &= \left(J_+^{(j)}+J_-^{(j)}\right)/2, \\
         J_y^{(j)} &= -i\left(J_+^{(j)}-J_-^{(j)}\right)/2,
     \end{aligned}
 \end{equation}
-with the $u\in SU(2)$ represented as
-\begin{equation}
-    D^{(j)}_{SU(2)}(u) = \exp(i(J_x^{(j)}\phi_x+J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))
+where $a, b\in \{0, 1, ..., 2j\}$, $j\in \{0, 1/2, 1, 3/2, ...\}$, and $\delta$ is Kronecker delta. Therefore, we can also write down the irreducible representation labeled by $j$ of $u_{\vec{\phi}}\in SU(2)$ with elements parameterized by $\vec{\phi}\in\mathbb{R}^3$ in this basis as
+\begin{equation}\label{eq:SU2 Irreps}
+    D^{(j)}_{SU(2)}(u_{\vec{\phi}}) = \exp(-i\vec{J}^{(j)}\cdot\vec{\phi}).
 \end{equation}
-for some $\vec{\phi}\in\mathbb{R}^3$.
 
-\section{$P$}
+\newpage
+\section{$P$ (Parity) Group}
 
-\subsection{Definition}
-$P$ is the group of spatial inversion, i.e. the group consisting of 2 elements: $E$ (identity), and $I$ (inversion) with the only non-trivial multiplication be $II=E$.
-
-\subsection{Irreducible Representation}
-From the definition, it is clear that $P \cong C_2$. Hence, there are only two irriducible representations commonly denoted as even, and odd. With similar construction to the $SU(2)$ case, let define the basis (1 dimension) of the two irreducible representations with $\ket{1}$, and $\ket{-1}$, respectively. Therefore, 
-\begin{equation}
+\subsection{$P$'s Definition}
+$P$ is the group of spatial inversion, i.e. the group consisting of only 2 elements. The first is its unique identity $e_P$, and the second is the parity operator $\pi$ (which is its own inverse) that inverts spatial state. The only binary operation rules of this group are
+\begin{equation}\label{eq:P binary operations}
     \begin{aligned}
-        D_P^{(1)}(E)\ket{1} &= \ket{1}, \\
-        D_P^{(1)}(I)\ket{1} &= \ket{1}, \\
-        D_P^{(-1)}(E)\ket{-1} &= \ket{-1}, \\
-        D_P^{(-1)}(I)\ket{-1} &=-\ket{-1}.
+        e_Pe_P = \pi\pi &= e_P, \\
+        \pi e_P = e_P \pi &= \pi.
     \end{aligned}
 \end{equation}
 
-In order to incoperate $P$ to $SU(2)$, the multiplication between these groups need to be considered. At this point, the purely mathematical treatment is not sufficient to know the multiplication behavior, and require physical properties of the systems that the groups are used for. In this case, we are interested in quantum spin systems in which the $SU(2)$ group is responsible for rotations, and commutes with spatial inversion. This implies that the combined group, i.e. direct product group, $SU(2)\times P$, can be irreducible represented with
-\begin{equation}
-    \left[D_{SU(2)\times P}^{(jp)}(uv)\right]_{qr} = \left[D_{SU(2)}^{(j)}(u)\right]_{qr}D_P^{(p)}(v)
-\end{equation}
-for $u\in SU(2)$, $v\in P$, and $p\in \{-1, 1\}$. Furthermore, the vector space basis of this irreducible representation is simply $\ket{j, m, p}=\ket{j, m}\ket{p}$.
-
-\subsection{Implementation}
-From previous section, with the basis used in $SU(2)$ implementation, one can directly extend it to irreducible representation of $SU(2)\times P$ by adding index $p$. In this basis, the irreducible representation with index $(j, p)$ is a $2j+1$ dimensional space representation with even inversion if $p=1$, or odd if $p=-1$. With this representation, for $w=uv\in SU(2)\times P$, $u \in SU(2)$, $v\in P$,
-\begin{equation}
-    D_{SU(2)\times P}^{(jp)}(uv) = D_{SU(2)}^{(j)}(u)D_P^{(p)}(v)
-\end{equation}
-with
-\begin{equation}
+\subsection{$P$'s Representations}
+From equation \ref{eq:P binary operations}, and the fact that there are only 2 elements in the group, any $n$ dimensional representation of $P$ must be the identity matrix for $e_P$, and a self-inverse matrix for $\pi$. Since they are both invertible, it is possible to do eigenvalue decomposition of both of them such that
+\begin{equation}\label{eq:P eigen decompose}
     \begin{aligned}
-        D_P^{(p)}(E) &= 1 \\
-        D_P^{(p)}(I) &= p
+        D_P(e_P) &= UIU^\dagger, \\
+        D_P(\pi) &= U\Sigma U^\dagger.
     \end{aligned}
 \end{equation}
+where $I$ is identity matrix, $\Sigma$ is a diagonal matrix of $D_P(\pi)$'s eigenvalues, and $U$ is the unitary matrix where each column is an eigenvector corresponding to each eigenvalue in $\Sigma$. From this, it is straight forward that all $n$ dimensional representations of $P$ are reducible to 1 dimensional representations.
 
+\subsection{$P$'s Irreducible Representations}
+Since 1 dimensional representations cannot be reduced (there is no proper subspace,) all 1 dimensional representations are irreducible representations. From previous section, we now know that all irreducible representations of $P$ must be 1 dimension representation. Furthermore, since $D_P(\pi)$ is self-inverse, $[D_P(\pi)]^2= D_P(e_P)=1$. Hence, there are only two irriducible representations commonly denoted as even ($D_P(\pi)= 1$), and odd ($D_P(\pi)=-1$). 
+
+We can see that the only difference of these two irreducible representations is in the values of $\pi$'s representations. Therefore, we can directly use those values as the irreducible representations' labels as
+\begin{equation}\label{eq:P Irreps}
+    \begin{aligned}
+        D_P^{(p)}(e_P) &= 1 \\
+        D_P^{(p)}(\pi) &= p
+    \end{aligned}
+\end{equation}
+where the superscripts indicate that the representation is labeled by $p\in \{-1, 1\}$.
+
+\subsection{$SU(2)\times P$'s Irreducible Representations}
+
+\newpage
 \section{$T$}
 
 \subsection{Definition}
