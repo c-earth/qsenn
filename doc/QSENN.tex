@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \DeclareMathOperator{\Tr}{Tr}
 \usepackage{physics}
+\usepackage{xcolor}
 
 \def\thesection{\arabic{section}}
 \def\thesubsection{\arabic{section}.\arabic{subsection}}
@@ -37,13 +38,13 @@ Due to the number of groups, and representations discussed in this work, it is i
 \subsection{Group}
 A group is a set of items together with a binary operator defined on each pair of elements in the group such that, for an arbritary group of set $G$ and its binary operator $\circ_G$, the following properites must be true.
 \begin{enumerate}
-    \item For any $a, b\in G$,
+    \item For any $g_1, g_2\in G$,
         \begin{equation}\label{eq:group_closed}
-            a\circ_G b\in G.
+            g_1\circ_G g_2\in G.
         \end{equation}
-    \item For any $a, b, c\in G$, 
+    \item For any $g_1, g_2, g_3\in G$, 
         \begin{equation}\label{eq:group_associative}
-            (a\circ_G b)\circ_G c = a\circ_G(b\circ_G c).
+            (g_1\circ_G g_2)\circ_G g_3 = g_1\circ_G(g_2\circ_G g_3).
         \end{equation}
     \item There is a unique element $e_G\in G$ such that, for any $g\in G$,
         \begin{equation}\label{eq:group_identity}
@@ -55,14 +56,16 @@ A group is a set of items together with a binary operator defined on each pair o
         \end{equation}
 \end{enumerate}
 
-For compactness in the remaining sections, we would drop the explicit placement of the binary operator and assume the group binary operation whenever there are two elements of the same group placeing beside each other, e.g., if $a, b\in G$, $ab\triangleq a\circ_G b$. Furthermore, we would refer to the group by its set when ever the group's binary operator is unambiguous, e.g., a group of set $G$ and its binary operator $\circ_G$ is group $G$.
+For compactness in the remaining sections, we would drop the explicit placement of the binary operator and assume the group binary operation whenever there are two elements of the same group placeing beside each other, e.g., if $g_1, g_2\in G$, $g_1g_2\triangleq g_1\circ_G g_2$. Furthermore, we would refer to the group by its set when ever the group's binary operator is unambiguous, e.g., a group of set $G$ and its binary operator $\circ_G$ is group $G$.
 
 \subsection{Homomorphism}
 A homomorphism of group $G$ is a map from $G$ to another group $H$ such that the image of $G$ preserves the same structure as $G$. In otherwords, for a homomorphism $h:G\rightarrow H$,
 \begin{equation}\label{eq:homomorphism}
-    \forall a, b\in G,\, h(a)h(b) = h(ab),
+    \forall g_1, g_2\in G,\, h(g_1)h(g_2) = h(g_1g_2),
 \end{equation}
-where the implicit binary operation $ab$ is from $G$, i.e. $a\circ_G b$ while implicit binary operation $h(a)h(b)$ is from $H$, i.e. $h(a)\circ_H h(b)$.
+where the implicit binary operation $g_1g_2$ is from $G$, i.e. $g_1\circ_G g_2$ while implicit binary operation $h(g_1)h(g_2)$ is from $H$, i.e. $h(g_1)\circ_H h(g_2)$.
+
+If a homomorphism is bijective, i.e. each and every element in $H$ is mapped from an element in $G$ homomorphically. The map is called isomorphism, and it entails equivalence relation between isomorphic groups. We denoted group isomorphic equivalence between $G$, and $H$ with $G\cong H$. 
 
 \subsection{Representation}
 A group representation of $G$ on vector space $V$ is a group homomorphism from $G$ to general linear group $GL(V)$ which is the group of bijective linear transformation from $V$ to itself. To be more specific, for the vector space $V$ over field $\mathbb{F}_V$ with $n_V$ dimensions, $GL(n_V, \mathbb{F}_V)\triangleq GL(V)$ is the set of $n_V$ by $n_V$ invertible matrices over $\mathbb{F}_V$ with matrix multiplication as the group binary operator. This obviously means that there can be multiple representations depending on the choice of $V$, and each $V$ might has multiple representations as well. 
@@ -130,16 +133,34 @@ Consider a pair of representations $D^{(\Gamma_G)}_G$, and $D^{(\Gamma_H)}_H$ of
 \end{equation}
 because the structure of groups' direct product (equation \ref{eq:direct product binary operator}) is the same as general linear groups' tensor product (equation \ref{eq:compose linear map tensor product}).
 
-Note that the representation of direct product defined in equation \ref{eq:direct product representation} guarantees irreducible representation from product of two irreducible representation, and complete identification of all irreducible representations of the groups' direct product as long as the groups are either finite, or compact.  
+% Leave it at this for now, but might come back for self-sustaining work
+\textcolor{red}{
+Note that the representation of direct product defined in equation \ref{eq:direct product representation} guarantees irreducible representation from product of two irreducible representation, and complete identification of all irreducible representations of the groups' direct product as long as the groups are either finite, or compact.}
 
 \subsection{Free Product}
-A group direct product is another composition of two groups to form a new larger group. Consider groups $G$ and $H$, their free product is defined as a group generated from $G\cup H$
-\begin{equation}\label{eq:Free product}
-    G\ast H = \{gh|\forall g\in G,\, \forall h\in H\},
+A group free product is another composition of two groups to form a new larger group. Consider groups $G$ and $H$, their free product ($G\ast H$) is defined as a group generated from $G\cup H$ such that the binary operator is $\circ_G$ between adjacent elements from $G$, and is $\circ_H$ between adjacent elements from $H$,
+\begin{equation}\label{eq:free product}
+    G\ast H = \bigcup_{N}(G\cup H)^N.
 \end{equation}
+In other words, $G\ast H$ is a group of arbritary length of words where each words' character is chosen from $G\cup H$. Since $G$, and $H$ are groups, all adjacent elements from $G$ (or $H$) can be replaced by an element from $G$ (or $H$). Hence, $G\ast H$ is actually a group of arbritary length of words where each words' character is alternately chosen from $G$, and $H$. From here, one can specialize free product according to the relation between the compounding groups.
 
-\subsection{Direct Product of two Commuting Groups}
-Consider a construction of a group that incoperate elements from two different groups $G$, and $H$. 
+The fact that we are discussing free product of groups is because the operators that apply symmetric transformation from different symmetry groups act on the same system, i.e. vector space. This means that all those operators are actually in the free product group of all considered symmetry group.
+
+\subsection{Free Product of two Commuting Groups}
+From previous section, if we also add that $G$, and $H$ are commuting subgroups of $G\ast H$, i.e. $\forall g\in G.\forall h\in H$, $gh=hg$, we can  futher specialize $G\ast H$ by commuting all elements from $G$ to the front of each word (all elements from $H$ are on the backside of each word,) and replacing all adjacent elements from $G$ (or $H$) with and element from $G$ (or $H$). In other words, if $G$, and $H$ commute with each other,
+\begin{equation}\label{eq:commute free product}
+    G\ast H = \{gh|g\in G, h\in H\}.
+\end{equation}
+Consider two elements $g_1h_1, g_2h_2\in G\ast H$ where $g_1, g_2\in G$, and $h_1, h_2\in H$,
+\begin{equation}\label{eq:commute free product binary operator}
+    (g_1h_1)\circ_{G\ast H} (g_2h_2) = g_1h_1g_2h_2=g_1g_2h_1h_2=(g_1\circ_Gg_2)(h_1\circ_Hh_2).
+\end{equation}
+From free product of commuting groups (equation \ref{eq:commute free product}, and \ref{eq:commute free product binary operator}) and direct product (equation \ref{eq:Cartesian product}, and \ref{eq:direct product binary operator}), we can directly make an isomorphism that maps $gh\in G\ast H$ to $(g,h)\in G\times H$ for every $g\in G$, and $h\in H$. 
+
+This means that $G\ast H\cong G\times H$, and all irreducible representation for free product of commuting groups can be constructed from irreducible representations of the compounding groups according to equation \ref{eq:direct product representation}. This result is very important when we are describing a physical system that contain multiple symmetries which are all commute with each other.
+
+% Leave it at this for now, but might come back for self-sustaining work
+\subsection{Reduction of Representation's Product}
 
 \newpage
 \section{$SU(2)$ Group}
