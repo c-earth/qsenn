@@ -31,6 +31,11 @@
 
 \section{Symmetries in Quantum Spin Systems}
 
+\section{Computational Representation}
+
+\subsection{Systems with Multiple Symmetries.}
+Of course, this generalization allow the representations that is not physical, e.g. spin-like object that have odd parity, or time-reversal symmetric object that have half-integer spin. However, it makes things easier to handle in computational perspective since one can represent every physical objects by unified representation with their symmetry descriptions. Not only that, because of the power to control every symmetry included in the representations, the unification grants the opportunity for the computation to easily segregate contributions of interactions with different symmetries. Moreover, from machine learning perspective, there are multiple instances that show better performance when one allow the model to include unphysical symmetries. Lastly, this generalization makes the computational model powerful enough for when, in the future, those unphysical objects are axtually existed.
+
 \newpage
 \section{Notations}
 Due to the number of groups, and representations discussed in this work, it is important to define some common definitions and notations that would be used. 
@@ -75,11 +80,15 @@ Assuming that we are able to uniquely name each representation, we would use the
 \subsection{Reducibility of Representation and Irreducible Representation}
 A group representation of $G$ on vector space $V$ is reducible if their exist an invariant proper subspace $W\subsetneq V$ such that $W$ is closed under group represented action, i.e.
 \begin{equation}\label{eq:invariant subspace}
-    \forall g\in G,\,\forall w\in W,\, D_{G}^{(\Gamma)}(g)w\in W.
+    \forall g\in G,\,\forall w\in W,\, D_{G}(g)w\in W.
 \end{equation}
 This reducibility implies that there exists a choice of basis that block diagonalizes group representation such that one of the blocks is a (reduced) group representation of $G$ on vector space $W$.
 
-A group irreducible representation of $G$ on vector space $V$ is a group representation that is not reducible, i.e. cannot be block diagonalized.
+A group irreducible representation of $G$ is a group representation that is not reducible, i.e. cannot be non-trivially block diagonalized. This criterion is equivalent to Schur's second lemma; given a matrix $M$ and representation of $G$ on vector space $V$, $D_G$, if, for all $g\in G$,
+\begin{equation}\label{eq:Schur's second lemma}
+    MD_G(g) = D_G(g)M,
+\end{equation}
+then $M=\lambda I$ for some $\lambda\in \mathbb{F}_V$ where $I$ is an identity matrix.
 
 \subsection{Tensor Product}
 Tensor product is an operation to combine vector spaces. It is generally denoted by a bilinear map $U\times V\rightarrow U\otimes V$ such that for any basis vector $\hat{e}_U\in U$, and basis vector $\hat{e}_V\in V$ their tensor product gives a basis vector $\hat{e}_U\otimes \hat{e}_V$. This means that, for any vector $u\in U$, and $v\in V$,
@@ -127,9 +136,9 @@ and its binary operator defined as, $\forall (g_1, h_1), (g_2, h_2)\in G\times H
 \end{equation}
 Here, we also utilize the implicit binary operation notations.
 
-Consider a pair of representations $D^{(\Gamma_G)}_G$, and $D^{(\Gamma_H)}_H$ of $G$, and $H$ respectively. One can define a representation of $G\times H$ with
+Consider a pair of representations $D^{(\Gamma_G)}_G$, and $D^{(\Gamma_H)}_H$ of $G$, and $H$ respectively. One can define a representation of $G\times H$ with, for all $g\in G$, and $h\in H$,
 \begin{equation}\label{eq:direct product representation}
-    D^{(\Gamma_G,\Gamma_H)}_{G\times H} = D^{(\Gamma_G)}_G\otimes_K D^{(\Gamma_H)}_H
+    D^{(\Gamma_G,\Gamma_H)}_{G\times H}((g,h)) = D^{(\Gamma_G)}_G(g)\otimes_K D^{(\Gamma_H)}_H(h)
 \end{equation}
 because the structure of groups' direct product (equation \ref{eq:direct product binary operator}) is the same as general linear groups' tensor product (equation \ref{eq:compose linear map tensor product}).
 
@@ -165,7 +174,7 @@ This means that $G\ast H\cong G\times H$, and all irreducible representation for
 \newpage
 \section{$SU(2)$ Group}
 
-\subsection{$SU(2)$'s Physical Properites}
+\subsection{$SU(2)$'s Relation to Quantum Spin System}
 
 \subsection{$SU(2)$'s Definition}
 $SU(2)$, i.e. special unitary group of dimension 2, is the group of 2 by 2 unitary matrices with unit determinant with matrix multiplication as its binary operator. In other words,
@@ -330,8 +339,8 @@ However, since $\text{Proj}_W(\ket{j, m''})\in W$ and $\ket{j, m'}-\text{Proj}_W
 From computational perspective, in order to implement the representation, the basis of the space in which all group operations would act on need to be carefully selected mainly for the purpose of reducing computational costs. However, it requires the consideration of every symmetry group we want to included. Hence, for now, we are assuming the standard $\{\ket{j, m}\}$ basis. In this basis, the irreducible representation labeled with $j$ is the $2j+1$ dimensional space representation. Let the representation of a vector is in the ascending order of the basis from $m = -j$ to $m = j$. We will also, through the rest of this work, index matrices with python-like notation, i.e. indices count from zero. Hence, we can write down
 \begin{equation}\label{eq:J's standard basis}
     \begin{aligned}
-        \left[J_z^{(j)}\right]_{a,b} &= (a-j)\cdot\delta_{a, b}, \\
-        \left[J_+^{(j)}\right]_{a,b} &= \sqrt{j(j+1)-(a-j)(b-j)}\cdot\delta_{a,b+1}, \\
+        \left[J_z^{(j)}\right]_{a,b} &= (a-j)\delta_{a, b}, \\
+        \left[J_+^{(j)}\right]_{a,b} &= \sqrt{j(j+1)-(a-j)(b-j)}\delta_{a,b+1}, \\
         J_-^{(j)} &= J_+^{(j)\top}, \\
         J_x^{(j)} &= \left(J_+^{(j)}+J_-^{(j)}\right)/2, \\
         J_y^{(j)} &= -i\left(J_+^{(j)}-J_-^{(j)}\right)/2,
@@ -344,6 +353,8 @@ where $a, b\in \{0, 1, ..., 2j\}$, $j\in \{0, 1/2, 1, 3/2, ...\}$, and $\delta$ 
 
 \newpage
 \section{$P$ (Parity) Group}
+
+\subsection{$P$'s Relation to Quantum Spin System}
 
 \subsection{$P$'s Definition}
 $P$ is the group of spatial inversion, i.e. the group consisting of only 2 elements. The first is its unique identity $e_P$, and the second is the parity operator $\pi$ (which is its own inverse) that inverts spatial state. The only binary operation rules of this group are
@@ -377,78 +388,279 @@ We can see that the only difference of these two irreducible representations is 
 where the superscripts indicate that the representation is labeled by $p\in \{-1, 1\}$.
 
 \subsection{$SU(2)\times P$'s Irreducible Representations}
+After the analysis of two symmetry groups related to quantum spin systems, it is the point where we start unifying them to generalize the way to represent quantum spin system. From the postulation for parity in quantum mechanics, it directly shows that $SU(2)$, and $P$ are commuting groups. This means that $SU(2)\ast P\cong SU(2)\times P$, i.e. the symmetry group that governs the combined symmetries is isomorphic to their direct product group, which makes the tensor product between every pair of irreducible representations of $SU(2)$, and $P$ are irreducible representation of $SU(2)\ast P$, and exhaust all of its possible irreducible representations. Hence, the irreducible representations of the combined $SU(2)$, and $P$ symmetries can be written, labeled with $j$ and $p$, as, for all $u_{\vec{\phi}}\in SU(2)$, and $u_P \in P$,
+\begin{equation}\label{eq:SU2*P Irreps}
+    \begin{aligned}
+        D^{(j,p)}_{SU(2)\ast P}(u_{\vec{\phi}} u_P) &= D^{(j,p)}_{SU(2)\times P}((u_{\vec{\phi}},u_P)) \\
+        &= D^{(j)}_{SU(2)}(u_{\vec{\phi}})\otimes D^{(p)}_{P}(u_P) \\
+        &= \exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot \begin{cases}
+                                                        1 &, u_P = e_P \\
+                                                        p &, u_P = \pi
+                                                    \end{cases}
+    \end{aligned}
+\end{equation}
+where $\vec{\phi}\in\mathbb{R}^3$, $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p\in\{-1, 1\}$. Also, if one choose the standard angular momentum basis, $\vec{J}^{(j)}$ is according to equation \ref{eq:J's standard basis}.
 
 \newpage
 \section{$T$ (Time-Reversal) Group}
 
+\subsection{$T$'s Relation to Quantum Spin System}
+
 \subsection{$T$'s Definition}
+
+% Leave it at this for now, come back to make everything clear cut especially the time-reversal postulates.
+\textcolor{red}
+{
 $T$ is the group of temporal inversion, i.e. the group consisting of its unique identity $e_T$, and the time-reverse operator $\theta$ (which may or may not be its own inverse) that inverts direction of time. However, even with some similarities, this group is not isomorphic with $P$, and the reason is that the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. To see this, first consider the Schr\"odinger's equation describing an arbritary system,
 \begin{equation}\label{eq:Schrodinger}
     i\hbar\dfrac{\partial}{\partial t}\ket{\psi(t)} = \hat{H}\ket{\psi(t)}
+\end{equation}}
+
+\subsection{$T$'s Corepresentations}
+Because of the antiunitary nature of $T$, the analysis for its irreducible representation cannot be done in the same fashion as other unitary groups. The main reason for this is that the complex conjugation part of the antiunitary operator $\theta$ can change the basis used for the irreducible representation of other groups, i.e. the groups that we want to combine with $T$.
+
+Let assume that the group we want to combine with $T$ is $G$. To proceed from this point, we need to consider the effects of $\theta$ on the basis chosen for $G$'s irreducible representations. Without loss of generality, let $\{\ket{g_a}\}$ be such basis, and the irreducible representation is $D_G$. Hence, for any $g\in G$,
+\begin{equation}\label{eq:G irreps act on basis}
+    \begin{aligned}
+        g\ket{g_a} &= D_G(g)\ket{g_a} \\
+        &= \left(\sum_{b, c}\ket{g_b}\left[D_G(g)\right]_{b, c}\bra{g_c}\right)\ket{g_a} \\
+        &= \sum_{b}\ket{g_b}\left[D_G(g)\right]_{b, a}.
+    \end{aligned}
+\end{equation}
+Likewise, let the irreducible representation of $g$ in $\{\theta\ket{g_i}\}$ basis be $\tilde{D}_G$, i.e.
+\begin{equation}\label{eq:G irreps act on theta basis}
+    \begin{aligned}
+        g\theta\ket{g_a} &= \tilde{D}_G(g)\theta\ket{g_a} \\
+        &= \sum_{b}\theta\ket{g_b}\left[\tilde{D}_G(g)\right]_{b, a}.
+    \end{aligned}
+\end{equation}
+Then apply $\theta^{-1}$ to both side,
+\begin{equation}\label{eq:modify G irreps act on theta basis}
+    \begin{aligned}
+        \theta^{-1}g\theta\ket{g_a} &= \theta^{-1}\left(\sum_{b}\theta\ket{g_b}\left[\tilde{D}_G(g)\right]_{b, a}\right) \\
+        &= \sum_{b}\ket{g_b}\left[\tilde{D}_G(g)\right]_{b, a}^\ast \\
+        &= \sum_{b}\ket{g_b}\left[\tilde{D}_G^\ast(g)\right]_{b, a}.
+    \end{aligned}
+\end{equation}
+Since multiplication of two antiunitary operator is unitary, and
+\begin{equation}\label{eq:modify G}
+    \theta^{-1}G\theta\triangleq\{\theta^{-1}g\theta|g\in G\}\cong G
+\end{equation}
+with isomorphism that maps $\theta^{-1}g\theta$ to $g$, there must be irreducible representation $D_G(\theta^{-1}g\theta)$. By comparing equation \ref{eq:G irreps act on basis}, and \ref{eq:modify G irreps act on theta basis}, one can conclude that
+\begin{equation}\label{eq:modify G irreps}
+    \begin{aligned}
+        \tilde{D}_G^\ast(g) &= D_G(\theta^{-1}g\theta), \\
+        \tilde{D}_G(g) &= D_G^\ast(\theta^{-1}g\theta).
+    \end{aligned}
 \end{equation}
 
-\subsection{$TR$'s Irreducible Representation}
-In corporateing anti-unitary group $TR$ with $SU(2)\times P$ cannot be done in the same fashion as combinding $P$ with $SU(2)$ since the anti-unitary nature makes it impossible to write down common eigenbasis even if $\theta$ commutes with every element in $SU(2)\times P$.
+Repeat this one more time for $\{\theta^2\ket{g_i}\}$ basis with irreducible representation $\tilde{\tilde{D}}_G$. We get
+\begin{equation}\label{eq:theta theta basis G irreps}
+    \begin{aligned}
+        \tilde{\tilde{D}}_G(g) &= \tilde{D}^\ast_G(\theta^{-1}g\theta), \\
+        &= D_G(\theta^{-2}g\theta^2).
+    \end{aligned}
+\end{equation}
+Here, the first equality follows the logical proof of $\tilde{D}_G$ while the second equality directly uses equation \ref{eq:modify G irreps}. Since $\theta^2$ is unitary, there must be a unitary transformation $\Theta$ such that
+\begin{equation}\label{eq:theta theta basis equivalence}
+    D_G(\theta^{-2}g\theta^2) = \Theta^\dagger D_G(g)\Theta.
+\end{equation}
 
-To proceed from this point, we need to consider the effects of $\theta$ on the basis chosen for $SU(2)\times P$'s implementation. Since the multiplication of two anti-unitary operators is a unitary operator the irreducible representation of $w\in SU(2)\times P$ in $\{\theta\ket{j, m, p}\}$ basis is
-\begin{equation}
-    \tilde{D}_{SU(2)\times P}(w) = D_{SU(2)\times P}(\theta^{-1}w\theta)^\ast.
-\end{equation}
-However, similar to $P$'s case, the system in which the $SU(2)\times P$ describes actually makes $\theta$ commutes with every element in $SU(2)\times P$. This means that 
-\begin{equation}
-    D_{SU(2)\times P}(\theta^{-1}w\theta)^\ast = D_{SU(2)\times P}(w)^\ast,
-\end{equation}
-but we can always write
-\begin{equation}
-    D_{SU(2)\times P}(w) = \pm\exp(i\vec{J}\cdot\vec{\phi}) = \pm\exp(i(J_x\phi_x+J_y\phi_y+J_z\phi_z)).
-\end{equation}
-This means that
-\begin{equation}
-    D_{SU(2)\times P}(w)^\ast = \pm\exp(-i(J_x\phi_x-J_y\phi_y+J_z\phi_z)).
-\end{equation}
-Then, consider a matrix
-\begin{equation}
-    \left[U^{(j)}\right]_{qr} = i^{2(q-j)}\delta_{q,2j-r}.
-\end{equation}
-This matrix is a unitary matrix since
-\begin{equation}
+Equation \ref{eq:theta theta basis equivalence} guarantees that, in order to represent $G\ast T$, one need to only double the basis that represents $G$. Therefore, from equation \ref{eq:G irreps act on basis}, \ref{eq:G irreps act on theta basis}, and \ref{eq:theta theta basis equivalence}, the corepresentations of the combined $G$, and $T$ groups, $D_{G\ast T}$, can be extended from $D_{G}$ by using $\{\ket{g_a}\}\cup\{\theta\ket{g_a}\}$ basis as, for any $g\in G$,
+\begin{equation}\label{eq:G*T Coreps}
     \begin{aligned}
-        \left[U^{(j)\dagger}\right]_{qr} &= (-i)^{2(r-j)}\delta_{r,2j-q}, \\
-        \left[U^{(j)\dagger}U^{(j)}\right]_{qr} &= \sum_s(-i)^{2(s-j)}\delta_{s,2j-q}i^{2(s-j)}\delta_{s,2j-r} \\
-        &= \sum_s\delta_{s,2j-q}\delta_{s,2j-r} = \delta_{q,r}, \\
-        \left[U^{(j)}U^{(j)\dagger}\right]_{qr} &= \sum_si^{2(q-j)}\delta_{q,2j-s}(-i)^{2(r-j)}\delta_{r,2j-s} \\
-        &= \sum_si^{2(q-r)}\delta_{q,2j-s}\delta_{r,2j-s} = i^{2(q-r)}\delta_{q,r} = \delta_{q,r}.
+        D_{G\ast T}(g) &=   \begin{bmatrix}
+                                D_{G}(g) & 0 \\
+                                0 & D_{G}^\ast(\theta^{-1}g\theta)  
+                            \end{bmatrix}, \\
+        D_{G\ast T}(\theta) &=  \begin{bmatrix}
+                                    0 & \Theta \\
+                                    I & 0 
+                                \end{bmatrix},
     \end{aligned}
 \end{equation}
-From this matrix, we can see that
+where the first half of the basis is $\{\ket{g_a}\}$, the second half of the basis is $\{\theta\ket{g_a}\}$, and $I$ is identity matrix. Note that whether these corepresentation is reducible or not depends on the actual form of $D_{G}(\theta^{-1}g\theta)$, and $\Theta$, 
+% Leave it at this for now, but might come back for self-sustaining work
+\textcolor{red}{but it is guaranteed to exhaust all possible irreducible corepresentations.}
+
+Our analysis so far only concerns about the effect of $\theta$ on the basis, but its complex conjugation also applies to other corepresentations, i.e., for all $g, g_1, g_2\in G$,
 \begin{equation}
     \begin{aligned}
-        \left[U^{(j)\dagger}J_z^{(j)}U^{(j)}\right]_{qr} &= \sum_{s,t}(-i)^{2(s-j)}\delta_{s,2j-q}(s-j)\delta_{s,t}i^{2(t-j)}\delta_{t,2j-r} \\
-        &= \sum_{s}(-i)^{2(s-j)}\delta_{s,2j-q}(s-j)\delta_{s,2j-r}i^{2(j-r)} \\
-        &= (-i)^{2(j-q)}(j-q)\delta_{q, r}i^{2(j-r)} \\
-        &= -(q-j)\delta(q,r) \\
-        &= \left[-J_z^{(j)}\right]_{qr},
+        D_{G\ast T}(g_1g_2) &= D_{G\ast T}(g_1)D_{G\ast T}(g_2), \\
+        D_{G\ast T}(g\theta) &= D_{G\ast T}(g)D_{G\ast T}(\theta), \\
+        D_{G\ast T}(\theta g) &= D_{G\ast T}(\theta)D_{G\ast T}^\ast(g), \\
+        D_{G\ast T}(\theta\theta) &= D_{G\ast T}(\theta)D_{G\ast T}^\ast(\theta).
     \end{aligned}
 \end{equation}
+As well as the whole corepresentation vector space, $V$, i.e., for all $g\in G$, and $v\in V$,
 \begin{equation}
     \begin{aligned}
-        \left[U^{(j)\dagger}J_+^{(j)}U^{(j)}\right]_{qr} &= \sum_{s,t}(-i)^{2(s-j)}\delta_{s,2j-q}\sqrt{j(j+1)-(s-j)(t-j)}\delta_{s,t+1}i^{2(t-j)}\delta_{t,2j-r} \\
-        &= \sum_{s}(-i)^{2(s-j)}\delta_{s,2j-q}\sqrt{j(j+1)-(s-j)(j-r)}\delta_{s,2j-r+1}i^{2(j-r)} \\
-        &= (-i)^{2(j-q)}\sqrt{j(j+1)-(j-q)(j-r)}\delta_{2j-q,2j-r+1}i^{2(j-r)} \\
-        &= -\sqrt{j(j+1)-(q-j)(r-j)}\delta_{q+1,r} \\
-        &= \left[-J_+^{(j)\top}\right]_{qr} = \left[-J_-^{(j)}\right]_{qr},
+        g\vec{v} &= D_{G\ast T}(g)\vec{v}, \\
+        \theta\vec{v} &= D_{G\ast T}(\theta)\vec{v}^\ast.
     \end{aligned}
+\end{equation}
+
+Further simplification can be done in the case that $\tilde{D}_G$ is equivalent to $D_G$. In other words, there must exists a unitary basis transformation $U$ that
+\begin{equation}\label{eq:theta G basis equivalence}
+    \tilde{D}_G(g) = D^\ast_G(\theta^{-1}g\theta) = U^\dagger D_G(g)U.
+\end{equation}
+This directly makes
+\begin{equation}\label{eq:G*T Coreps theta equivalence}
+    \begin{aligned}
+        D_{G\ast T}(g) &=   \begin{bmatrix}
+                                D_{G}(g) & 0 \\
+                                0 & U^\dagger D_G(g)U  
+                            \end{bmatrix}, \\
+        D_{G\ast T}(\theta) &=  \begin{bmatrix}
+                                    0 & \Theta \\
+                                    I & 0 
+                                \end{bmatrix}.
+    \end{aligned}
+\end{equation}
+It also implies, from equation \ref{eq:theta theta basis G irreps}, that
+\begin{equation}\label{eq:theta theta G basis equivalence}
+    \begin{aligned}
+        \tilde{\tilde{D}}_G(g) &= \tilde{D}^\ast_G(\theta^{-1}g\theta), \\
+        &= \left(U^\dagger D_G(\theta^{-1}g\theta)U\right)^\ast \\
+        &= \left(U^\dagger \tilde{D}_G^\ast(g)U\right)^\ast \\
+        &= \left(U^\dagger U^{\dagger\ast} D_G^\ast(g)U^\ast U\right)^\ast \\
+        &= \left(UU^\ast\right)^\dagger D_G(g)\left(UU^\ast\right).
+    \end{aligned}
+\end{equation}
+From equation \ref{eq:theta theta basis equivalence}, this also makes
+\begin{equation}\label{eq:equate G basis equivalence}
+    \begin{aligned}
+        \Theta^\dagger D_G(g)\Theta &= \left(UU^\ast\right)^\dagger D_G(g)\left(UU^\ast\right) \\
+        \left(UU^\ast\right)\Theta^\dagger D_G(g) &=  D_G(g)\left(UU^\ast\right)\Theta^\dagger
+    \end{aligned}
+\end{equation}
+Because $D_G$ is irreducible, from Schur's second lemma (equation \ref{eq:Schur's second lemma}), $\left(UU^\ast\right)\Theta^\dagger$ must equal a constant $\lambda I$ where $\lambda\in\mathbb{C}$ (assume representation in complex vector space,)
+\begin{equation}\label{eq:G basis equivalence}
+    UU^\ast = \lambda\Theta.
+\end{equation}
+
+Moreover, this basis transformation must also apply to $\Theta$ in the same manner, i.e.
+\begin{equation}\label{eq:theta equivalence of theta theta equivalence}
+    \tilde{\Theta} = U^\dagger \Theta U.
+\end{equation}
+Hence,
+\begin{equation}\label{eq:theta theta theta G basis equivalence}
+    \begin{aligned}
+        \tilde{D}_G(\theta^{-2}g\theta^2) &= D_G^\ast(\theta^{-3}g\theta^3) \\
+        &= \left(\Theta^\dagger D_G(\theta^{-1}g\theta)\Theta\right)^\ast \\
+        &= \Theta^{\dagger\ast} D_G^\ast(\theta^{-1}g\theta)\Theta^\ast \\
+        &= \Theta^{\dagger\ast} \tilde{D}_G(g)\Theta^\ast \\
+        &\triangleq \tilde{\Theta}^\dagger\tilde{D}_G(g)\tilde{\Theta}
+    \end{aligned}
+\end{equation}
+or
+\begin{equation}\label{eq:evaluate theta equivalence of theta theta equivalence}
+    U^\dagger \Theta U = \Theta^\ast
+\end{equation}
+Then, from equation \ref{eq:G basis equivalence}, and \ref{eq:evaluate theta equivalence of theta theta equivalence},
+\begin{equation}
+    \begin{aligned}
+        U^\dagger\left(UU^\ast\right)U &= U^\dagger\left(\lambda\Theta\right)U \\
+        U^\ast U &= \lambda U^\dagger \Theta U \\
+        \left(UU^\ast\right)^\ast &= \lambda \Theta^\ast \\
+        UU^\ast &= \lambda^\ast\Theta,
+    \end{aligned}
+\end{equation}
+which, together with equation \ref{eq:G basis equivalence}, implies that $\lambda\in\mathbb{R}$. Since $U$, and $\Theta$ are unitary, we also know that $|\lambda|=1$. Therefore, $\lambda\in\{-1,1\}$.
+
+Hence, we can further simplify equation \ref{eq:G*T Coreps theta equivalence} into
+\begin{equation}\label{eq:G*T Coreps simplify}
+    \begin{aligned}
+        D_{G\ast T}(g) &=   \begin{bmatrix}
+                                D_{G}(g) & 0 \\
+                                0 & U^\dagger D_G(g)U  
+                            \end{bmatrix}, \\
+        D_{G\ast T}(\theta) &=  \begin{bmatrix}
+                                    0 & UU^\ast/\lambda \\
+                                    I & 0 
+                                \end{bmatrix},
+    \end{aligned}
+\end{equation}
+and, with a change of basis from $\{\ket{g_a}\}\cup\{\theta\ket{g_a}\}$ to $\{\ket{g_a}\}\cup\{U^\dagger\theta\ket{g_a}\}$, we get
+\begin{equation}\label{eq:G*T Coreps simplify change basis}
+    \begin{aligned}
+        D_{G\ast T}(g) &=   \begin{bmatrix}
+                                D_{G}(g) & 0 \\
+                                0 & D_G(g)  
+                            \end{bmatrix}, \\
+        D_{G\ast T}(\theta) &=  \begin{bmatrix}
+                                    0 & U/\lambda \\
+                                    U & 0 
+                                \end{bmatrix}.
+    \end{aligned}
+\end{equation}
+
+\subsection{$SU(2)\times P\times T$'s Irreducible Corepresentations}
+From the postulation for time-reversal in quantum mechanics, it directly shows that $SU(2)$, $P$, and $T$ are commuting groups. This means that $SU(2)\ast P\ast T\cong SU(2)\times P\times T$, but, since $T$ is antiunitary, we need to use analysis in the previous section instead of directly use representation tensor product as in the case of combining $SU(2)$ with $P$.
+
+Because the groups are commuting, equation \ref{eq:modify G irreps}, and \ref{eq:theta theta basis equivalence} turn out to be
+\begin{equation}\label{eq:modify SU2*P irreps}
+    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P)),
 \end{equation}
 and
+\begin{equation}\label{eq:theta theta SU2*P basis equivalence}
+   D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = \Theta^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\Theta^{(j)},
+\end{equation}
+where $u_{\vec{\phi}}\in SU(2)$, $u_P\in P$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis. Note that, since the effect of $p$ toward the irreducible representation is a constant multiplication, we only need the superscripts $j$ for $\Theta$.
+
+Since $j$, and $p$ completely identifies $SU(2)\times P$'s irreducible representation of $2j+1$ dimensions, and $\tilde{D}_{SU(2)\times P}^{(j,p)}$ is also a $SU(2)\times P$'s irreducible representation of $2j+1$ dimensions, $\tilde{D}_{SU(2)\times P}^{(j,p)}$ must be equivalent to $D_{SU(2)\times P}^{(j,p)}$ under a unitary basis transformation $U^{(j)}$ (the same reason as $\Theta$ to omit index $p$). This, together with equation \ref{eq:modify SU2*P irreps}, implies that
+\begin{equation}\label{eq:theta SU2*P basis equivalence}
+    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))=U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}.
+\end{equation}
+
+To see this, consider a matrix
+\begin{equation}\label{eq:U}
+    \left[U^{(j)}\right]_{a, b} = i^{2(a-j)}\delta_{a,2j-b}.
+\end{equation}
+with its inverse (adjoint)
 \begin{equation}
+    \left[U^{(j)\dagger}\right]_{a,b} = (-i)^{2(b-j)}\delta_{b,2j-a}.
+\end{equation}\label{eq:Udagger}
+This matrix is actually a unitary matrix since
+\begin{equation}\label{eq:U unitary}
+    \begin{aligned}
+        \left[U^{(j)\dagger}U^{(j)}\right]_{a, b} &= \sum_c\left((-i)^{2(c-j)}\delta_{c,2j-a}\right)\left(i^{2(c-j)}\delta_{c,2j-b}\right) \\
+        &= \delta_{2j-a,2j-b} = \delta_{a,b}, \\
+        \left[U^{(j)}U^{(j)\dagger}\right]_{a, b} &= \sum_c\left(i^{2(a-j)}\delta_{a,2j-c}\right)\left((-i)^{2(b-j)}\delta_{b,2j-c}\right) \\
+        &= i^{2(a-b)}\delta_{a,b} = \delta_{a,b}.
+    \end{aligned}
+\end{equation}
+From this matrix, we can see its transformation of $J^{(j)}_z$ as
+\begin{equation}\label{eq:Udagger Jz U}
+    \begin{aligned}
+        \left[U^{(j)\dagger}J_z^{(j)}U^{(j)}\right]_{a,b} &= \sum_{c,d}\left((-i)^{2(c-j)}\delta_{c,2j-a}\right)\left((c-j)\delta_{c,d}\right)\left(i^{2(d-j)}\delta_{d,2j-b}\right) \\
+        &= \sum_{c}(-i)^{2(c-j)}\delta_{c,2j-a}(c-j)\delta_{c,2j-b}i^{2(j-b)} \\
+        &= (-i)^{2(j-a)}(j-a)\delta_{a, b}i^{2(j-b)} \\
+        &= -(a-j)\delta_{a,b} \\
+        &= \left[-J_z^{(j)}\right]_{a,b},
+    \end{aligned}
+\end{equation}
+of $J^{(j)}_+$ as
+\begin{equation}\label{eq:Udagger J+ U}
+    \begin{aligned}
+        \left[U^{(j)\dagger}J_+^{(j)}U^{(j)}\right]_{a,b} &= \sum_{c,d}\left((-i)^{2(c-j)}\delta_{c,2j-a}\right)\left(\sqrt{j(j+1)-(c-j)(d-j)}\delta_{c,d+1}\right)\left(i^{2(d-j)}\delta_{d,2j-b}\right) \\
+        &= \sum_{c}(-i)^{2(c-j)}\delta_{c,2j-a}\sqrt{j(j+1)-(c-j)(j-b)}\delta_{c,2j-b+1}i^{2(j-b)} \\
+        &= (-i)^{2(j-a)}\sqrt{j(j+1)-(j-a)(j-b)}\delta_{2j-a,2j-b+1}i^{2(j-b)} \\
+        &= i^{2(a-b)}\sqrt{j(j+1)-(a-j)(b-j)}\delta_{a+1,b} \\
+        &= -\sqrt{j(j+1)-(a-j)(b-j)}\delta_{a+1,b} \\
+        &= \left[-J_+^{(j)\top}\right]_{a,b} = \left[-J_-^{(j)}\right]_{a,b},
+    \end{aligned}
+\end{equation}
+and $J^{(j)}_-$ as
+\begin{equation}\label{eq:Udagger J- U}
     \begin{aligned}
         U^{(j)\dagger}J_-^{(j)}U^{(j)} &= U^{(j)\dagger}J_+^{(j)\dagger}U^{(j)} \\
         &= \left(U^{(j)\dagger}J_+^{(j)}U^{(j)}\right)^\dagger \\
         &= -J_-^{(j)\dagger} = -J_+^{(j)}.
     \end{aligned}
 \end{equation}
-This also directly implies
-\begin{equation}
+This also directly implies that
+\begin{equation}\label{eq:Udagger Js U}
     \begin{aligned}
         U^{(j)\dagger}J_x^{(j)}U^{(j)} &= -J_x^{(j)} \\
         U^{(j)\dagger}J_y^{(j)}U^{(j)} &= J_y^{(j)} \\
@@ -456,15 +668,49 @@ This also directly implies
     \end{aligned}.
 \end{equation}
 Therefore,
-\begin{equation}
+\begin{equation}\label{eq:U basis theta basis equivalence}
     \begin{aligned}
-        U^{(j)\dagger}D^{(j)}_{SU(2)\times P}(w)U^{(j)} &= \pm U^{(j)\dagger}\exp(i\vec{J}^{(j)}\cdot\vec{\phi})U^{(j)} \\ 
-        &= \pm U^{(j)\dagger}\exp(i(J_x^{(j)}\phi_x+J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))U^{(j)} \\
-        &= \pm\exp(-i(J_x^{(j)}\phi_x-J_y^{(j)}\phi_y+J_z^{(j)}\phi_z)) \\
-        &= D^{(j)}_{SU(2)\times P}(w)^\ast \\
-        &= \tilde{D}^{(j)}_{SU(2)\times P}(w).
+        U^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U &= U^{(j)\dagger}\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})U^{(j)}\cdot \begin{cases}
+            1 &, u_P = e_P \\
+            p &, u_P = \pi
+        \end{cases} \\ 
+        &= U^{(j)\dagger}\exp(-i(J_x^{(j)}\phi_x+J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))U^{(j)}\cdot \begin{cases}
+            1 &, u_P = e_P \\
+            p &, u_P = \pi
+        \end{cases} \\
+        &= \exp(i(J_x^{(j)}\phi_x-J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))\cdot \begin{cases}
+            1 &, u_P = e_P \\
+            p &, u_P = \pi
+        \end{cases} \\
+        &= D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P)) \\
+        &= \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)),
     \end{aligned}
 \end{equation}
+as required.
+
+From this result, by applying complex conjugation to equation \ref{eq:theta SU2*P basis equivalence}, we get
+\begin{equation}\label{eq:UU* SU2*P basis equivalence}
+    \begin{aligned}
+        \left(D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))\right)^\ast &= \left(U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}\right)^\ast\\
+        D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= U^{(j)\dagger\ast} D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))U^{(j)\ast} \\
+        &= U^{(j)\dagger\ast} \left(U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}\right)U^{(j)\ast} \\
+        &= \left(U^{(j)}U^{(j)\ast}\right)^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right)
+    \end{aligned}
+\end{equation}
+which, from equation \ref{eq:theta theta SU2*P basis equivalence}, gives
+\begin{equation}\label{eq:equate basis equivalence}
+    \Theta^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\Theta^{(j)} = \left(U^{(j)}U^{(j)\ast}\right)^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right).
+\end{equation}
+
+We can rearrange equation \ref{eq:theta theta SU2*P basis equivalence}, \ref{eq:UU* SU2*P basis equivalence}, and \ref{eq:theta theta SU2*P basis equivalence} such that
+\begin{equation}
+    \begin{aligned}
+        \left(\Theta^{(j)}\right) D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(\Theta^{(j)}\right), \\
+        \left(U^{(j)}U^{(j)\ast}\right)D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right), \\
+        \left(U^{(j)}U^{(j)\ast}\Theta^{(j)\dagger}\right) D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\Theta^{(j)\dagger}\right).
+    \end{aligned}
+\end{equation}
+
 This directly means that the $SU(2)\times P$'s irreducible representation in $\{\ket{j, m, p}\}$, and $\{\theta\ket{j, m, p}\}$ basis are equivalent. This implies that the corepresentation of $SU(2)\times P\times TR$ for $w\in SU(2)\times P$ is
 \begin{equation}
     D_{SU(2)\times P\times TR}^{(j)}(w) = 
@@ -543,8 +789,5 @@ From definition of $U^{(j)}$, the representation $D_{SU(2)\times P\times TR}^{(j
     \end{aligned}
 \end{equation}
 In other words, $D_{SU(2)\times P\times TR}^{(j)}(\theta)$ is symmetric when $(-1)^{2j}\lambda = 1$, and antisymmetric when $(-1)^{2j}\lambda = -1$. 
-
-\subsection{Implementation}
-
 
 \end{document}
