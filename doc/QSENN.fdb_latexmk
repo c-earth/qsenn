@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex QSENN"] 1686938878 "QSENN.aux" "QSENN.bbl" "QSENN" 1686938995 0
-  "./QSENNNotes.bib" 1686938995 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
+["bibtex QSENN"] 0 "QSENN.aux" "QSENN.bbl" "QSENN" 1687572255 -1
+  "./QSENNNotes.bib" 1687572254 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/bibtex/bst/revtex/apsrev4-2.bst" 1601735216 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "QSENN.aux" 1686938995 7610 7b61647c23fbea6adf7af0fd58ab16cf "pdflatex"
+  "QSENN.aux" 1687572254 8741 f0130a98a2551d5ca87831b445dabd0c "pdflatex"
   (generated)
   "QSENN.bbl"
   "QSENN.blg"
   (rewritten before read)
-["pdflatex"] 1686938994 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1686938995 0
-  "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1684887328 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+["pdflatex"] 1687572254 "d:/python_project/su2nn/doc/QSENN.tex" "QSENN.pdf" "QSENN" 1687572255 0
+  "C:/Users/earthz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1687536023 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/earthz/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1668380161 10788483 8fb70ca59706b7c03e683577e7f4870f ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233955448 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -63,11 +63,18 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.sty" 1655058192 4474 f04cd1cc7bd76eb033e6fb12eb6a0d77 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty" 1655058193 2444 70065bddd85997dc1fd0bb7ae634e5fa ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg" 1465894292 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.cfg" 1465894292 1224 978390e9c2234eab29404bc21b268d1e ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/pdftex.def" 1663918690 19448 1e988b341dda20961a6b931bcde55519 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty" 1665067579 18387 8f900a490197ebaf93c02ae9476d4b09 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.sty" 1665067579 8010 a8d949cbdbc5c983593827c9eec252e1 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty" 1665067579 2671 7e67d78d9b88c845599a85b2d41f2e39 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics/mathcolor.ltx" 1665067579 3171 1cf0d440b5464e2f034398ce4ef36f75 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty" 1665067579 4023 293ea1c16429fc0c4cf605f4da1791a9 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1664388628 30426 b4bd1ea7df6c51902df8edf551809fb7 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty" 1664389290 6107 fa5d25e84c05db068aed042b51a24d3b ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xparse.sty" 1655913260 6812 d2f733947d73940b228845829d585700 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/mathtools/mathtools.sty" 1656514886 62269 5c1837a5bc5db4c0d255eedc225ca44b ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/mathtools/mhsetup.sty" 1656514886 5582 a43dedf8e5ec418356f1e9dfe5d29fc3 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/natbib/natbib.sty" 1292252681 46712 1c8843383c0bd05870c45fa0ebea6cc2 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/physics/physics.sty" 1356005662 29610 a9597219b282d9c78b02393dcd7d4322 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/aps12pt4-2.rtx" 1601735216 4804 2744af0f203134af90d666c0e5372e88 ""
@@ -75,12 +82,13 @@
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/revsymb4-2.sty" 1601735216 5568 c1023e561e6863a1ddb7cd695a7eb4ce ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/revtex/revtex4-2.cls" 1601735216 202588 252d8ad05b878c573f3e2adfc38ce076 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/textcase/textcase.sty" 1657800947 2405 93dca770d0598d835703b5d004a641b7 ""
+  "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1654690828 10214 de3e21cfc0eccc98ca7f8dac0ef263d2 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/earthz/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "QSENN.aux" 1686938995 7610 7b61647c23fbea6adf7af0fd58ab16cf "pdflatex"
-  "QSENN.bbl" 1686938878 2035 35453d3875d823f0ec9445e740a573d9 "bibtex QSENN"
-  "QSENN.tex" 1686938993 56034 75165fadc6d430ddc80e14d7946946bc ""
-  "d:/python_project/su2nn/doc/QSENN.tex" 1686938993 56034 75165fadc6d430ddc80e14d7946946bc ""
+  "QSENN.aux" 1687572254 8741 f0130a98a2551d5ca87831b445dabd0c "pdflatex"
+  "QSENN.bbl" 1687567150 2035 35453d3875d823f0ec9445e740a573d9 "bibtex QSENN"
+  "QSENN.tex" 1687572253 62786 31fb2aa7dbc102d500ed49ddcd79f9d3 ""
+  "d:/python_project/su2nn/doc/QSENN.tex" 1687572253 62786 31fb2aa7dbc102d500ed49ddcd79f9d3 ""
   (generated)
   "QSENN.aux"
   "QSENN.log"

@@ -4,6 +4,7 @@
 \DeclareMathOperator{\Tr}{Tr}
 \usepackage{physics}
 \usepackage{xcolor}
+\usepackage{mathtools}
 
 \def\thesection{\arabic{section}}
 \def\thesubsection{\arabic{section}.\arabic{subsection}}
@@ -357,49 +358,53 @@ where $a, b\in \{0, 1, ..., 2j\}$, $j\in \{0, 1/2, 1, 3/2, ...\}$, and $\delta$ 
 \subsection{$P$'s Relation to Quantum Spin System}
 
 \subsection{$P$'s Definition}
-$P$ is the group of spatial inversion, i.e. the group consisting of only 2 elements. The first is its unique identity $e_P$, and the second is the parity operator $\pi$ (which is its own inverse) that inverts spatial state. The only binary operation rules of this group are
+$P$ is the group of spatial inversion, i.e. the group consisting of only 2 elements. The first is its unique identity $e$, and the second is the parity operator $\pi$ (which is its own inverse) that inverts spatial state. The only binary operation rules of this group are
 \begin{equation}\label{eq:P binary operations}
     \begin{aligned}
-        e_Pe_P = \pi\pi &= e_P, \\
-        \pi e_P = e_P \pi &= \pi.
+        ee = \pi\pi &= e, \\
+        \pi e = e \pi &= \pi.
     \end{aligned}
 \end{equation}
 
 \subsection{$P$'s Representations}
-From equation \ref{eq:P binary operations}, and the fact that there are only 2 elements in the group, any $n$ dimensional representation of $P$ must be the identity matrix for $e_P$, and a self-inverse matrix for $\pi$. Since they are both invertible, it is possible to do eigenvalue decomposition of both of them such that
+From equation \ref{eq:P binary operations}, and the fact that there are only 2 elements in the group, any $n$ dimensional representation of $P$ must be the identity matrix for $e$, and a self-inverse matrix for $\pi$. Since they are both invertible, it is possible to do eigenvalue decomposition of both of them such that
 \begin{equation}\label{eq:P eigen decompose}
     \begin{aligned}
-        D_P(e_P) &= UIU^\dagger, \\
+        D_P(e) &= UIU^\dagger, \\
         D_P(\pi) &= U\Sigma U^\dagger.
     \end{aligned}
 \end{equation}
 where $I$ is identity matrix, $\Sigma$ is a diagonal matrix of $D_P(\pi)$'s eigenvalues, and $U$ is the unitary matrix where each column is an eigenvector corresponding to each eigenvalue in $\Sigma$. From this, it is straight forward that all $n$ dimensional representations of $P$ are reducible to 1 dimensional representations.
 
 \subsection{$P$'s Irreducible Representations}
-Since 1 dimensional representations cannot be reduced (there is no proper subspace,) all 1 dimensional representations are irreducible representations. From previous section, we now know that all irreducible representations of $P$ must be 1 dimension representation. Furthermore, since $D_P(\pi)$ is self-inverse, $[D_P(\pi)]^2= D_P(e_P)=1$. Hence, there are only two irriducible representations commonly denoted as even ($D_P(\pi)= 1$), and odd ($D_P(\pi)=-1$). 
+Since 1 dimensional representations cannot be reduced (there is no proper subspace,) all 1 dimensional representations are irreducible representations. From previous section, we now know that all irreducible representations of $P$ must be 1 dimension representation. Furthermore, since $D_P(\pi)$ is self-inverse, $[D_P(\pi)]^2= D_P(e)=1$. Hence, there are only two irriducible representations commonly denoted as even ($D_P(\pi)= 1$), and odd ($D_P(\pi)=-1$). 
 
 We can see that the only difference of these two irreducible representations is in the values of $\pi$'s representations. Therefore, we can directly use those values as the irreducible representations' labels as
 \begin{equation}\label{eq:P Irreps}
     \begin{aligned}
-        D_P^{(p)}(e_P) &= 1 \\
+        D_P^{(p)}(e) &= 1 \\
         D_P^{(p)}(\pi) &= p
     \end{aligned}
 \end{equation}
-where the superscripts indicate that the representation is labeled by $p\in \{-1, 1\}$.
+where the superscripts indicate that the representation is labeled by $p\in \{-1, 1\}$. For convenience in equation writing, we would parameterize this group, even though there are only two elements in the group, by defining
+\begin{equation}\label{eq:P parameterization}
+    P = \{v_\rho|v_\rho=\pi^\rho,\rho\in\mathbb{Z}_{0+}\}.
+\end{equation}
+With this notation, we can see that $v_\rho=e$ when $\rho$ is an even number while $v_\rho=\pi$ when $\rho$ is odd. Furthermore, equation \ref{eq:P Irreps} can be greatly simplified to
+\begin{equation}\label{eq:P Irreps simplify}
+    D_P^{(p)}(v_\rho) = p^\rho.
+\end{equation}
 
 \subsection{$SU(2)\times P$'s Irreducible Representations}
-After the analysis of two symmetry groups related to quantum spin systems, it is the point where we start unifying them to generalize the way to represent quantum spin system. From the postulation for parity in quantum mechanics, it directly shows that $SU(2)$, and $P$ are commuting groups. This means that $SU(2)\ast P\cong SU(2)\times P$, i.e. the symmetry group that governs the combined symmetries is isomorphic to their direct product group, which makes the tensor product between every pair of irreducible representations of $SU(2)$, and $P$ are irreducible representation of $SU(2)\ast P$, and exhaust all of its possible irreducible representations. Hence, the irreducible representations of the combined $SU(2)$, and $P$ symmetries can be written, labeled with $j$ and $p$, as, for all $u_{\vec{\phi}}\in SU(2)$, and $u_P \in P$,
+After the analysis of two symmetry groups related to quantum spin systems, it is the point where we start unifying them to generalize the way to represent quantum spin system. From the postulation for parity in quantum mechanics, it directly shows that $SU(2)$, and $P$ are commuting groups. This means that $SU(2)\ast P\cong SU(2)\times P$, i.e. the symmetry group that governs the combined symmetries is isomorphic to their direct product group, which makes the tensor product between every pair of irreducible representations of $SU(2)$, and $P$ are irreducible representation of $SU(2)\ast P$, and exhaust all of its possible irreducible representations. Hence, the irreducible representations of the combined $SU(2)$, and $P$ symmetries can be written, labeled with $j$ and $p$, as, for all $u_{\vec{\phi}}\in SU(2)$, and $v_\rho \in P$,
 \begin{equation}\label{eq:SU2*P Irreps}
     \begin{aligned}
-        D^{(j,p)}_{SU(2)\ast P}(u_{\vec{\phi}} u_P) &= D^{(j,p)}_{SU(2)\times P}((u_{\vec{\phi}},u_P)) \\
-        &= D^{(j)}_{SU(2)}(u_{\vec{\phi}})\otimes D^{(p)}_{P}(u_P) \\
-        &= \exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot \begin{cases}
-                                                        1 &, u_P = e_P \\
-                                                        p &, u_P = \pi
-                                                    \end{cases}
+        D^{(j,p)}_{SU(2)\ast P}(u_{\vec{\phi}} v_\rho) &= D^{(j,p)}_{SU(2)\times P}((u_{\vec{\phi}},v_\rho)) \\
+        &= D^{(j)}_{SU(2)}(u_{\vec{\phi}})\otimes D^{(p)}_{P}(v_\rho) \\
+        &= \exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot p^\rho
     \end{aligned}
 \end{equation}
-where $\vec{\phi}\in\mathbb{R}^3$, $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p\in\{-1, 1\}$. Also, if one choose the standard angular momentum basis, $\vec{J}^{(j)}$ is according to equation \ref{eq:J's standard basis}.
+where $\vec{\phi}\in\mathbb{R}^3$, $\rho\in\mathbb{Z}_{0+}$, $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p\in\{-1, 1\}$. Also, if one choose the standard angular momentum basis, $\vec{J}^{(j)}$ is according to equation \ref{eq:J's standard basis}. The basis for this representation is $\{\ket{j,m}\otimes\ket{p}\}$. However, since $P$'s irreducible representations are all one dimensional, we will denote such basis as $\{\ket{j,m}_p\}$.
 
 \newpage
 \section{$T$ (Time-Reversal) Group}
@@ -484,7 +489,7 @@ where the first half of the basis is $\{\ket{g_a}\}$, the second half of the bas
 \textcolor{red}{but it is guaranteed to exhaust all possible irreducible corepresentations.}
 
 Our analysis so far only concerns about the effect of $\theta$ on the basis, but its complex conjugation also applies to other corepresentations, i.e., for all $g, g_1, g_2\in G$,
-\begin{equation}
+\begin{equation}\label{eq:G*T composition}
     \begin{aligned}
         D_{G\ast T}(g_1g_2) &= D_{G\ast T}(g_1)D_{G\ast T}(g_2), \\
         D_{G\ast T}(g\theta) &= D_{G\ast T}(g)D_{G\ast T}(\theta), \\
@@ -493,7 +498,7 @@ Our analysis so far only concerns about the effect of $\theta$ on the basis, but
     \end{aligned}
 \end{equation}
 As well as the whole corepresentation vector space, $V$, i.e., for all $g\in G$, and $v\in V$,
-\begin{equation}
+\begin{equation}\label{eq:G*T vector space}
     \begin{aligned}
         g\vec{v} &= D_{G\ast T}(g)\vec{v}, \\
         \theta\vec{v} &= D_{G\ast T}(\theta)\vec{v}^\ast.
@@ -595,25 +600,61 @@ and, with a change of basis from $\{\ket{g_a}\}\cup\{\theta\ket{g_a}\}$ to $\{\k
     \end{aligned}
 \end{equation}
 
+For convenience in equation writing, we would parameterize this group as well by defining
+\begin{equation}\label{eq:T parameterization}
+    T = \{w_\tau|w_\tau=\theta^\tau,\tau\in\mathbb{Z}_{0+}\}.
+\end{equation}
+With this notation, we can see that $w_0=e$, $w_1=\theta$, $w_2=\theta^2$, and so on.
+
 \subsection{$SU(2)\times P\times T$'s Irreducible Corepresentations}
 From the postulation for time-reversal in quantum mechanics, it directly shows that $SU(2)$, $P$, and $T$ are commuting groups. This means that $SU(2)\ast P\ast T\cong SU(2)\times P\times T$, but, since $T$ is antiunitary, we need to use analysis in the previous section instead of directly use representation tensor product as in the case of combining $SU(2)$ with $P$.
 
-Because the groups are commuting, equation \ref{eq:modify G irreps}, and \ref{eq:theta theta basis equivalence} turn out to be
+Using equation \ref{eq:SU2*P Irreps} as the irreducible representation for $SU(2)\times P$ and the commutation of the groups, equation \ref{eq:modify G irreps}, and \ref{eq:theta theta basis equivalence} turn out to be
 \begin{equation}\label{eq:modify SU2*P irreps}
-    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P)),
+    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, v_\rho)),
 \end{equation}
 and
 \begin{equation}\label{eq:theta theta SU2*P basis equivalence}
-   D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = \Theta^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\Theta^{(j)},
+   D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) = \Theta^{(j,p)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\Theta^{(j,p)},
 \end{equation}
-where $u_{\vec{\phi}}\in SU(2)$, $u_P\in P$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis. Note that, since the effect of $p$ toward the irreducible representation is a constant multiplication, we only need the superscripts $j$ for $\Theta$.
+where $u_{\vec{\phi}}\in SU(2)$, $v_\rho\in P$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis.
 
-Since $j$, and $p$ completely identifies $SU(2)\times P$'s irreducible representation of $2j+1$ dimensions, and $\tilde{D}_{SU(2)\times P}^{(j,p)}$ is also a $SU(2)\times P$'s irreducible representation of $2j+1$ dimensions, $\tilde{D}_{SU(2)\times P}^{(j,p)}$ must be equivalent to $D_{SU(2)\times P}^{(j,p)}$ under a unitary basis transformation $U^{(j)}$ (the same reason as $\Theta$ to omit index $p$). This, together with equation \ref{eq:modify SU2*P irreps}, implies that
-\begin{equation}\label{eq:theta SU2*P basis equivalence}
-    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))=U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}.
+Since $j$, and $p$ completely identifies all $SU(2)\times P$'s irreducible representations of $2j+1$ dimensions, and $\tilde{D}_{SU(2)\times P}^{(j,p)}$ is also a $SU(2)\times P$'s irreducible representation of $2j+1$ dimensions, $\tilde{D}_{SU(2)\times P}^{(j,p)}$ must be equivalent to either $D_{SU(2)\times P}^{(j,p)}$, or $D_{SU(2)\times P}^{(j,-p)}$ under a unitary basis transformation $U^{(j, p)}$. If $\tilde{D}_{SU(2)\times P}^{(j,p)}$ is equivalent to $D_{SU(2)\times P}^{(j,-p)}$, then, for any $u_{\vec{\phi}}$, $v_\rho$,
+\begin{equation}\label{eq:SU2*P impossible equivalence theta basis}
+    \begin{aligned}
+        \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) &= U^{(j,p)\dagger}D_{SU(2)\times P}^{(j,-p)}((u_{\vec{\phi}}, v_\rho))U^{(j,p)} \\
+        D^{(j)\ast}_{SU(2)}(u_{\vec{\phi}})\cdot p^\rho &= U^{(j,p)\dagger}D^{(j)}_{SU(2)}(u_{\vec{\phi}})U^{(j,p)}\cdot (-p)^\rho \\
+        D^{(j)\ast}_{SU(2)}(u_{\vec{\phi}}) &= U^{(j,p)\dagger}D^{(j)}_{SU(2)}(u_{\vec{\phi}})U^{(j,p)}\cdot (-1)^\rho.
+    \end{aligned}
+\end{equation}
+However, this is only possible when $D^{(j)\ast}_{SU(2)}$ is a zero matrix which is impossible since any representation is invertible by definition. Therefore, $\tilde{D}_{SU(2)\times P}^{(j,p)}$ must equivalent to $D_{SU(2)\times P}^{(j,p)}$, and $U^{(j,p)}$ is independent of $p$ (in the sense that any $U$ that satisfies equation \ref{eq:SU2*P impossible equivalence theta basis} for $p=1$ also satisfies for $p=-1$, and vice versa) where we will drop this superscript from here on. Similarly, after we substitute $D_{SU(2)\times P}^{(j,p)}$ into equation \ref{eq:theta theta SU2*P basis equivalence}, we can see that $\Theta^{(j,p)}$ is also independent of $p$. 
+
+Hence, we can rewrite equation \ref{eq:modify SU2*P irreps}, and \ref{eq:theta theta SU2*P basis equivalence} as
+\begin{equation}\label{eq:modify SU2*P irreps drop p}
+    \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) = D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, v_\rho))=U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))U^{(j)},
+\end{equation}
+and
+\begin{equation}\label{eq:theta theta SU2*P basis equivalence drop p}
+   D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) = \Theta^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\Theta^{(j)}.
+\end{equation}
+Because $D_{SU(2)\times P}^{(j,p)}$ is irreducible, from Schur's second lemma (equation \ref{eq:Schur's second lemma}), $\Theta^{(j)}$ must equal a constant $t I$ for some $t\in\mathbb{C}$,
+\begin{equation}\label{eq:SU2*P basis equivalence}
+    \Theta^{(j)} = tI,
+\end{equation}
+where, since $\Theta^{(j)}$ is unitary, $|t|=1$. However, from equation \ref{eq:evaluate theta equivalence of theta theta equivalence},
+\begin{equation}\label{eq:t condition}
+    \begin{aligned}
+        U^{(j)\dagger}\Theta^{(j)}U^{(j)} &= \Theta^{(j)\ast} \\
+        U^{(j)\dagger}tIU^{(j)} &= t^\ast I \\
+        t &= t^\ast,
+    \end{aligned}
+\end{equation}
+or $t\in\mathbb{R}$. Combining with $|t|=1$, this means that $t\in\{-1, 1\}$. Hence, from equation \ref{eq:G basis equivalence}, we know that the chosen $U^{(j)}$ must satisfy
+\begin{equation}\label{eq:U condition}
+    U^{(j)}U^{(j)\ast} = \lambda\Theta^{(j)}=t\lambda I=\pm I.
 \end{equation}
 
-To see this, consider a matrix
+To see that this is the case, consider a matrix
 \begin{equation}\label{eq:U}
     \left[U^{(j)}\right]_{a, b} = i^{2(a-j)}\delta_{a,2j-b}.
 \end{equation}
@@ -670,124 +711,143 @@ This also directly implies that
 Therefore,
 \begin{equation}\label{eq:U basis theta basis equivalence}
     \begin{aligned}
-        U^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U &= U^{(j)\dagger}\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})U^{(j)}\cdot \begin{cases}
-            1 &, u_P = e_P \\
-            p &, u_P = \pi
-        \end{cases} \\ 
-        &= U^{(j)\dagger}\exp(-i(J_x^{(j)}\phi_x+J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))U^{(j)}\cdot \begin{cases}
-            1 &, u_P = e_P \\
-            p &, u_P = \pi
-        \end{cases} \\
-        &= \exp(i(J_x^{(j)}\phi_x-J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))\cdot \begin{cases}
-            1 &, u_P = e_P \\
-            p &, u_P = \pi
-        \end{cases} \\
-        &= D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P)) \\
-        &= \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)),
+        U^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))U &= U^{(j)\dagger}\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})U^{(j)}\cdot p^\rho \\ 
+        &= U^{(j)\dagger}\exp(-i(J_x^{(j)}\phi_x+J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))U^{(j)}\cdot p^\rho \\
+        &= \exp(i(J_x^{(j)}\phi_x-J_y^{(j)}\phi_y+J_z^{(j)}\phi_z))\cdot p^\rho \\
+        &= D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, v_\rho)) \\
+        &= \tilde{D}_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)),
     \end{aligned}
 \end{equation}
-as required.
-
-From this result, by applying complex conjugation to equation \ref{eq:theta SU2*P basis equivalence}, we get
-\begin{equation}\label{eq:UU* SU2*P basis equivalence}
+as required. We can also check the condition from equation \ref{eq:U condition} such that
+\begin{equation}\label{eq:check U condition}
     \begin{aligned}
-        \left(D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))\right)^\ast &= \left(U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}\right)^\ast\\
-        D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= U^{(j)\dagger\ast} D_{SU(2)\times P}^{(j,p)\ast}((u_{\vec{\phi}}, u_P))U^{(j)\ast} \\
-        &= U^{(j)\dagger\ast} \left(U^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))U^{(j)}\right)U^{(j)\ast} \\
-        &= \left(U^{(j)}U^{(j)\ast}\right)^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right)
+        \left[U^{(j)}U^{(j)\ast}\right]_{a,b} &= \sum_{c}\left(i^{2(a-j)}\delta_{a,2j-c}\right)\left((-i)^{2(c-j)}\delta_{c,2j-b}\right) \\
+        &= i^{2(a-j)}\delta_{a,b}(-i)^{2(j-b)} \\
+        &= i^{2(a+b-2j)}\delta_{a,b} \\
+        &= i^{4a}i^{-4j}\delta_{a,b} \\
+        &= (-1)^{-2j}\delta_{a,b} \\
+        &= \left[(-1)^{-2j}I\right]_{a,b}.
     \end{aligned}
 \end{equation}
-which, from equation \ref{eq:theta theta SU2*P basis equivalence}, gives
-\begin{equation}\label{eq:equate basis equivalence}
-    \Theta^{(j)\dagger} D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\Theta^{(j)} = \left(U^{(j)}U^{(j)\ast}\right)^\dagger D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right).
+This, together with equation \ref{eq:U condition}, gives the condition for $\lambda$ as
+\begin{equation}\label{eq:lambda condition}
+    \lambda = (-1)^{-2j}/t.
 \end{equation}
 
-We can rearrange equation \ref{eq:theta theta SU2*P basis equivalence}, \ref{eq:UU* SU2*P basis equivalence}, and \ref{eq:theta theta SU2*P basis equivalence} such that
-\begin{equation}
+With all these results, we can now write the corepresentation of $SU(2)\ast P\ast T$ in $\{\ket{j,m}_p\}\cup\{U^{(j)\dagger}\theta\ket{j,m}_p\}$ basis as,
+\begin{equation}\label{eq:SU2*P*T Coreps simplify change basis}
     \begin{aligned}
-        \left(\Theta^{(j)}\right) D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(\Theta^{(j)}\right), \\
-        \left(U^{(j)}U^{(j)\ast}\right)D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\right), \\
-        \left(U^{(j)}U^{(j)\ast}\Theta^{(j)\dagger}\right) D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P)) &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, u_P))\left(U^{(j)}U^{(j)\ast}\Theta^{(j)\dagger}\right).
-    \end{aligned}
-\end{equation}
-
-This directly means that the $SU(2)\times P$'s irreducible representation in $\{\ket{j, m, p}\}$, and $\{\theta\ket{j, m, p}\}$ basis are equivalent. This implies that the corepresentation of $SU(2)\times P\times TR$ for $w\in SU(2)\times P$ is
-\begin{equation}
-    D_{SU(2)\times P\times TR}^{(j)}(w) = 
-    \begin{bmatrix}
-        D^{(j)}_{SU(2)\times P}(w) & 0 \\
-        0 & U^{(j)\dagger}D^{(j)}_{SU(2)\times P}(w)U^{(j)}
-    \end{bmatrix}
-\end{equation}
-where the first half of the basis is $\{\ket{j, m, p}\}$ while the second half is $\{\theta\ket{j, m, p}\}$.
-
-In order to get the corepresentation for $\theta$, we know that, since $\theta^{-1}w\theta$, $\theta^{-2}$ and $\theta^{2}$ are unitary,
-\begin{equation}
-    \tilde{D}^{(j)}_{SU(2)\times P}(\theta^{-1}w\theta) = D^{(j)}_{SU(2)\times P}(\theta^{-2}w\theta^2)^\ast.
-\end{equation}
-However, this exact thing is also equal
-\begin{equation}
-    \tilde{D}^{(j)}_{SU(2)\times P}(\theta^{-1}w\theta) = U^{(j)\dagger}D^{(j)}_{SU(2)\times P}(\theta^{-1}w\theta)U^{(j)}.
-\end{equation}
-Hence,
-\begin{equation}
-    \begin{aligned}
-        D^{(j)}_{SU(2)\times P}(\theta^{-2}w\theta^2) &= U^{(j)\dagger\ast}D^{(j)}_{SU(2)\times P}(\theta^{-1}w\theta)^\ast U^{(j)\ast} \\
-        D^{(j)}_{SU(2)\times P}(\theta^{2})^{-1}D^{(j)}_{SU(2)\times P}(w)D^{(j)}_{SU(2)\times P}(\theta^2)&= U^{(j)\dagger\ast}U^{(j)\dagger}D^{(j)}_{SU(2)\times P}(w)U^{(j)}U^{(j)\ast} \\
-        U^{(j)}U^{(j)\ast}D^{(j)}_{SU(2)\times P}(\theta^{2})^{-1}D^{(j)}_{SU(2)\times P}(w) &= D^{(j)}_{SU(2)\times P}(w)U^{(j)}U^{(j)\ast}D^{(j)}_{SU(2)\times P}(\theta^2)^{-1}.
-    \end{aligned}
-\end{equation}
-From Schur's lemma, since $D^{(j)}_{SU(2)\times P}$ is an irreducible representation, there is a constant $\lambda\in\mathbb{C}$ such that
-\begin{equation}
-    \lambda U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
-\end{equation}
-With similar process but substitute $w=\theta^2$,
-\begin{equation}
-    D^{(j)}_{SU(2)\times P}(\theta^{2})^\ast = U^{(j)\dagger}D^{(j)}_{SU(2)\times P}(\theta^{2})U^{(j)}.
-\end{equation}
-This, together with the previous one, gives
-\begin{equation}
-    \lambda^\ast U^{(j)}U^{(j)\ast} = D^{(j)}_{SU(2)\times P}(\theta^{2}).
-\end{equation}
-Hence, $\lambda\in\mathbb{R}$. Moreover, the unitarity of $U^{(j)}$, and $SU(2)\times P$'s irreducible representation, restricts $\lambda = \pm 1$. With all these results, one now can write the corepresentation of $SU(2)\times P\times TR$ for $\theta\in T$ as
-\begin{equation}
-    \begin{aligned}
-        D_{SU(2)\times P\times TR}^{(j)}(\theta) &= 
-        \begin{bmatrix}
-            0 & D^{(j)}_{SU(2)\times P}(\theta^2) \\
-            1 & 0
-        \end{bmatrix} \\
+        D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) &= D_{SU(2)\times P\times T}^{(j,p)}((u_{\vec{\phi}}, v_\rho, w_0)) \\
         &= \begin{bmatrix}
-            0 & \lambda U^{(j)}U^{(j)\ast} \\
-            1 & 0
-        \end{bmatrix}.
+            D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) & 0 \\
+                0 & D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))  
+            \end{bmatrix}, \\
+        D_{SU(2)\ast P\ast T}^{(j,p)}(\theta) &= D_{SU(2)\times P\times T}^{(j,p)}((u_{\vec{0}},u_0,w_1)) \\
+        &= \begin{bmatrix}
+                0 & (-1)^{2j}tU^{(j)} \\
+                U^{(j)} & 0 
+            \end{bmatrix}
     \end{aligned}
 \end{equation}
-One can further simplify the representation by changing the basis $\{\theta\ket{j, m, p}\}$ with $U^{(j)}$,
-\begin{equation}
+where $u_{\vec{\phi}}\in SU(2)$, $v_\rho\in P$, $w_\tau\in T$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, $t\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis. Note that, equation \ref{eq:SU2*P*T Coreps simplify change basis} can be use for constructing any members of $SU(2)\ast P\ast T$ according to combination rules in equation \ref{eq:G*T composition} as well as the commutation property between members from different groups of $SU(2)$, $P$, and $T$.
+
+The last thing we need to do is checking the reducibility of this corepresentation. The first thing we immediately notice from equation \ref{eq:SU2*P*T Coreps simplify change basis} is that, because $D_{SU(2)\times P}^{(j,p)}$ is irreducible, $D_{SU(2)\ast P\ast T}^{(j,p)}$ can only be either irreducible, or reducible into exactly two $2j+1$ dimensional subspaces. Suppose there exist a unitary transformation $M$ that block diagonalizes $D_{SU(2)\ast P\ast T}^{(j,p)}$. Since $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$ is already block diagonalized, one possible class of $M$ is the transformation of basis $\{\ket{j,m}_p\}$ and $\{U^{(j)\dagger}\theta\ket{j,m}_p\}$ separately, i.e. $M$ is a block diagonal of two $2j+1$ dimensional unitary transformation that change $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$'s to other equivalent irreducible representations. Such class of $M$ is impossible to block diagonalizes $D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)$ where it needs off block diagonal terms. Hence, we can consider only $M$ that
+\begin{equation}\label{eq:M block diagonalize SU2*P}
     \begin{aligned}
-        D_{SU(2)\times P\times TR}^{(j)}(w) &= 
-        \begin{bmatrix}
-            D^{(j)}_{SU(2)\times P}(w) & 0 \\
-            0 & D^{(j)}_{SU(2)\times P}(w)
-        \end{bmatrix} \\
-        D_{SU(2)\times P\times TR}^{(j)}(\theta) &= 
-        \begin{bmatrix}
-            0 & \lambda U^{(j)} \\
-            U^{(j)} & 0
-        \end{bmatrix}.
+        M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))M &= D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) \\
+        D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))M &= MD_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho)).
     \end{aligned}
 \end{equation}
 
-From definition of $U^{(j)}$, the representation $D_{SU(2)\times P\times TR}^{(j)}(\theta)$ can either be symmetric or antisymmetric antidiagonal matrix. We can see that
-\begin{equation}
+Consider, a general $M$,
+\begin{equation}\label{eq:general M}
+    M = \begin{bmatrix}
+        A & B \\
+        C & D
+    \end{bmatrix}.
+\end{equation}
+Substituting equation \ref{eq:SU2*P*T Coreps simplify change basis}, and \ref{eq:general M} into \ref{eq:M block diagonalize SU2*P}, we get
+\begin{equation}\label{eq:substitute M}
+    \begin{bmatrix}
+        AD_{SU(2)\times P}^{(j,p)} & BD_{SU(2)\times P}^{(j,p)} \\
+        CD_{SU(2)\times P}^{(j,p)} & DD_{SU(2)\times P}^{(j,p)}  
+        \end{bmatrix} = \begin{bmatrix}
+            D_{SU(2)\times P}^{(j,p)}A & D_{SU(2)\times P}^{(j,p)}B \\
+            D_{SU(2)\times P}^{(j,p)}C & D_{SU(2)\times P}^{(j,p)}D  
+            \end{bmatrix}.
+\end{equation}
+Because $D_{SU(2)\times P}^{(j,p)}$ is irreducible, from Schur's second lemma (equation \ref{eq:Schur's second lemma}),
+\begin{equation}\label{eq:M conditions}
+    M = \begin{bmatrix}
+        aI & bI \\
+        cI & dI
+    \end{bmatrix} = \begin{bmatrix}
+        a & b \\
+        c & d
+    \end{bmatrix}\otimes I \triangleq m\otimes I
+\end{equation}
+where $a, b, c, d\in\mathbb{C}$, and $m$ is a 2 by 2 unitary matrix. Then, we use this $M$ to try block diagonalizing $D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)$,
+\begin{equation}\label{eq:M block diagonalize T}
     \begin{aligned}
-        \left[U^{(j)}\right]_{rq} &= i^{2(r-j)}\delta_{r,2j-q} \\
-        &= i^{2(j-q)}\delta_{q,2j-r} \\
-        &= i^{4(j-q)}\left[U^{(j)}\right]_{qr} \\
-        &= (-1)^{2j}\left[U^{(j)}\right]_{qr}.
+        M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)M^\ast &= \left(m^\dagger\otimes I\right)\left(\begin{bmatrix}0&1/\lambda\\1&0\end{bmatrix}\otimes U^{(j)}\right)\left(m^\ast\otimes I\right) \\
+        &= \left(m^\dagger\begin{bmatrix}0&1/\lambda\\1&0\end{bmatrix}  m^\ast\right)\otimes U^{(j)} \\
+        &= \begin{bmatrix}(1+1/\lambda)a^\ast c^\ast & a^\ast d^\ast/\lambda + b^\ast c^\ast \\ a^\ast d^\ast + b^\ast c^\ast/\lambda & (1+1/\lambda)b^\ast d^\ast\end{bmatrix} \otimes U^{(j)}.
     \end{aligned}
 \end{equation}
-In other words, $D_{SU(2)\times P\times TR}^{(j)}(\theta)$ is symmetric when $(-1)^{2j}\lambda = 1$, and antisymmetric when $(-1)^{2j}\lambda = -1$. 
+From equation \ref{eq:M block diagonalize T}, it is clear that, when $1/\lambda=(-1)^{2j}t=-1$, the block diagonal terms vanish, i.e. it is impossible to be block diagonalized. In other words, equation \ref{eq:SU2*P*T Coreps simplify change basis} is the irreducible corepresentation of $SU(2)\ast P\ast T$ for the cases that $(-1)^{2j}t=-1$.
+
+As for the case that $1/\lambda=(-1)^{2j}t=1$, consider a choice of $m$,
+\begin{equation}\label{eq:m lambda one}
+    m = \dfrac{1}{\sqrt{2}}\begin{bmatrix}
+        i & 1 \\
+        -i & 1
+    \end{bmatrix}.
+\end{equation}
+Then, substituting this $m$ into equation \ref{eq:M block diagonalize T}, for $1/\lambda=1$, gets
+\begin{equation}\label{eq:M block diagonalized T}
+    \begin{aligned}
+        M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)M^\ast &= \begin{bmatrix}2a^\ast c^\ast & a^\ast d^\ast + b^\ast c^\ast \\ a^\ast d^\ast + b^\ast c^\ast & 2b^\ast d^\ast\end{bmatrix} \otimes U^{(j)} \\
+        &= \dfrac{1}{2}\begin{bmatrix}2 & i + -i \\ i + -i & 2\end{bmatrix} \otimes U^{(j)} \\
+        &= \begin{bmatrix}U^{(j)} & 0 \\ 0 & U^{(j)}\end{bmatrix}.
+    \end{aligned}
+\end{equation}
+We can see that the corepresentation is reducible into two equivalent representations with linearly dependent bases. Hence, the irreducible corepresentation of $SU(2)\ast P\ast T$ for the cases that $(-1)^{2j}t=1$ in $\left\{\left(\ket{j,m}_p+U^{(j)\dagger}\theta\ket{j,m}_p\right)/\sqrt{2}\right\}$ basis is,
+\begin{equation}\label{eq:SU2*P*T Coreps lambda one}
+    \begin{aligned}
+        D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))
+        &= D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)), \\
+        D_{SU(2)\ast P\ast T}^{(j,p)}(\theta) 
+        &= U^{(j)}.
+    \end{aligned}
+\end{equation}
+
+From equation \ref{eq:SU2*P*T Coreps simplify change basis}, and \ref{eq:SU2*P*T Coreps lambda one}, we can see that it would be convenience to write those irreducible corepresentations in the common tensor product form such that
+\begin{equation}\label{eq:SU2*P*T Coreps generalized}
+    \begin{aligned}
+        D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))
+        &= \left(E^{(j,t)}\right)^0\otimes D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)), \\
+        D_{SU(2)\ast P\ast T}^{(j,p)}(\theta) 
+        &= E^{(j,t)}\otimes U^{(j)}
+    \end{aligned}
+\end{equation}
+where
+\begin{equation}\label{eq:E}
+    E^{(j,t)} = \begin{cases}
+        1 &, t = (-1)^{2j} \\
+        \begin{bmatrix}0&-1\\1&0\end{bmatrix} &, t = (-1)^{2j+1}
+    \end{cases}.
+\end{equation}
+
+From these results, we can see that $\lambda$, which can be associated with $j$, and $t$, fully specifies the irreducible corepresentation. Hence, the irreducible corepresentation of the combined $SU(2)$, $P$, and $T$ symmetries can be written, labeled with $j$, $p$, and $t$, as, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, and $w_\tau \in T$,
+\begin{equation}\label{eq:SU2*P*T IrCoreps}
+    \begin{aligned}
+        D^{(j,p,t)}_{SU(2)\ast P\ast T}(u_{\vec{\phi}} v_\rho w_\tau) &= D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{\phi}},v_\rho,w_\tau)) \\
+        &= D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{\phi}},v_\rho,w_0))\cdot D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{0}},v_0,w_1)^\tau) \\
+        &= \left(E^{(j,t)}\right)^\tau\otimes D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\cdot\left(U^{(j)}U^{(j)\ast}\right)^{\left\lfloor \tau/2\right\rfloor}\cdot\left(U^{(j)}\right)^{\tau\bmod 2} \\
+        &= \left(E^{(j,t)}\right)^\tau\otimes D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\cdot(-1)^{2j\left\lfloor \tau/2\right\rfloor}\cdot\left(U^{(j)}\right)^{\tau\bmod 2} \\
+        &= \left(E^{(j,t)}\right)^{\tau\bmod 4}\otimes(-1)^{2j\left\lfloor \tau/2\right\rfloor}p^\rho\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot \left(U^{(j)}\right)^{\tau\bmod 2}
+    \end{aligned}
+\end{equation}
+where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$. Note that the corepresentation basis for each $t$ is different by the transformation of $m$ in equation \ref{eq:m lambda one}.
 
 \end{document}
