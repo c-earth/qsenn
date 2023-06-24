@@ -143,9 +143,7 @@ Consider a pair of representations $D^{(\Gamma_G)}_G$, and $D^{(\Gamma_H)}_H$ of
 \end{equation}
 because the structure of groups' direct product (equation \ref{eq:direct product binary operator}) is the same as general linear groups' tensor product (equation \ref{eq:compose linear map tensor product}).
 
-% Leave it at this for now, but might come back for self-sustaining work
-\textcolor{red}{
-Note that the representation of direct product defined in equation \ref{eq:direct product representation} guarantees irreducible representation from product of two irreducible representation, and complete identification of all irreducible representations of the groups' direct product as long as the groups are either finite, or compact.}
+Note that the representation of direct product defined in equation \ref{eq:direct product representation} guarantees irreducible representation from product of two irreducible representation, and complete identification of all irreducible representations of the groups' direct product as long as the groups are either finite, or compact.
 
 \subsection{Free Product}
 A group free product is another composition of two groups to form a new larger group. Consider groups $G$ and $H$, their free product ($G\ast H$) is defined as a group generated from $G\cup H$ such that the binary operator is $\circ_G$ between adjacent elements from $G$, and is $\circ_H$ between adjacent elements from $H$,
@@ -412,14 +410,7 @@ where $\vec{\phi}\in\mathbb{R}^3$, $\rho\in\mathbb{Z}_{0+}$, $j\in\{0, 1/2, 1, 3
 \subsection{$T$'s Relation to Quantum Spin System}
 
 \subsection{$T$'s Definition}
-
-% Leave it at this for now, come back to make everything clear cut especially the time-reversal postulates.
-\textcolor{red}
-{
-$T$ is the group of temporal inversion, i.e. the group consisting of its unique identity $e_T$, and the time-reverse operator $\theta$ (which may or may not be its own inverse) that inverts direction of time. However, even with some similarities, this group is not isomorphic with $P$, and the reason is that the physical properties require time-reversal symmetric system to obey Schr\"odinger's equation. To see this, first consider the Schr\"odinger's equation describing an arbritary system,
-\begin{equation}\label{eq:Schrodinger}
-    i\hbar\dfrac{\partial}{\partial t}\ket{\psi(t)} = \hat{H}\ket{\psi(t)}
-\end{equation}}
+$T$ is the group of temporal inversion, i.e. the group consisting of only 1 generator, the time-reversal operator $\theta$ which is an antiunitary operator.
 
 \subsection{$T$'s Corepresentations}
 Because of the antiunitary nature of $T$, the analysis for its irreducible representation cannot be done in the same fashion as other unitary groups. The main reason for this is that the complex conjugation part of the antiunitary operator $\theta$ can change the basis used for the irreducible representation of other groups, i.e. the groups that we want to combine with $T$.
@@ -484,9 +475,7 @@ Equation \ref{eq:theta theta basis equivalence} guarantees that, in order to rep
                                 \end{bmatrix},
     \end{aligned}
 \end{equation}
-where the first half of the basis is $\{\ket{g_a}\}$, the second half of the basis is $\{\theta\ket{g_a}\}$, and $I$ is identity matrix. Note that whether these corepresentation is reducible or not depends on the actual form of $D_{G}(\theta^{-1}g\theta)$, and $\Theta$, 
-% Leave it at this for now, but might come back for self-sustaining work
-\textcolor{red}{but it is guaranteed to exhaust all possible irreducible corepresentations.}
+where the first half of the basis is $\{\ket{g_a}\}$, the second half of the basis is $\{\theta\ket{g_a}\}$, and $I$ is identity matrix. Note that whether these corepresentation is reducible or not depends on the actual form of $D_{G}(\theta^{-1}g\theta)$, and $\Theta$, but it is guaranteed to exhaust all possible irreducible corepresentations.
 
 Our analysis so far only concerns about the effect of $\theta$ on the basis, but its complex conjugation also applies to other corepresentations, i.e., for all $g, g_1, g_2\in G$,
 \begin{equation}\label{eq:G*T composition}
