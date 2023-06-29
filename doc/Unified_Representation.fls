@@ -1,6 +1,6 @@
-PWD d:\python_project\su2nn\doc
+PWD d:\python_project\qsenn\doc
 INPUT C:\Users\earthz\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT d:\python_project\su2nn\doc\Unified_Representation.tex
+INPUT d:\python_project\qsenn\doc\Unified_Representation.tex
 OUTPUT Unified_Representation.log
 INPUT C:\Users\earthz\AppData\Local\Programs\MiKTeX\tex\latex\revtex\revtex4-2.cls
 INPUT C:\Users\earthz\AppData\Local\Programs\MiKTeX\tex\latex\revtex\revtex4-2.cls
