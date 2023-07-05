@@ -22,3 +22,13 @@ class D_P():
             raise ValueError(f'The number of parity (rho) operations must be integer, but {type(rho)} is given')
         
         return torch.mul(torch.tensor(self.p ** rho, dtype = target.dtype), target)
+    
+    @classmethod
+    def tp(cls, D_P1, D_P2):
+        if not isinstance(D_P1, D_P):
+            raise ValueError(f'Tensor product arguments must be a D_P, but {type(D_P1)} is given for the first argument.')
+        
+        if not isinstance(D_P2, D_P):
+            raise ValueError(f'Tensor product arguments must be a D_P, but {type(D_P2)} is given for the second argument.')
+        
+        return D_P(D_P1.p * D_P2.p)
