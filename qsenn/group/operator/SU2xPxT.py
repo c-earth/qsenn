@@ -13,7 +13,7 @@ class D_SU2xPxT():
 
         self._D_SU2 = D_SU2(j)
         self._D_P = D_P(p)
-        
+
         self._E = self.generate_E()
         self._U = self.generate_U()
 
@@ -45,6 +45,9 @@ class D_SU2xPxT():
     def U(self):
         return self._U
     
+    def __repr__(self):
+        return f'D_SU2xPxT^({self.j}, {self.p}, {self.t})'
+    
     def generate_E(self):
         if self.t == (-1) ** int(2*self.j):
             return torch.tensor([1], dtype = c128)
@@ -59,6 +62,7 @@ class D_SU2xPxT():
         SU2_op = self.D_SU2.op(phi)
         P_op = self.D_P.op(rho)
         SU2xP_op = torch.kron(SU2_op, P_op)
+        
         E_tau = torch.matrix_power(self.E, tau%4)
         U_tau = ((-1) ** int(2*self.j*(tau//2))) * (self.U ** (tau%2))
         return torch.kron(E_tau, torch.matmul(SU2xP_op, U_tau))
@@ -66,6 +70,6 @@ class D_SU2xPxT():
     def operate(self, target, phi, rho, tau):
         operator = self.op(phi, rho, tau)
         if tau%2 == 0:
-            return torch.mul(operator, target)
+            return torch.matmul(operator, target)
         else:
-            return torch.mul(operator, target.conj())
+            return torch.matmul(operator, target.conj())

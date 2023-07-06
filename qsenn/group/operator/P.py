@@ -19,7 +19,3 @@ class D_P():
     def operate(self, target, rho):
         operator = self.op(rho)
         return torch.mul(operator, target)
-    
-    @classmethod
-    def tp(cls, D_P1, D_P2):
-        return D_P(D_P1.p * D_P2.p)
