@@ -11,11 +11,11 @@ class D_SU2xPxT():
         self._p = p
         self._t = t
 
-        self._D_SU2 = D_SU2(j)
-        self._D_P = D_P(p)
+        self._D_SU2 = D_SU2(self.j)
+        self._D_P = D_P(self.p)
 
-        self._E = self.generate_E()
-        self._U = self.generate_U()
+        self._E = D_SU2xPxT.generate_E(self.j, self.t)
+        self._U = D_SU2xPxT.generate_U(self.j)
 
     @property
     def j(self):
@@ -48,16 +48,6 @@ class D_SU2xPxT():
     def __repr__(self):
         return f'D_SU2xPxT^({self.j}, {self.p}, {self.t})'
     
-    def generate_E(self):
-        if self.t == (-1) ** int(2*self.j):
-            return torch.tensor([1], dtype = c128)
-        else:
-            return torch.tensor([[0, -1], [1, 0]], dtype = c128)
-    
-    def generate_U(self):
-        anti_diagonal = torch.tensor([1j ** int(2*(a - self.j)) for a in range(int(2*self.j + 1))], dtype = c128)
-        return torch.fliplr(torch.diag(anti_diagonal))
-    
     def op(self, phi, rho, tau):
         SU2_op = self.D_SU2.op(phi)
         P_op = self.D_P.op(rho)
@@ -73,3 +63,15 @@ class D_SU2xPxT():
             return torch.matmul(operator, target)
         else:
             return torch.matmul(operator, target.conj())
+    
+    @staticmethod
+    def generate_E(j, t):
+        if t == (-1) ** int(2*j):
+            return torch.tensor([1], dtype = c128)
+        else:
+            return torch.tensor([[0, -1], [1, 0]], dtype = c128)
+    
+    @staticmethod
+    def generate_U(j):
+        anti_diagonal = torch.tensor([1j ** int(2*(a - j)) for a in range(int(2*j + 1))], dtype = c128)
+        return torch.fliplr(torch.diag(anti_diagonal))
