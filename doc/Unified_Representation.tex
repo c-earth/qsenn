@@ -839,4 +839,29 @@ From these results, we can see that $\lambda$, which can be associated with $j$,
 \end{equation}
 where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$. Note that the corepresentation basis for each $t$ is different by the transformation of $m$ in equation \ref{eq:m lambda one}.
 
+\newpage
+\section{Tensor Product of Representations}
+
+\subsection{Tensor Product as Composite System Representation}
+
+\subsection{Tensor Product Reduction}
+
+\subsection{Tensor Product of $SU(2)\times P\times T$'s Irreducible Corepresentations}
+Consider two irreducible corepresentations of $SU(2)\times P\times T$ with labels $(j_1, p_1, t_1)$, and $(j_2, p_2, t_2)$ from equation \ref{eq:SU2*P*T IrCoreps}. For neatness, we will omit the subscripts when the corepresentation is for $SU(2)\times P\times T$, i.e. $D^{(j,p,t)}\triangleq D^{(j,p,t)}_{SU(2)\times P\times T}$.Their tensor product is, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, and $w_\tau \in T$,
+\begin{equation}
+    \begin{aligned}
+        &D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_\tau))\otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_\tau)) \\
+        &=  \begin{multlined}
+                D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_0))\cdot D^{(j_1,p_1,t_1)}((u_{\vec{0}}, v_0, w_\tau))\\ 
+                \otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_0))\cdot D^{(j_2,p_2,t_2)}((u_{\vec{0}}, v_0, w_\tau))
+            \end{multlined} \\
+        &=  \begin{multlined}
+                \left(D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_0)) \otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_0))\right) \\
+                \cdot \left(D^{(j_1,p_1,t_1)}((u_{\vec{0}}, v_0, w_1)) \otimes D^{(j_2,p_2,t_2)}((u_{\vec{0}}, v_0, w_1))\right)^\tau
+            \end{multlined}
+    \end{aligned}
+\end{equation}
+where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$. 
+
+
 \end{document}
