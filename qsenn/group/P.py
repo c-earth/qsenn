@@ -1,5 +1,7 @@
 import torch
 
+from _G import MulIr
+
 p2n = {'o': -1, 'e': 1}
 n2p = {-1: 'o', 1: 'e'}
 
@@ -56,7 +58,7 @@ class IrrepP():
         for p in n2p:
             yield IrrepP(p)
 
-class MulIrrepP(tuple):
+class MulIrrepP(MulIr):
     def __new__(cls, mul, ir):
         if not isinstance(mul, int):
             raise ValueError(f'multiplicity must be an integer, but got {type(mul)}')
@@ -67,21 +69,6 @@ class MulIrrepP(tuple):
             raise ValueError(f'expected IrrepP object, but got {type(ir)}')
         
         return super().__new__(cls, (mul, ir))
-    
-    @property
-    def mul(self):
-        return self[0]
-    
-    @property
-    def ir(self):
-        return self[1]
-    
-    @property
-    def dim(self):
-        return self.mul * self.ir.dim
-
-    def __repr__(self):
-        return f'{self.mul}x{self.ir}'
 
 class IrrepsP(tuple):
     def __new__(cls, irreps):
