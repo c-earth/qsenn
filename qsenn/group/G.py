@@ -1,8 +1,12 @@
 import abc
 
-from tensor.direct_sum import direct_sum
+from qsenn.tensor.direct_sum import direct_sum
 
 class IrrepInterface(abc.ABC):
+    @abc.abstractmethod
+    def __init__(self):
+        pass
+
     @property
     @abc.abstractmethod
     def dim(self):
@@ -26,14 +30,11 @@ class IrrepInterface(abc.ABC):
         pass
 
 class Irrep(IrrepInterface):
-    def __init__(self):
-        pass
-
     def __rmul__(self, mul):
-        return Irreps([(mul, self)])
+        return self.Irreps([(mul, self)])
 
     def __add__(self, other):
-        return Irreps(self) + Irreps(other)
+        return self.Irreps(self) + self.Irreps(other)
     
     @classmethod
     def MulIrrep(cls, mulirrep):
