@@ -17,7 +17,7 @@ class IrrepInterface(abc.ABC):
         pass
     
     @abc.abstractmethod
-    def __mul__(self, other):
+    def __mul__(self):
         pass
     
     @abc.abstractmethod
@@ -50,8 +50,12 @@ class Irrep(IrrepInterface):
             else:
                 mul = 1
                 irrep = mulirrep
-        elif isinstance(mulirrep, tuple) and len(mulirrep) == 2:
-            mul, irrep = mulirrep
+        elif isinstance(mulirrep, tuple):
+            if isinstance(mulirrep[0], int) and isinstance(mulirrep[1], (cls, tuple, str)):
+                mul, irrep = mulirrep
+            else:
+                mul = 1
+                irrep = mulirrep
         else:
             raise ValueError(f'unable to interpret {mulirrep} as MulIrrep of this Irrep')
         
@@ -82,6 +86,8 @@ class Irrep(IrrepInterface):
                         out.append(cls.MulIrrep(mulirrep))
                 else:
                     out.append(cls.MulIrrep(irreps))
+            elif isinstance(irreps[0], int):
+                out.append(cls.MulIrrep(irreps))
             else:
                 for mulirrep in irreps:
                     out.append(cls.MulIrrep(mulirrep))
