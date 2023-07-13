@@ -193,4 +193,11 @@ class Irreps(tuple):
         return direct_sum(*[mulirrep.irrep.D(*args) for mulirrep in self for _ in range(mulirrep.mul)])
     
     def operate(self, target, *args):
-        return torch.matmul(self.D(*args), target)
+        out = []
+        idx = 0
+        for mulirrep in self:
+            irrep = mulirrep.irrep
+            for _ in range(mulirrep.mul):
+                out.append(irrep.operate(target[idx: idx + irrep.dim], *args))
+                idx += irrep.dim
+        return torch.concat(out)

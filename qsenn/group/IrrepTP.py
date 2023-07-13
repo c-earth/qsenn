@@ -6,7 +6,7 @@ from qsenn.group.Irrep import Irrep
 class IrrepTP(Irrep):
     @property
     def parents(self):
-        return []
+        return tuple()
 
     def __init__(self, irrepTP):
         if isinstance(irrepTP, IrrepTP):
@@ -17,7 +17,8 @@ class IrrepTP(Irrep):
         elif isinstance(irrepTP, str) and len(irrepTP.split(',')) == len(self.parents):
             labels = (int(l) for l in irrepTP.split(','))
         else:
-            raise ValueError(f'unable to interpret {irrepTP} as IrrepTP')
+            raise ValueError(f'unable to interpret {irrepTP} as IrrepTP with \
+                             {self.parents} as parents\' Irrep\'s')
 
         self._labels = labels
         self._comps = (parent((l,)) for parent, l in zip(self.parents, labels))
@@ -38,7 +39,7 @@ class IrrepTP(Irrep):
         return self._comps
 
     def __repr__(self):
-        return ','.join(f'{comp}' for comp in self.comps)
+        return ','.join(f'{l}' for l in self.labels)
     
     def __mul__(self, other):
         if isinstance(other, IrrepTP):
@@ -67,7 +68,7 @@ class IrrepTP(Irrep):
         return torch.matmul(self.D(*args), target)
 
     @classmethod
-    def iterator(cls, labels_max):
+    def iterator(cls, *labels_max):
         labelss = []
         for parent, label_max in zip(cls.parents, labels_max):
             labelss.append((int(repr(irrep)) for irrep in parent.iterator(label_max)))

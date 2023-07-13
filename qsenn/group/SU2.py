@@ -52,12 +52,12 @@ class IrrepSU2(Irrep):
 
     @staticmethod
     def generators(self):
-        js = torch.arange(-self._2j, self._2j + 1, 2)/2
+        ms = torch.arange(-self._2j, self._2j + 1, 2)/2
 
-        Jp = torch.diag(torch.sqrt(self.j * (self.j + 1) - js[:-1] * (js[:-1] + 1)), diagonal = -1)
-        Jm = torch.diag(torch.sqrt(self.j * (self.j + 1) - js[1:] * (js[1:] - 1)), diagonal = 1)
+        Jp = torch.diag(torch.sqrt(self.j * (self.j + 1) - ms[:-1] * (ms[:-1] + 1)), diagonal = -1)
+        Jm = torch.diag(torch.sqrt(self.j * (self.j + 1) - ms[1:] * (ms[1:] - 1)), diagonal = 1)
 
         Jx = (Jp + Jm)/2
         Jy = (Jp - Jm)/2j
-        Jz = torch.diag(js)
+        Jz = torch.diag(ms)
         return Jx, Jy, Jz
