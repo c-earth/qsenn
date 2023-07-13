@@ -1,6 +1,6 @@
 import torch
 
-from qsenn.group.G import Irrep
+from qsenn.group.Irrep import Irrep
 
 class IrrepP(Irrep):
     def __init__(self, irrepP):
@@ -9,7 +9,7 @@ class IrrepP(Irrep):
         
         if isinstance(irrepP, tuple) and len(irrepP) == 1 and isinstance(irrepP[-1], int):
             p = int(irrepP[0])
-        elif isinstance(irrepP, str):
+        elif isinstance(irrepP, str) and len(irrepP.split(',')) == 1:
             p = int(irrepP)
         else:
             raise ValueError(f'unable to interpret {irrepP} as IrrepP')
@@ -38,13 +38,14 @@ class IrrepP(Irrep):
     def D(self, rho):
         if not isinstance(rho, int):
             raise ValueError(f'parity is parameterized by integer, but got {type(rho)}')
-        return self.p ** (rho % 2)
+        return torch.tensor([[self.p ** (rho % 2)]])
     
     def operate(self, target, rho):
         return torch.matmul(self.D(rho), target)
 
     @classmethod
-    def iterator(cls):
+    def iterator(cls, p_max):
+        _ = p_max
         for p in [-1, 1]:
             irrepP = (p,)
             yield IrrepP(irrepP)

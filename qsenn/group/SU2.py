@@ -1,8 +1,6 @@
 import torch
 
-from qsenn.group.G import Irrep
-
-c128 = torch.complex128
+from qsenn.group.Irrep import Irrep
 
 class IrrepSU2(Irrep):
     def __init__(self, irrepSU2):
@@ -11,7 +9,7 @@ class IrrepSU2(Irrep):
         
         if isinstance(irrepSU2, tuple) and len(irrepSU2) == 1 and isinstance(irrepSU2[-1], int):
             twoj = int(irrepSU2[0])
-        elif isinstance(irrepSU2, str):
+        elif isinstance(irrepSU2, str) and len(irrepSU2.split(',')) == 1:
             twoj = int(irrepSU2)
         else:
             raise ValueError(f'unable to interpret {irrepSU2} as IrrepSU2')
@@ -37,13 +35,14 @@ class IrrepSU2(Irrep):
         else:
             raise ValueError(f'multiplication must be between IrrepSU2, but got {type(other)}')
     
-    def D(self, phix, phiy, phiz):
+    def D(self, phi):
         Jx, Jy, Jz = self.generators()
+        phix, phiy, phiz = phi
         exponent = -1j*(Jx*phix + Jy*phiy + Jz*phiz)
         return torch.matrix_exp(exponent)
     
-    def operate(self, target, phix, phiy, phiz):
-        return torch.matmul(self.D(phix, phiy, phiz), target)
+    def operate(self, target, phi):
+        return torch.matmul(self.D(phi), target)
 
     @classmethod
     def iterator(cls, twoj_max):
