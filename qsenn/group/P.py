@@ -1,4 +1,6 @@
-from G import Irrep
+import torch
+
+from qsenn.group.G import Irrep
 
 class IrrepP(Irrep):
     def __init__(self, irrepP):
@@ -37,6 +39,9 @@ class IrrepP(Irrep):
         if not isinstance(rho, int):
             raise ValueError(f'parity is parameterized by integer, but got {type(rho)}')
         return self.p ** (rho % 2)
+    
+    def operate(self, target, rho):
+        return torch.matmul(self.D(rho), target)
 
     @classmethod
     def iterator(cls):

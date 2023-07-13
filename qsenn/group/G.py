@@ -1,4 +1,5 @@
 import abc
+import torch
 
 from qsenn.tensor.direct_sum import direct_sum
 
@@ -22,6 +23,10 @@ class IrrepInterface(abc.ABC):
     
     @abc.abstractmethod
     def D(self):
+        pass
+
+    @abc.abstractmethod
+    def operate(self):
         pass
 
     @classmethod
@@ -186,3 +191,6 @@ class Irreps(tuple):
 
     def D(self, *args):
         return direct_sum(*[mulirrep.irrep.D(*args) for mulirrep in self for _ in range(mulirrep.mul)])
+    
+    def operate(self, target, *args):
+        return torch.matmul(self.D(*args), target)
