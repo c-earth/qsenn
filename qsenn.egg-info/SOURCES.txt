@@ -1,0 +1,12 @@
+README.md
+setup.py
+qsenn/__init__.py
+qsenn.egg-info/PKG-INFO
+qsenn.egg-info/SOURCES.txt
+qsenn.egg-info/dependency_links.txt
+qsenn.egg-info/top_level.txt
+qsenn/group/G.py
+qsenn/group/P.py
+qsenn/group/__init__.py
+qsenn/tensor/__init__.py
+qsenn/tensor/direct_sum.py
