@@ -738,9 +738,9 @@ With all these results, we can now write the corepresentation of $SU(2)\ast P\as
             \end{bmatrix}
     \end{aligned}
 \end{equation}
-where $u_{\vec{\phi}}\in SU(2)$, $v_\rho\in P$, $w_\tau\in T$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, $t\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis. Note that, equation \ref{eq:SU2*P*T Coreps simplify change basis} can be use for constructing any members of $SU(2)\ast P\ast T$ according to combination rules in equation \ref{eq:G*T composition} as well as the commutation property between members from different groups of $SU(2)$, $P$, and $T$.
+where $u_{\vec{\phi}}\in SU(2)$, $v_\rho\in P$, $w_\tau\in T$, $j\in \{0, 1/2, 1, 3/2, ...\}$, $p\in\{-1, 1\}$, $t\in\{-1, 1\}$, and the irreducible representations $D_{SU(2)\times P}^{(j,p)}$ are in standard basis. Note that, equation \ref{eq:SU2*P*T Coreps simplify change basis} can be use for constructing any members of $SU(2)\ast P\ast T$ according to combination rules in equation \ref{eq:G*T composition} as well as the commutation property between members from different groups of $SU(2)$, $P$, and $T$. 
 
-The last thing we need to do is checking the reducibility of this corepresentation. The first thing we immediately notice from equation \ref{eq:SU2*P*T Coreps simplify change basis} is that, because $D_{SU(2)\times P}^{(j,p)}$ is irreducible, $D_{SU(2)\ast P\ast T}^{(j,p)}$ can only be either irreducible, or reducible into exactly two $2j+1$ dimensional subspaces. Suppose there exist a unitary transformation $M$ that block diagonalizes $D_{SU(2)\ast P\ast T}^{(j,p)}$. Since $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$ is already block diagonalized, one possible class of $M$ is the transformation of basis $\{\ket{j,m}_p\}$ and $\{U^{(j)\dagger}\theta\ket{j,m}_p\}$ separately, i.e. $M$ is a block diagonal of two $2j+1$ dimensional unitary transformation that change $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$'s to other equivalent irreducible representations. Such class of $M$ is impossible to block diagonalizes $D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)$ where it needs off block diagonal terms. Hence, we can consider only $M$ that
+The last thing we need to do is checking the reducibility of this corepresentation. The first thing we immediately notice from equation \ref{eq:SU2*P*T Coreps simplify change basis} is that, because $D_{SU(2)\times P}^{(j,p)}$ is irreducible, $D_{SU(2)\ast P\ast T}^{(j,p)}$ can only be either irreducible, or reducible into exactly two $2j+1$ dimensional subspaces. Suppose there exist a unitary transformation $M$ that block diagonalizes $D_{SU(2)\ast P\ast T}^{(j,p)}$ into two $2j+1$ dimensional subspaces. Since $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$ is already block diagonalized with two irreducible $D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$'s, $M$ must transform $D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$ into block diagonalized irreducible representations with two, possibly different, irreducibles that are equivalent to $D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))$. One can also do basis transformation with in each block separately. Hence, these basis transformations can be absorbed into $M$ such that
 \begin{equation}\label{eq:M block diagonalize SU2*P}
     \begin{aligned}
         M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))M &= D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) \\
@@ -785,7 +785,7 @@ where $a, b, c, d\in\mathbb{C}$, and $m$ is a 2 by 2 unitary matrix. Then, we us
 \end{equation}
 From equation \ref{eq:M block diagonalize T}, it is clear that, when $1/\lambda=(-1)^{2j}t=-1$, the block diagonal terms vanish, i.e. it is impossible to be block diagonalized. In other words, equation \ref{eq:SU2*P*T Coreps simplify change basis} is the irreducible corepresentation of $SU(2)\ast P\ast T$ for the cases that $(-1)^{2j}t=-1$.
 
-As for the case that $1/\lambda=(-1)^{2j}t=1$, consider a choice of $m$,
+As for the case that $1/\lambda=(-1)^{2j}t=1$, consider a following choice of $m$,
 \begin{equation}\label{eq:m lambda one}
     m = \dfrac{1}{\sqrt{2}}\begin{bmatrix}
         i & 1 \\
@@ -797,10 +797,29 @@ Then, substituting this $m$ into equation \ref{eq:M block diagonalize T}, for $1
     \begin{aligned}
         M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)M^\ast &= \begin{bmatrix}2a^\ast c^\ast & a^\ast d^\ast + b^\ast c^\ast \\ a^\ast d^\ast + b^\ast c^\ast & 2b^\ast d^\ast\end{bmatrix} \otimes U^{(j)} \\
         &= \dfrac{1}{2}\begin{bmatrix}2 & i + -i \\ i + -i & 2\end{bmatrix} \otimes U^{(j)} \\
-        &= \begin{bmatrix}U^{(j)} & 0 \\ 0 & U^{(j)}\end{bmatrix}.
+        &= \begin{bmatrix}U^{(j)} & 0 \\ 0 & U^{(j)}\end{bmatrix},
     \end{aligned}
 \end{equation}
-We can see that the corepresentation is reducible into two equivalent representations with linearly dependent bases. Hence, the irreducible corepresentation of $SU(2)\ast P\ast T$ for the cases that $(-1)^{2j}t=1$ in $\left\{\left(\ket{j,m}_p+U^{(j)\dagger}\theta\ket{j,m}_p\right)/\sqrt{2}\right\}$ basis is,
+while, for $1/\lambda=-1$,
+\begin{equation}\label{eq:M cannot block diagonalized T}
+    \begin{aligned}
+        M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}(\theta)M^\ast &= \begin{bmatrix}0 & -a^\ast d^\ast + b^\ast c^\ast \\ a^\ast d^\ast - b^\ast c^\ast & 0\end{bmatrix} \otimes U^{(j)} \\
+        &= \dfrac{1}{2}\begin{bmatrix}0 & -i + -i \\ i - -i & 0\end{bmatrix} \otimes U^{(j)} \\
+        &= i\begin{bmatrix}0 & -U^{(j)} \\ U^{(j)} & 0\end{bmatrix},
+    \end{aligned}
+\end{equation}
+and, for both cases,
+\begin{equation}\label{eq:M both block diagonalize SU2*P}
+    \begin{aligned}
+        M^\dagger D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))M &= D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) \\
+        &= \begin{bmatrix}
+        D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho)) & 0 \\
+            0 & D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))  
+        \end{bmatrix}.
+    \end{aligned}
+\end{equation}
+
+With this basis transformation, we can see that the corepresentation is reducible into two equivalent representations for $(-1)^{2j}t=1$. Hence, the irreducible corepresentation of $SU(2)\ast P\ast T$ for this cases is
 \begin{equation}\label{eq:SU2*P*T Coreps lambda one}
     \begin{aligned}
         D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))
@@ -810,7 +829,7 @@ We can see that the corepresentation is reducible into two equivalent representa
     \end{aligned}
 \end{equation}
 
-From equation \ref{eq:SU2*P*T Coreps simplify change basis}, and \ref{eq:SU2*P*T Coreps lambda one}, we can see that it would be convenience to write those irreducible corepresentations in the common tensor product form such that
+From equation \ref{eq:M cannot block diagonalized T}, \ref{eq:M both block diagonalize SU2*P}, and \ref{eq:SU2*P*T Coreps lambda one}, we can see that it would be convenience to write those irreducible corepresentations in the common tensor product form such that
 \begin{equation}\label{eq:SU2*P*T Coreps generalized}
     \begin{aligned}
         D_{SU(2)\ast P\ast T}^{(j,p)}((u_{\vec{\phi}}, v_\rho))
@@ -823,21 +842,21 @@ where
 \begin{equation}\label{eq:E}
     E^{(j,t)} = \begin{cases}
         1 &, t = (-1)^{2j} \\
-        \begin{bmatrix}0&-1\\1&0\end{bmatrix} &, t = (-1)^{2j+1}
+        \begin{bmatrix}0&-i\\i&0\end{bmatrix} &, t = (-1)^{2j+1}
     \end{cases}.
 \end{equation}
 
-From these results, we can see that $\lambda$, which can be associated with $j$, and $t$, fully specifies the irreducible corepresentation. Hence, the irreducible corepresentation of the combined $SU(2)$, $P$, and $T$ symmetries can be written, labeled with $j$, $p$, and $t$, as, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, and $w_\tau \in T$,
+From these results, we can see that $\lambda$, which can be defined with $j$, and $t$, fully specifies the irreducible corepresentation. Hence, the irreducible corepresentation of the combined $SU(2)$, $P$, and $T$ symmetries can be written, labeled with $j$, $p$, and $t$, as, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, and $w_\tau \in T$,
 \begin{equation}\label{eq:SU2*P*T IrCoreps}
     \begin{aligned}
         D^{(j,p,t)}_{SU(2)\ast P\ast T}(u_{\vec{\phi}} v_\rho w_\tau) &= D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{\phi}},v_\rho,w_\tau)) \\
         &= D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{\phi}},v_\rho,w_0))\cdot D^{(j,p,t)}_{SU(2)\times P\times T}((u_{\vec{0}},v_0,w_1)^\tau) \\
         &= \left(E^{(j,t)}\right)^\tau\otimes D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\cdot\left(U^{(j)}U^{(j)\ast}\right)^{\left\lfloor \tau/2\right\rfloor}\cdot\left(U^{(j)}\right)^{\tau\bmod 2} \\
         &= \left(E^{(j,t)}\right)^\tau\otimes D_{SU(2)\times P}^{(j,p)}((u_{\vec{\phi}}, v_\rho))\cdot(-1)^{2j\left\lfloor \tau/2\right\rfloor}\cdot\left(U^{(j)}\right)^{\tau\bmod 2} \\
-        &= \left(E^{(j,t)}\right)^{\tau\bmod 4}\otimes(-1)^{2j\left\lfloor \tau/2\right\rfloor}p^\rho\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot \left(U^{(j)}\right)^{\tau\bmod 2}
+        &= \left(E^{(j,t)}\right)^{\tau}\otimes(-1)^{2j\left\lfloor \tau/2\right\rfloor}p^\rho\cdot\exp(-i\vec{J}^{(j)}\cdot\vec{\phi})\cdot \left(U^{(j)}\right)^{\tau\bmod 2}
     \end{aligned}
 \end{equation}
-where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$. Note that the corepresentation basis for each $t$ is different by the transformation of $m$ in equation \ref{eq:m lambda one}.
+where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$.
 
 \newpage
 \section{Tensor Product of Representations}
@@ -846,22 +865,166 @@ where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 
 
 \subsection{Tensor Product Reduction}
 
-\subsection{Tensor Product of $SU(2)\times P\times T$'s Irreducible Corepresentations}
-Consider two irreducible corepresentations of $SU(2)\times P\times T$ with labels $(j_1, p_1, t_1)$, and $(j_2, p_2, t_2)$ from equation \ref{eq:SU2*P*T IrCoreps}. For neatness, we will omit the subscripts when the corepresentation is for $SU(2)\times P\times T$, i.e. $D^{(j,p,t)}\triangleq D^{(j,p,t)}_{SU(2)\times P\times T}$.Their tensor product is, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, and $w_\tau \in T$,
+\subsection{Tensor Product of $SU(2)$'s Irreducible Representations}
+
+\subsection{Tensor Product of $SU(2)\times P$'s Irreducible Representations}
+Consider two irreducible representations of $SU(2)\times P$ with labels $(j_1, p_1)$, and $(j_2, p_2)$ from equation \ref{eq:SU2*P Irreps}. Their tensor product is, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, $\vec{\phi}\in\mathbb{R}^3$, $\rho\in\mathbb{Z}_{0+}$ $j\text{'s}\in\{0, 1/2, 1, 3/2, ...\}$, and $p\text{'s}\in\{-1, 1\}$,
 \begin{equation}
     \begin{aligned}
-        &D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_\tau))\otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_\tau)) \\
-        &=  \begin{multlined}
-                D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_0))\cdot D^{(j_1,p_1,t_1)}((u_{\vec{0}}, v_0, w_\tau))\\ 
-                \otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_0))\cdot D^{(j_2,p_2,t_2)}((u_{\vec{0}}, v_0, w_\tau))
-            \end{multlined} \\
-        &=  \begin{multlined}
-                \left(D^{(j_1,p_1,t_1)}((u_{\vec{\phi}}, v_\rho, w_0)) \otimes D^{(j_2,p_2,t_2)}((u_{\vec{\phi}}, v_\rho, w_0))\right) \\
-                \cdot \left(D^{(j_1,p_1,t_1)}((u_{\vec{0}}, v_0, w_1)) \otimes D^{(j_2,p_2,t_2)}((u_{\vec{0}}, v_0, w_1))\right)^\tau
-            \end{multlined}
+        D_{SU(2)\times P}^{(j_1,p_1)}((u_{\vec{\phi}}, v_\rho))\otimes D_{SU(2)\times P}^{(j_2,p_2)}((u_{\vec{\phi}}, v_\rho)) 
+        &= D^{(j_1)}_{SU(2)}(u_{\vec{\phi}})p_1^\rho \otimes D^{(j_2)}_{SU(2)}(u_{\vec{\phi}})p_2^\rho \\
+        &= \left(D^{(j_1)}_{SU(2)}(u_{\vec{\phi}}) \otimes D^{(j_2)}_{SU(2)}(u_{\vec{\phi}})\right)(p_1\cdot p_2)^\rho \\
+        &\cong \left(\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}D^{(j)}_{SU(2)}(u_{\vec{\phi}})\right)(p_1\cdot p_2)^\rho \\
+        &= \bigoplus_{j=|j_1-j_2|}^{j_1+j_2}D^{(j)}_{SU(2)}(u_{\vec{\phi}})(p_1\cdot p_2)^\rho \\
+        &= \bigoplus_{j=|j_1-j_2|}^{j_1+j_2}D_{SU(2)\times P}^{(j,p_1\cdot p_2)}((u_{\vec{\phi}}, v_\rho))
     \end{aligned}
 \end{equation}
-where $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\in\{0, 1/2, 1, 3/2, ...\}$, and $p, t\in\{-1, 1\}$. 
+where the isomorphism is the reduction of $SU(2)$'s irreducible representations' tensor product from previous section.
 
+\subsection{Tensor Product of $SU(2)\times P\times T$'s Irreducible Corepresentations}
+Consider two irreducible corepresentations of $SU(2)\times P\times T$ with labels $(j_1, p_1, t_1)$, and $(j_2, p_2, t_2)$ from equation \ref{eq:SU2*P*T IrCoreps}. Their tensor product is, for all $u_{\vec{\phi}}\in SU(2)$, $v_\rho \in P$, $w_\tau \in T$, $\vec{\phi}\in\mathbb{R}^3$, $\rho,\tau\in\mathbb{Z}_{0+}$ $j\text{'s}\in\{0, 1/2, 1, 3/2, ...\}$, and $p\text{'s}, t\text{'s}\in\{-1, 1\}$,
+\begin{equation}
+    \begin{aligned}
+        &D^{(j_1,p_1,t_1)}_{SU(2)\times P\times T}((u_{\vec{\phi}}, v_\rho, w_\tau))\otimes D^{(j_2,p_2,t_2)}_{SU(2)\times P\times T}((u_{\vec{\phi}}, v_\rho, w_\tau)) \\
+        &=  \left[\begin{multlined}
+                \left(E^{(j_1,t_1)}\right)^\tau\otimes (-1)^{2j_1\left\lfloor \tau/2\right\rfloor} D_{SU(2)\times P}^{(j_1,p_1)}((u_{\vec{\phi}}, v_\rho))\cdot\left(U^{(j_1)}\right)^{\tau\bmod 2}\\ 
+                \otimes \left(E^{(j_2,t_2)}\right)^\tau\otimes (-1)^{2j_2\left\lfloor \tau/2\right\rfloor}D_{SU(2)\times P}^{(j_2,p_2)}((u_{\vec{\phi}}, v_\rho))\cdot\left(U^{(j_2)}\right)^{\tau\bmod 2}
+            \end{multlined}\right] \\
+        &\cong  \left[\begin{multlined}
+                    \left(E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}\right)^\tau\otimes(-1)^{2(j_1+j_2)\left\lfloor \tau/2\right\rfloor}\\
+                    \cdot \left(D_{SU(2)\times P}^{(j_1,p_1)}((u_{\vec{\phi}}, v_\rho))\otimes D_{SU(2)\times P}^{(j_2,p_2)}((u_{\vec{\phi}}, v_\rho))\right)\cdot\left(U^{(j_1)}\otimes U^{(j_2)}\right)^{\tau\bmod 2}
+                \end{multlined}\right] \\
+        &\cong  \left[\begin{multlined}
+                    \left(E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}\right)^\tau\otimes(-1)^{2(j_1+j_2)\left\lfloor \tau/2\right\rfloor}\\
+                    \cdot \left(\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}D_{SU(2)\times P}^{(j,p_1\cdot p_2)}((u_{\vec{\phi}}, v_\rho))\right)\cdot\left(U^{(j_1)}\otimes U^{(j_2)}\right)^{\tau\bmod 2}
+                \end{multlined}\right] \\
+        &=  \left[\begin{multlined}
+                \left(E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}\right)^\tau\\
+                \otimes\left(\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}(-1)^{2j\left\lfloor \tau/2\right\rfloor}\cdot D_{SU(2)\times P}^{(j,p_1\cdot p_2)}((u_{\vec{\phi}}, v_\rho))\right)\cdot\left(U^{(j_1)}\otimes U^{(j_2)}\right)^{\tau\bmod 2}
+            \end{multlined}\right]
+    \end{aligned}
+\end{equation}
+where the first isomorphism is matrix index reordering, the second isomorphism is the reduction of $SU(2)\times P$'s irreducible representations' tensor product from previous section, and the second equality uses the fact that $(-1)^{2j\left\lfloor \tau/2\right\rfloor}$ gives the same value for every $j$'s that are different from each other by an integer amount. Hence, the only things we need to reduce are $E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}$, and $U^{(j_1)}\otimes U^{(j_2)}$.
+
+For $E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}$, there are 4 possible cases. The first one is when $t_1(-1)^{2j_1}=1$, and $t_2(-1)^{2j_2}=1$, which is the trivial case,
+\begin{equation}
+    E^{(j_1,t_1)}\otimes E^{(j_2,t_2)} = 1\otimes 1 = 1.
+\end{equation}
+The second, and third ones are when $t_1(-1)^{2j_1}=\pm 1$, and $t_2(-1)^{2j_2}=\mp 1$ which is also straight forward that
+\begin{equation}
+    E^{(j_1,t_1)}\otimes E^{(j_2,t_2)} = \begin{bmatrix}0&-i\\i&0\end{bmatrix}.
+\end{equation}
+The final case is when $t_1(-1)^{2j_1}=-1$, and $t_2(-1)^{2j_2}=-1$,
+\begin{equation}
+    \begin{aligned}
+        E^{(j_1,t_1)}\otimes E^{(j_2,t_2)} &= \begin{bmatrix}0&-i\\i&0\end{bmatrix}\otimes \begin{bmatrix}0&-i\\i&0\end{bmatrix} \\
+        &=  \begin{bmatrix}
+                0 & 0 & 0 &-1 \\
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+               -1 & 0 & 0 & 0
+            \end{bmatrix}.
+    \end{aligned}
+\end{equation}
+Consider a unitary basis transformation,
+\begin{equation}
+    B = \dfrac{1}{\sqrt{2}}\begin{bmatrix}
+       -1 & 0 & 0 & i \\
+        0 & i & 1 & 0 \\
+        0 &-i & 1 & 0 \\
+        1 & 0 & 0 & i
+    \end{bmatrix}.
+\end{equation}
+Applying this transformation to equation gives
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+            0 & 0 & 0 &-1 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+           -1 & 0 & 0 & 0
+        \end{bmatrix}
+        &\cong B^\dagger\begin{bmatrix}
+            0 & 0 & 0 &-1 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+           -1 & 0 & 0 & 0
+        \end{bmatrix}B^\ast \\
+        &= \begin{bmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+        \end{bmatrix}.
+    \end{aligned}
+\end{equation}
+
+We can see from these results that the tensor product $E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}$ can be reduced to a mulitiple of $E^{(j,t)}$ such that 
+\begin{equation}
+    t(-1)^{2j} = t_1(-1)^{2j_1}\cdot t_2(-1)^{2j_2} = t_1t_2(-1)^{2(j_1+j_2)}=t_1t_2(-1)^{2(j_1+j_2-1)}=\hdots.
+\end{equation}
+
+For $U^{(j_1)}\otimes U^{(j_2)}$, consider its definition in equation \ref{eq:U} and rewrite it in bra-ket notation,
+\begin{equation}
+    U^{(j)} = \sum_{m=-j}^{j} i^{2m}\ket{j, -m}\bra{j, m}.
+\end{equation}
+This means that
+\begin{equation}
+    \begin{aligned}
+        U^{(j_1)}\otimes U^{(j_2)} &= \sum_{m_1=-j_1}^{j_1}\sum_{m_2=-j_2}^{j_2} i^{2m_1}\ket{j_1, -m_1}\bra{j_1, m_1}\otimes i^{2m_2}\ket{j_2, -m_2}\bra{j_2, m_2} \\
+        &= \sum_{m_1=-j_1}^{j_1}\sum_{m_2=-j_2}^{j_2} i^{2(m_1+m_2)}\ket{j_1, -m_1, j_2, -m_2}\bra{j_1, m_1, j_2, m_2}.
+    \end{aligned}
+\end{equation}
+By using completeness of $\{\ket{j, m}\}$ basis,
+\begin{equation}
+    \begin{aligned}
+        U^{(j_1)}\otimes U^{(j_2)} &= \sum_{m_1=-j_1}^{j_1}\sum_{m_2=-j_2}^{j_2} i^{2m_1}\ket{j_1, -m_1}\bra{j_1, m_1}\otimes i^{2m_2}\ket{j_2, -m_2}\bra{j_2, m_2} \\
+        &=  \left[\begin{multlined}
+                \sum_{m_1=-j_1}^{j_1}\sum_{m_2=-j_2}^{j_2} i^{2(m_1+m_2)}\left(\sum_{j'=|j_1-j_2|}^{j_1+j_2}\sum_{m'=-j'}^{j'}\ket{j', m'}\bra{j', m'}\right)\\
+                \cdot\ket{j_1, -m_1, j_2, -m_2}\bra{j_1, m_1, j_2, m_2}\\
+                \cdot\left(\sum_{j=|j_1-j_2|}^{j_1+j_2}\sum_{m=-j}^{j}\ket{j, m}\bra{j, m}\right)
+            \end{multlined}\right] \\
+        &= \sum_{m_1, m_2}\sum_{j', j}\sum_{m', m}
+            \left[\begin{multlined}
+                i^{2(m_1+m_2)}\ket{j', m'}\bra{j', m'}\ket{j_1, -m_1, j_2, -m_2}\\
+                \bra{j_1, m_1, j_2, m_2}\ket{j, m}\bra{j, m}
+            \end{multlined}\right]
+    \end{aligned}
+\end{equation}
+where the range of $j$, and $j'$ are from the non-vanishing Clebsch-Gordan coefficient terms. We also omit the known summation ranges for cleanliness. From Clebsch-Gordan coefficient properties, $\bra{j', m'}\ket{j_1, -m_1, j_2, -m_2}=(-1)^{j_1+j_2-j'}\bra{j', -m'}\ket{j_1, m_1, j_2, m_2}$, and $\bra{j_1, m_1, j_2, m_2}\ket{j, m}\bra{j, m}$ vanishes unless $m=m_1+m_2$. Therefore,
+\begin{equation}
+    \begin{aligned}
+        U^{(j_1)}\otimes U^{(j_2)} 
+        &= \sum_{m_1, m_2}\sum_{j', j}\sum_{m', m}
+            \left[\begin{multlined}
+                i^{2m}(-1)^{j_1+j_2-j'}\ket{j', m'}\bra{j', -m'}\ket{j_1, m_1, j_2, m_2}\\
+                \bra{j_1, m_1, j_2, m_2}\ket{j, m}\bra{j, m}
+            \end{multlined}\right] \\
+        &= \sum_{j', j}\sum_{m', m}
+            \left[\begin{multlined}
+                i^{2m}(-1)^{j_1+j_2-j'}\ket{j', m'}\bra{j, m}\\
+                \cdot\sum_{m_1, m_2}\left(\bra{j', -m'}\ket{j_1, m_1, j_2, m_2}
+                \bra{j_1, m_1, j_2, m_2}\ket{j, m}\right)
+            \end{multlined}\right] \\
+        &= \sum_{j', j}\sum_{m', m}i^{2m}(-1)^{j_1+j_2-j'}\ket{j', m'}\bra{j, m}\cdot\delta_{j',j}\delta_{-m',m} \\
+        &= \sum_{j=|j_1-j_2|}^{j_1+j_2}(-1)^{j_1+j_2-j}\sum_{m=-j}^{j}i^{2m}\ket{j, -m}\bra{j,m} \\
+        &\cong \bigoplus_{j=|j_1-j_2|}^{j_1+j_2}U^{(j)}.
+    \end{aligned}
+\end{equation}
+
+We can directly see that $U^{(j_1)}\otimes U^{(j_2)}$ can be at least reduced into the same block diagonal of representations as $D_{SU(2)\times P}^{(j_1,p_1)}\otimes D_{SU(2)\times P}^{(j_2,p_2)}$. Since they are matrix multiplying with each other, the reduction cannot exceed the number of $D_{SU(2)\times P}^{(j_1,p_1)}\otimes D_{SU(2)\times P}^{(j_2,p_2)}$'s reduction. Hence,
+\begin{equation}
+    \begin{aligned}
+        &D^{(j_1,p_1,t_1)}_{SU(2)\times P\times T}((u_{\vec{\phi}}, v_\rho, w_\tau))\otimes D^{(j_2,p_2,t_2)}_{SU(2)\times P\times T}((u_{\vec{\phi}}, v_\rho, w_\tau)) \\
+        &\cong  \left[\begin{multlined}
+                    \left(E^{(j_1,t_1)}\otimes E^{(j_2,t_2)}\right)^\tau\\
+                    \otimes\left(\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}(-1)^{2j\left\lfloor \tau/2\right\rfloor}\cdot D_{SU(2)\times P}^{(j,p_1\cdot p_2)}((u_{\vec{\phi}}, v_\rho))\right)\\
+                    \cdot\left(\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}U^{(j)}\right)^{\tau\bmod 2}
+                \end{multlined}\right] \\
+        &\cong  \bigoplus_a\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}\left(E^{(j,t_1\cdot t_2)}\right)^\tau\otimes D_{SU(2)\times P}^{(j,p_1\cdot p_2)}((u_{\vec{\phi}}, v_\rho))\cdot(-1)^{2j\left\lfloor \tau/2\right\rfloor}\cdot\left(U^{(j)}\right)^{\tau\bmod 2} \\
+        &= \bigoplus_a\bigoplus_{j=|j_1-j_2|}^{j_1+j_2} D^{(j,p_1\cdot p_2,t_1\cdot t_2)}_{SU(2)\times P\times T}((u_{\vec{\phi}}, v_\rho, w_\tau))
+    \end{aligned}
+\end{equation}
+where $a$ ranges from 1 to 4 if $t_1(-1)^{2j_1}=-1$, and $t_2(-1)^{2j_2}=-1$, otherwise from 1 to 1.
 
 \end{document}
